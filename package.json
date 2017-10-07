@@ -1,0 +1,20 @@
+{
+  "name": "uat",
+  "version": "1.0.0",
+  "description": "User activity tracking system using nodejs",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "nodejs",
+    "electron"
+  ],
+  "author": "Shahid",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^1.7.6",
+    "nedb": "^1.8.0",
+    "ps-list": "^4.0.0"
+  }
+}

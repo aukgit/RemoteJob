@@ -4,7 +4,8 @@
   "description": "User activity tracking system using nodejs",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "rebuild": "electron-rebuild -f -w sqlite3"
   },
   "keywords": [
     "nodejs",
@@ -17,5 +18,8 @@
     "electron": "^1.7.6",
     "gkm": "^0.1.0",
     "sqlite3": "^3.1.13"
+  },
+  "devDependencies": {
+    "electron-rebuild": "^1.6.0"
   }
 }

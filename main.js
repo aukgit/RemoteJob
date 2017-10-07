@@ -7,8 +7,10 @@ let mainWindow, appIcon;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 350,
-    height: 120,
+    //width: 350,
+    //height: 120,
+    width: 800,
+    height: 600,
     frame: false,
     icon: path.join(__dirname, 'icons/png/64x64.png')
   });
@@ -22,6 +24,9 @@ function createWindow() {
   mainWindow.on('closed', () => {
     app.quit();
   });
+
+  mainWindow.webContents.toggleDevTools();
+
 }
 
 function createContextMenu() {

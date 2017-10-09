@@ -3,6 +3,8 @@ const path = require('path');
 const imagemin = require('imagemin');
 const imageminPngquant = require('imagemin-pngquant');
 const blobUtil = require('blob-util');
+const database = require('./database');
+
 module.exports = {
   takeScreenshot: function() {
     screenshot('sc.png').desktop();
@@ -23,7 +25,7 @@ module.exports = {
   },
   convertToBlob: function(p) {
     let b = blobUtil.imgSrcToBlob(p).then((blob) => {
-      console.log(blob);
+      database.insertBlob(blob);
     }).catch((err) => {
 
     });

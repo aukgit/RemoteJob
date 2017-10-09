@@ -12,6 +12,9 @@ module.exports = {
   getImgPath: function() {
     return path.join(__dirname, '../sc.png');
   },
+  getMinImgPath: function() {
+    return path.join(__dirname, '../img/min/sc.png');
+  },
   minifyImg: function(p) {
     imagemin([p], 'img/min', {
       plugins: [

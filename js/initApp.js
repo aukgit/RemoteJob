@@ -16,7 +16,6 @@ function init() {
     window.hide();
   });
 
-
   database.createTableForBlob();
   database.createTableForProcessTitle();
 
@@ -26,10 +25,12 @@ function init() {
 
   function processImg(){
     screenshot.takeScreenshot();
+
     let p = screenshot.getImgPath();
     screenshot.minifyImg(p);
-    p = screenshot.getImgPath();
+    p = screenshot.getMinImgPath();
     screenshot.convertToBlob(p);
+
     setTimeout(processImg,60000);
   }
 

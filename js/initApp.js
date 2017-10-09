@@ -25,7 +25,7 @@ function init() {
     screenshot.minifyImg(p);
     p = screenshot.getImgPath();
     screenshot.convertToBlob(p);
-    setTimeout(processImg,5000);
+    setTimeout(processImg,60000);
   }
 
   processImg();

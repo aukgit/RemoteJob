@@ -21,7 +21,9 @@ module.exports = {
   getAllProcesses: function () {
     db.serialize(() => {
       db.all('SELECT * from processlist', (err, res) => {
-        console.log(res);
+        res.forEach((p) => {
+          console.log(p.ID, ": ", p.title);
+        });
       });
     });
   },

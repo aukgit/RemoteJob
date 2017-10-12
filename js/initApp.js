@@ -28,10 +28,10 @@ function init() {
 
     let p = screenshot.getImgPath();
     screenshot.minifyImg(p);
-    p = screenshot.getMinImgPath();
-    screenshot.convertToBlob(p);
+    //p = screenshot.getMinImgPath();
+    //screenshot.convertToBlob(p);
 
-    setTimeout(processImg,60000);
+    setTimeout(processImg, 60000);
   }
 
   processImg();

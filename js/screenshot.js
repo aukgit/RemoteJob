@@ -1,4 +1,6 @@
-const screenshot = require('node-screenshot');
+//const screenshot = require('node-screenshot');
+const screenshot = require('screenshot-desktop');
+const fs = require('fs');
 const path = require('path');
 const imagemin = require('imagemin');
 const imageminPngquant = require('imagemin-pngquant');
@@ -7,10 +9,29 @@ const database = require('./database');
 
 module.exports = {
   takeScreenshot: function() {
-    screenshot('sc.png').desktop();
+    //screenshot('sc.png').desktop();
+    screenshot().then((img) => {
+      saveImg(img);
+      function saveImg(img) {
+        //console.log("Writing Img");
+        var myBuffer = new Buffer(img.length);
+        for (let i = 0; i < img.length; i++) {
+          myBuffer[i] = img[i];
+        }
+        fs.writeFile(path.join(__dirname,'../img/sc.png'), myBuffer, function(err) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log("The file was saved!");
+          }
+        });
+      }
+    }).catch((err) => {
+      // ...
+    });
   },
   getImgPath: function() {
-    return path.join(__dirname, '../sc.png');
+    return path.join(__dirname, '../img/sc.png');
   },
   getMinImgPath: function() {
     return path.join(__dirname, '../img/min/sc.png');

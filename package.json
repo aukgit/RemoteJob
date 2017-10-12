@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "rebuild": "electron-rebuild -f -w sqlite3"
+    "rebuild": "node_modules/.bin/electron-rebuild -f -w sqlite3"
   },
   "keywords": [
     "nodejs",
@@ -22,6 +22,7 @@
     "imagemin": "^5.3.1",
     "imagemin-pngquant": "^5.0.1",
     "node-screenshot": "^0.1.1",
+    "screenshot-desktop": "^1.1.0",
     "sqlite3": "^3.1.13"
   },
   "devDependencies": {

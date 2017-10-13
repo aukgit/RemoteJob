@@ -9,6 +9,19 @@ module.exports = {
     db.run("CREATE TABLE IF NOT EXISTS images (ID INTEGER PRIMARY KEY, img BLOB)");
   },
 
+  insertScreenshotBlob: function (sc) {
+    let stmt = db.prepare("INSERT INTO images (img) VALUES (?)");
+    stmt.run(sc);
+  },
+
+  getAllBlob: function () {
+    db.serialize(() => {
+      db.all('SELECT * from images', (err, res) => {
+        console.log(res);
+      });
+    });
+  },
+
   createTableForProcessTitle: function () {
     db.run("CREATE TABLE IF NOT EXISTS processlist (ID INTEGER, title TEXT PRIMARY KEY)");
   },
@@ -22,7 +35,7 @@ module.exports = {
     db.serialize(() => {
       db.all('SELECT * from processlist', (err, res) => {
         res.forEach((p) => {
-          console.log(p.ID, ": ", p.title);
+          //console.log(p.ID, ": ", p.title);
         });
       });
     });

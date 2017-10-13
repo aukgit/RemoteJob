@@ -21,17 +21,11 @@ function init() {
 
   processInfo.getActiveWindowInfo(database.insertProcessTitle);
 
-  screenshot.takeScreenshot();
-
   function processImg(){
     screenshot.takeScreenshot();
+    database.getAllBlob();
 
-    let p = screenshot.getImgPath();
-    screenshot.minifyImg(p);
-    //p = screenshot.getMinImgPath();
-    //screenshot.convertToBlob(p);
-
-    setTimeout(processImg, 60000);
+    setTimeout(processImg, 20000);
   }
 
   processImg();

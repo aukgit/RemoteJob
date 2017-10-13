@@ -1,28 +1,29 @@
-//const screenshot = require('node-screenshot');
 const screenshot = require('screenshot-desktop');
 const fs = require('fs');
 const path = require('path');
 const imagemin = require('imagemin');
-const imageminPngquant = require('imagemin-pngquant');
-const blobUtil = require('blob-util');
+const imageminJpegtran = require('imagemin-jpegtran');
 const database = require('./database');
 
 module.exports = {
   takeScreenshot: function() {
     //screenshot('sc.png').desktop();
+    let self = this;
     screenshot().then((img) => {
       saveImg(img);
+
       function saveImg(img) {
         //console.log("Writing Img");
         var myBuffer = new Buffer(img.length);
         for (let i = 0; i < img.length; i++) {
           myBuffer[i] = img[i];
         }
-        fs.writeFile(path.join(__dirname,'../img/sc.png'), myBuffer, function(err) {
+        fs.writeFile(path.join(__dirname, '../img/sc.jpg'), myBuffer, function(err) {
           if (err) {
             console.log(err);
           } else {
-            console.log("The file was saved!");
+            let p = self.getImgPath();
+            self.minifyImg(p);
           }
         });
       }
@@ -31,27 +32,25 @@ module.exports = {
     });
   },
   getImgPath: function() {
-    return path.join(__dirname, '../img/sc.png');
+    return path.join(__dirname, '../img/sc.jpg');
   },
   getMinImgPath: function() {
-    return path.join(__dirname, '../img/min/sc.png');
+    return path.join(__dirname, '../img/min/sc.jpg');
   },
   minifyImg: function(p) {
-    imagemin([p], 'img/min', {
-      plugins: [
-        imageminPngquant({
-          quality: '65-75'
-        })
-      ]
-    }).then(files => {
 
+    imagemin([p], 'img/min', {
+      use: [imageminJpegtran()]
+    }).then(() => {
+      let p = this.getMinImgPath();
+      this.convertToBlob(p);
     });
+
   },
   convertToBlob: function(p) {
-    let b = blobUtil.imgSrcToBlob(p).then((blob) => {
-      database.insertBlob(blob);
-    }).catch((err) => {
-
+    fs.readFile(p, (error, data) => {
+      let encodedImage = new Buffer(data, 'binary').toString('base64');
+      database.insertScreenshotBlob(encodedImage);
     });
   }
 }

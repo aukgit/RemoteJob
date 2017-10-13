@@ -23,27 +23,30 @@ module.exports = {
   },
 
   createTableForProcessTitle: function () {
-    db.run("CREATE TABLE IF NOT EXISTS processlist (ID INTEGER, title TEXT PRIMARY KEY)");
+    db.run("CREATE TABLE IF NOT EXISTS processlist (id INTEGER, pid INTEGER, title TEXT PRIMARY KEY)");
+  },
+
+  createTableForActiveProcessList: function () {
+    db.run("CREATE TABLE IF NOT EXISTS activeprocesslist (id INTEGER PRIMARY KEY, pid INTEGER, process INTEGER, started TEXT, closed TEXT, FOREIGN KEY (process) REFERENCES processlist(id))");
   },
 
   insertProcessTitle: function (p) {
-    let stmt = db.prepare("INSERT OR IGNORE INTO processlist (id, title) VALUES (?,?)");
-    stmt.run(p.pid, p.app);
+    let stmt = db.prepare("INSERT OR IGNORE INTO processlist (id, pid, title) VALUES ((SELECT IFNULL(MAX(id), 0) + 1 FROM processlist),?,?)");
+
+    stmt.run(p.pid, p.title);
   },
 
   getAllProcesses: function () {
     db.serialize(() => {
       db.all('SELECT * from processlist', (err, res) => {
-        res.forEach((p) => {
-          //console.log(p.ID, ": ", p.title);
-        });
+        console.log(res);
       });
     });
   },
 
   addNewProcess: function (newProcess) {
     db.serialize(() => {
-
+      
     });
   },
 

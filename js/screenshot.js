@@ -1,50 +1,41 @@
-const screenshot = require('screenshot-desktop');
+const screenshot = require('desktop-screenshot');
 const fs = require('fs');
 const path = require('path');
 const imagemin = require('imagemin');
-const imageminJpegtran = require('imagemin-jpegtran');
+const imageminPngquant = require('imagemin-pngquant');
 const database = require('./database');
 
 module.exports = {
   takeScreenshot: function() {
-    //screenshot('sc.png').desktop();
     let self = this;
-    screenshot().then((img) => {
-      saveImg(img);
 
-      function saveImg(img) {
-        //console.log("Writing Img");
-        var myBuffer = new Buffer(img.length);
-        for (let i = 0; i < img.length; i++) {
-          myBuffer[i] = img[i];
-        }
-        fs.writeFile(path.join(__dirname, '../img/sc.jpg'), myBuffer, function(err) {
-          if (err) {
-            console.log(err);
-          } else {
-            let p = self.getImgPath();
-            self.minifyImg(p);
-          }
-        });
+    screenshot(path.join(__dirname, '../img/sc.png'), {
+      quality: 25
+    }, function(error, complete) {
+      if (error) {
+        console.log("Screenshot failed", error);
+      } else {
+        let p = self.getImgPath();
+        self.minifyImg(p);
+        console.log("Screenshot succeeded");
       }
-    }).catch((err) => {
-      // ...
     });
+
   },
   getImgPath: function() {
-    return path.join(__dirname, '../img/sc.jpg');
+    return path.join(__dirname, '../img/sc.png');
   },
   getMinImgPath: function() {
-    return path.join(__dirname, '../img/min/sc.jpg');
+    return path.join(__dirname, '../img/min/sc.png');
   },
   minifyImg: function(p) {
 
     imagemin([p], 'img/min', {
-      use: [imageminJpegtran()]
+      use: [imageminPngquant({quality: '10-20'})]
     }).then(() => {
-      let p = this.getMinImgPath();
-      this.convertToBlob(p);
+      console.log('Images optimized');
     });
+
 
   },
   convertToBlob: function(p) {

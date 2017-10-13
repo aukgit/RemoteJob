@@ -18,8 +18,9 @@ function init() {
 
   database.createTableForBlob();
   database.createTableForProcessTitle();
+  database.createTableForActiveProcessList();
 
-  processInfo.getActiveWindowInfo(database.insertProcessTitle);
+  processInfo.getActiveWindowInfo();
 
   function processImg(){
     screenshot.takeScreenshot();

@@ -1,8 +1,6 @@
 const remote = require('electron').remote;
-const path = require('path');
-const processInfo = require(path.join(__dirname,'/js/processInfo'));
-const database = require(path.join(__dirname,'/js/database'));
-const screenshot = require(path.join(__dirname,'/js/screenshot'));
+const manageProcess = require('./js/process/manageProcess');
+const manageScreenshot = require('./js/screenshot/manageScreenshot');
 
 
 function init() {
@@ -16,22 +14,14 @@ function init() {
     window.hide();
   });
 
-  database.createTableForBlob();
-  database.createTableForProcessTitle();
-  database.createTableForActiveProcessList();
+  manageProcess.addProcess();
+  manageProcess.addActiveProcess();
 
-  processInfo.getActiveWindowInfo();
-
-  function processImg(){
-    screenshot.takeScreenshot();
-    database.getAllBlob();
-
-    setTimeout(processImg, 20000);
+  function contineousShot(){
+    manageScreenshot.addScreenshot();
+    setTimeout(contineousShot, 20000);
   }
-
-  processImg();
-
-  database.getAllProcesses();
+  contineousShot();
 
 }
 

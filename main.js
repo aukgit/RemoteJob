@@ -9,8 +9,8 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     //width: 350,
     //height: 120,
-    width: 800,
-    height: 600,
+    width: 900,
+    height: 640,
     frame: false,
     icon: path.join(__dirname, 'icons/png/64x64.png')
   });

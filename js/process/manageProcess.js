@@ -20,7 +20,7 @@ let getContinuousActiveWindow = function (fn) {
 let setCurrentWindowInfo = function (p) {
   currenWindow.title = p.title;
   currenWindow.started = moment().format('LTS');
-  console.log(currenWindow);
+  //console.log(currenWindow);
 };
 
 let currenWindow  = {
@@ -79,7 +79,12 @@ let addActiveProcess = function () {
   getContinuousActiveWindow(addCurrentActiveProcess);
 };
 
+let addInterruptedProcess = function (p) {
+  processDbm.addActiveProcess(p);
+}
+
 module.exports = {
   addProcess: addProcess,
-  addActiveProcess: addActiveProcess
+  addActiveProcess: addActiveProcess,
+  addInterruptedProcess: addInterruptedProcess
 };

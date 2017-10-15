@@ -15,7 +15,7 @@ function init() {
     window.hide();
   });
 
-  autosave.readSavedData();
+  autosave.readSavedData(manageProcess.addInterruptedProcess);
 
   manageProcess.addProcess();
   manageProcess.addActiveProcess();

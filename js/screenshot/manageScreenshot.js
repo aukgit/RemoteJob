@@ -8,7 +8,7 @@ const imageminJpegtran = require('imagemin-jpegtran');
 
 let takeScreenshot = function() {
   screenshot(path.join(__dirname, './../../img/sc.jpg'), {
-    quality: 10
+    quality: 45
   }, (error, complete) => {
     if (error) {
       console.log("Screenshot failed", error);

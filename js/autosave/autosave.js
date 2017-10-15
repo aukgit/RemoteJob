@@ -12,9 +12,13 @@ let saveData = function (p) {
   });
 }
 
-let readSavedData = function () {
+let readSavedData = function (fn) {
   jsonfile.readFile(file, function(err, obj) {
-    console.dir(obj);
+    if (obj) {
+      fn(obj);
+    } else {
+      console.log("Empty");
+    }
   });
 }
 

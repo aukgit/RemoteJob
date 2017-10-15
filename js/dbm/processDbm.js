@@ -5,7 +5,7 @@ let createProcessTable = function () {
 }
 
 let createActiveProcessTable = function () {
-  db.run("CREATE TABLE IF NOT EXISTS activeprocesses (id INTEGER PRIMARY KEY, pid INTEGER, process INTEGER, started TEXT, closed TEXT, FOREIGN KEY (process) REFERENCES processes(id))");
+  db.run("CREATE TABLE IF NOT EXISTS activeprocesses (id INTEGER PRIMARY KEY, process TEXT, started TEXT, closed TEXT, screenshotId INTEGER, FOREIGN KEY (process) REFERENCES processes(id))");
 }
 
 let addProcess = function (p) {
@@ -21,8 +21,10 @@ let getAllProcesses = function () {
   });
 }
 
-let addActiveProcess = function () {
-
+let addActiveProcess = function (p) {
+  console.log(p);
+  let stmt = db.prepare("INSERT INTO activeprocesses (process, started, closed, screenshotId) VALUES (?,?,?,?)");
+  stmt.run(p.title, p.started, p.ended, p.screenshotId);
 }
 
 let getAllActiveProcesses = function () {

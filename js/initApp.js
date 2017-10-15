@@ -1,4 +1,5 @@
 const remote = require('electron').remote;
+const autosave = require('./js/autosave/autosave');
 const manageProcess = require('./js/process/manageProcess');
 const manageScreenshot = require('./js/screenshot/manageScreenshot');
 
@@ -14,6 +15,8 @@ function init() {
     window.hide();
   });
 
+  autosave.readSavedData();
+
   manageProcess.addProcess();
   manageProcess.addActiveProcess();
 
@@ -22,6 +25,8 @@ function init() {
     setTimeout(contineousShot, 20000);
   }
   contineousShot();
+
+
 
 }
 

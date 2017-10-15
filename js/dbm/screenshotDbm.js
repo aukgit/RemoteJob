@@ -7,7 +7,11 @@ let createImagesTable = function () {
 let getLastScreeshotId = function (fn) {
   let stmt = "SELECT * FROM images ORDER BY ID DESC LIMIT 1";
   db.all(stmt, [], (err, res) => {
-    fn(res[0]);
+    if(err){
+      console.log(err);
+    } else {
+      fn(res[0]);
+    }
   });
 }
 

@@ -21,6 +21,7 @@
     "imagemin": "^5.3.1",
     "imagemin-jpegtran": "^5.0.2",
     "imagemin-pngquant": "^5.0.1",
+    "jsonfile": "^4.0.0",
     "moment": "^2.19.1",
     "sqlite3": "^3.1.13"
   },

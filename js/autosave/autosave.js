@@ -15,6 +15,7 @@ let saveData = function (p) {
 let readSavedData = function (fn) {
   jsonfile.readFile(file, function(err, obj) {
     if (obj) {
+      console.log(obj);
       fn(obj);
     } else {
       console.log("Empty");

@@ -5,7 +5,7 @@ let createProcessTable = function () {
 }
 
 let createActiveProcessTable = function () {
-  db.run("CREATE TABLE IF NOT EXISTS activeprocesses (id INTEGER PRIMARY KEY, process TEXT, started TEXT, closed TEXT, screenshotId INTEGER, FOREIGN KEY (process) REFERENCES processes(id), FOREIGN KEY (screenshotId) REFERENCES images(id))");
+  db.run("CREATE TABLE IF NOT EXISTS activeprocesses (id INTEGER PRIMARY KEY, process TEXT, started TEXT, closed TEXT, mouseposx INTEGER, mouseposy INTEGER, totalmouseclick INTEGER, mousebtn INTEGER, totalkeypress INTEGER, screenshotId INTEGER, FOREIGN KEY (process) REFERENCES processes(id), FOREIGN KEY (screenshotId) REFERENCES images(id))");
 }
 
 let addProcess = function (p) {
@@ -22,8 +22,10 @@ let getAllProcesses = function () {
 }
 
 let addActiveProcess = function (p) {
-  let stmt = db.prepare("INSERT INTO activeprocesses (process, started, closed, screenshotId) VALUES (?,?,?,?)");
-  stmt.run(p.title, p.started, p.ended, p.screenshotId);
+  let m = p.mouseData, btn = parseInt(m.btn);
+  console.log(m);
+  let stmt = db.prepare("INSERT INTO activeprocesses (process, started, closed, mouseposx, mouseposy, totalmouseclick, mousebtn, totalKeypress, screenshotId) VALUES (?,?,?,?,?,?,?,?,?)");
+  stmt.run(p.title, p.started, p.ended, m.xPos, m.yPos, m.totalClick, btn, m.totalKeypress, p.screenshotId);
 }
 
 let getAllActiveProcesses = function () {

@@ -1,21 +1,21 @@
 const {db} = require('./initDB');
 
 let createProcessTable = function () {
-  db.run("CREATE TABLE IF NOT EXISTS processes (id INTEGER, pid INTEGER, title TEXT PRIMARY KEY)");
+  db.run("CREATE TABLE IF NOT EXISTS Processes (id INTEGER PRIMARY KEY, PID INTEGER, Title TEXT UNIQUE)");
 }
 
 let createActiveProcessTable = function () {
-  db.run("CREATE TABLE IF NOT EXISTS activeprocesses (id INTEGER PRIMARY KEY, process TEXT, started TEXT, closed TEXT, mouseposx INTEGER, mouseposy INTEGER, totalmouseclick INTEGER, mousebtn INTEGER, totalkeypress INTEGER, screenshotId INTEGER, FOREIGN KEY (process) REFERENCES processes(id), FOREIGN KEY (screenshotId) REFERENCES images(id))");
+  db.run("CREATE TABLE IF NOT EXISTS ActiveProcesses (id INTEGER PRIMARY KEY, Process TEXT, Started TEXT, Closed TEXT, MousePosX INTEGER, MousePosY INTEGER, TotalMouseClick INTEGER, MouseBtn INTEGER, TotalKeyPress INTEGER, ScreenshotId INTEGER, FOREIGN KEY (Process) REFERENCES Processes(id), FOREIGN KEY (ScreenshotId) REFERENCES Images(id))");
 }
 
 let addProcess = function (p) {
-  let stmt = db.prepare("INSERT OR IGNORE INTO processes (id, pid, title) VALUES ((SELECT IFNULL(MAX(id), 0) + 1 FROM processes),?,?)");
+  let stmt = db.prepare("INSERT OR IGNORE INTO Processes (PID, Title) VALUES (?,?)");
   stmt.run(p.pid, p.title);
 }
 
 let getAllProcesses = function () {
   db.serialize(() => {
-    db.all('SELECT * from processes', (err, res) => {
+    db.all('SELECT * from Processes', (err, res) => {
       //console.log(res);
     });
   });
@@ -24,13 +24,13 @@ let getAllProcesses = function () {
 let addActiveProcess = function (p) {
   let m = p.mouseData, btn = parseInt(m.btn);
   console.log(m);
-  let stmt = db.prepare("INSERT INTO activeprocesses (process, started, closed, mouseposx, mouseposy, totalmouseclick, mousebtn, totalKeypress, screenshotId) VALUES (?,?,?,?,?,?,?,?,?)");
+  let stmt = db.prepare("INSERT INTO ActiveProcesses (Process, Started, Closed, MousePosX, MousePosY, TotalMouseClick, MouseBtn, TotalKeyPress, ScreenshotId) VALUES (?,?,?,?,?,?,?,?,?)");
   stmt.run(p.title, p.started, p.ended, m.xPos, m.yPos, m.totalClick, btn, m.totalKeypress, p.screenshotId);
 }
 
 let getAllActiveProcesses = function () {
   db.serialize(() => {
-    db.all('SELECT * from activeprocesses', (err, res) => {
+    db.all('SELECT * from ActiveProcesses', (err, res) => {
       console.log(res);
     });
   });

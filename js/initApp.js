@@ -7,22 +7,18 @@ const manageScreenshot = require('./js/screenshot/manageScreenshot');
 
 function init(config) {
   renderUI();
-  //renderProcess();
-  //renderScreenshot(20000);
+  renderProcess();
+  function contineousShot(){
+    manageScreenshot.addScreenshot();
+    setTimeout(contineousShot, 60000);
+  }
+  contineousShot();
 }
 
 function renderProcess() {
   autosave.readSavedData(manageProcess.addInterruptedProcess);
   manageProcess.addProcess();
   manageProcess.addActiveProcess();
-}
-
-function renderScreenshot(delay) {
-  function contineousShot(delay){
-    manageScreenshot.addScreenshot();
-    setTimeout(contineousShot, delay);
-  }
-  contineousShot(delay);
 }
 
 function renderUI() {

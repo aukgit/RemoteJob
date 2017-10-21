@@ -2,193 +2,135 @@
 header {
   background-color: #263238;
   min-height: 2.1em;
-  border-bottom: 1px solid #222d32;
-}
-
-header .brand {
-  font-weight: 300;
-  font-size: 1.2em;
-  display: inline-block;
-  padding: 5px;
-  margin: 0 0 0 7px;
-}
-
-header .menu-bar {
-  float: right;
-}
-
-header .menu-bar .control-menu {
-  padding: 0;
-  list-style: none;
-}
-
-header .menu-bar .control-menu .menu-btn {
-  display: inline-block;
-  padding: 0.4em 0.7em;
-  cursor: pointer;
-  margin-right: 0px;
-  transition: all ease-in-out 0.3s;
-}
-
-header .menu-bar .control-menu .menu-btn:last-child {
-  margin-right: 0;
-}
-
-header .menu-bar .control-menu .menu-btn:hover {
-  background: rgba(238, 238, 238, 0.1);
-}
-
-header .menu-bar .control-menu .menu-btn .zmdi {
-  transition: all ease-in-out 0.3s;
-}
-
-header .menu-bar .control-menu .menu-btn:hover .zmdi {
-  transform: scale(1.2);
-}
+  border-bottom: 1px solid #222d32; }
+  header .brand {
+    font-weight: 300;
+    font-size: 1.2em;
+    display: inline-block;
+    padding: 5px;
+    margin: 0 0 0 7px; }
+  header .menu-bar {
+    float: right; }
+    header .menu-bar .control-menu {
+      padding: 0;
+      list-style: none; }
+      header .menu-bar .control-menu .menu-btn {
+        display: inline-block;
+        padding: 0.4em 0.7em;
+        cursor: pointer;
+        margin-right: 0px;
+        transition: all ease-in-out 0.3s; }
+        header .menu-bar .control-menu .menu-btn:last-child {
+          margin-right: 0; }
+        header .menu-bar .control-menu .menu-btn:hover {
+          background: rgba(238, 238, 238, 0.1); }
+        header .menu-bar .control-menu .menu-btn .zmdi {
+          transition: all ease-in-out 0.3s; }
+        header .menu-bar .control-menu .menu-btn:hover .zmdi {
+          transform: scale(1.2); }
 
 .user-timer {
   padding: 7px;
-  position: relative;
-}
-
-.user-timer .user {
-  font-weight: 400;
-  font-size: 1.2em;
-}
-
-.user-timer .user::before {
-  content: '\f111';
-  font-family: 'FontAwesome';
-  font-size: 0.5em;
-  margin-right: 10px;
-  margin-left: 5px;
-  position: relative;
-  top: -2px;
-  color: #64dd17;
-}
-
-.user-timer .timer {
-  margin-left: 23px;
-  display: inline-block;
-  padding: 5px 10px;
-  margin-top: 10px;
-  background: #0c0c0c;
-  border-radius: 5px;
-}
-
-.user-timer .timer-control {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: #64dd17;
-  font-size: 2em;
-  outline: none;
-  cursor: pointer;
-}
+  position: relative; }
+  .user-timer .user {
+    font-weight: 400;
+    font-size: 1.2em; }
+    .user-timer .user::before {
+      content: '\f111';
+      font-family: 'FontAwesome';
+      font-size: 0.5em;
+      margin-right: 10px;
+      margin-left: 5px;
+      position: relative;
+      top: -2px;
+      color: #64dd17; }
+  .user-timer .timer {
+    margin-left: 23px;
+    display: inline-block;
+    padding: 5px 10px;
+    margin-top: 10px;
+    background: #0c0c0c;
+    border-radius: 5px; }
+  .user-timer .timer-control {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #64dd17;
+    font-size: 2em;
+    outline: none;
+    cursor: pointer; }
 
 .login {
-  padding: 0 1em;
-}
-
-.login .brand-logo {
-  font-weight: 300;
-  text-align: center;
-  margin: 1em 0;
-}
-
-.login .brand-logo h2 {
-  font-weight: 200;
-}
-
-.login .brand-logo .tag {
-  font-size: 0.7em;
-  margin: 0;
-  padding: 0;
-}
-
-.login .login-form {
-  padding: 0.5em 0.9em;
-}
-
-.login .login-form input[type="text"], .login .login-form button {
-  display: inline-block;
-  width: 100%;
-  padding: 0.5em;
-  margin-bottom: 0.5em;
-  background: none;
-  border: none;
-  color: #eee;
-  border-bottom: 1px solid #222d32;
-}
-
-.login .login-form input[type="text"]:focus, .login .login-form button:focus {
-  outline: none;
-}
-
-.login .login-form ::-webkit-input-placeholder {
-  color: rgba(238, 238, 238, 0.5);
-}
-
-.login .login-form .password-option {
-  display: inline-block;
-  width: 100%;
-  margin: 1em 0;
-  position: relative;
-}
-
-.login .login-form .password-option input[type="checkbox"] {
-  outline: none;
-}
-
-.login .login-form .password-option #forget-pass {
-  position: absolute;
-  color: #eee;
-  display: inline-block;
-  text-align: right;
-  text-decoration: none;
-  cursor: pointer !important;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.login .login-form .password-option label, .login .login-form .password-option #forget-pass {
-  padding: 0.5em;
-}
-
-.login .login-form button {
-  margin: 0.5em 0 0 0;
-  cursor: pointer;
-  padding: 0.5em;
-  border-radius: 5px;
-  border: 1px solid #1b2327;
-  text-transform: uppercase;
-  font-size: 1em;
-  transition: all ease-in-out 0.3s;
-}
-
-.login .login-form button:hover {
-  background: rgba(238, 238, 238, 0.1);
-  border-color: 1px solid #040506;
-}
-
-.login .version {
-  margin: 0 0 0.5em 0;
-  opacity: 0.5;
-}
-
-.login p {
-  text-align: center;
-}
+  padding: 0 1em; }
+  .login .brand-logo {
+    font-weight: 300;
+    text-align: center;
+    margin: 1em 0; }
+    .login .brand-logo h2 {
+      font-weight: 200; }
+    .login .brand-logo .tag {
+      font-size: 0.7em;
+      margin: 0;
+      padding: 0; }
+  .login .login-form {
+    padding: 0.5em 0.9em; }
+    .login .login-form input[type="text"], .login .login-form button {
+      display: inline-block;
+      width: 100%;
+      padding: 0.5em;
+      margin-bottom: 0.5em;
+      background: none;
+      border: none;
+      color: #eee;
+      border-bottom: 1px solid #222d32; }
+      .login .login-form input[type="text"]:focus, .login .login-form button:focus {
+        outline: none; }
+    .login .login-form ::-webkit-input-placeholder {
+      color: rgba(238, 238, 238, 0.5); }
+    .login .login-form .password-option {
+      display: inline-block;
+      width: 100%;
+      margin: 1em 0;
+      position: relative; }
+      .login .login-form .password-option input[type="checkbox"] {
+        outline: none; }
+      .login .login-form .password-option #forget-pass {
+        position: absolute;
+        color: #eee;
+        display: inline-block;
+        text-align: right;
+        text-decoration: none;
+        cursor: pointer !important;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%); }
+      .login .login-form .password-option label, .login .login-form .password-option #forget-pass {
+        padding: 0.5em; }
+    .login .login-form button {
+      margin: 0.5em 0 0 0;
+      cursor: pointer;
+      padding: 0.5em;
+      border-radius: 5px;
+      border: 1px solid #1b2327;
+      text-transform: uppercase;
+      font-size: 1em;
+      transition: all ease-in-out 0.3s; }
+      .login .login-form button:hover {
+        background: rgba(238, 238, 238, 0.1);
+        border-color: 1px solid #040506; }
+  .login .version {
+    margin: 0 0 0.5em 0;
+    opacity: 0.5; }
+  .login p {
+    text-align: center; }
 
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
+  box-sizing: border-box; }
 
 body {
   color: #eee;
@@ -196,8 +138,7 @@ body {
   background-color: rgba(38, 50, 56, 0.9);
   font-size: 16px;
   -ms-overflow-style: scrollbar;
-  -webkit-app-region: drag;
-}
+  -webkit-app-region: drag; }
 
 input[type="submit"],
 input[type="reset"],
@@ -206,5 +147,4 @@ input[type="text"],
 input[type="checkbox"],
 button, label, .password-option,
 textarea, .menu-btn {
-  -webkit-app-region: no-drag;
-}
+  -webkit-app-region: no-drag; }

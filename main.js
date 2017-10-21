@@ -7,8 +7,8 @@ let mainWindow, appIcon, loginWindow, preferenceWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 350,
-    height: 120,
+    //width: 350,
+    //height: 120,
     //width: 900,
     //height: 640,
     frame: false,
@@ -25,7 +25,7 @@ function createWindow() {
     app.quit();
   });
 
-  //mainWindow.webContents.toggleDevTools();
+  mainWindow.webContents.toggleDevTools();
 
 }
 
@@ -90,8 +90,8 @@ ipcMain.on('hide-preference', () => {
 });
 
 app.on('ready', () => {
-  //createWindow();
-  createLoginWindow();
+  createWindow();
+  //createLoginWindow();
   createContextMenu();
 });
 

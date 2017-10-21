@@ -1,6 +1,6 @@
 header {
   background-color: $primary-bg-color;
-  min-height: 2.2em;
+  min-height: 2.1em;
   .brand {
     font-weight: 300;
     font-size: 1.2em;
@@ -15,9 +15,22 @@ header {
       list-style: none;
       .menu-btn {
         display: inline-block;
-        padding: 7px;
+        padding: 0.4em 0.7em;
         cursor: pointer;
-        margin-right: 5px;
+        margin-right: 0px;
+        transition: all ease-in-out 0.3s;
+        &:last-child{
+          margin-right: 0;
+        }
+        &:hover {
+          background: rgba($primary-color,0.1);
+        }
+        .zmdi {
+          transition: all ease-in-out 0.3s;
+        }
+        &:hover .zmdi{
+          transform: scale(1.2);
+        }
       }
     }
   }

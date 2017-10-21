@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
 header {
-  background-color: #004d40;
-  min-height: 2.2em;
-  border-bottom: 1px solid #00453a;
+  background-color: #263238;
+  min-height: 2.1em;
+  border-bottom: 1px solid #222d32;
 }
 
 header .brand {
@@ -24,9 +24,26 @@ header .menu-bar .control-menu {
 
 header .menu-bar .control-menu .menu-btn {
   display: inline-block;
-  padding: 7px;
+  padding: 0.4em 0.7em;
   cursor: pointer;
-  margin-right: 5px;
+  margin-right: 0px;
+  transition: all ease-in-out 0.3s;
+}
+
+header .menu-bar .control-menu .menu-btn:last-child {
+  margin-right: 0;
+}
+
+header .menu-bar .control-menu .menu-btn:hover {
+  background: rgba(238, 238, 238, 0.1);
+}
+
+header .menu-bar .control-menu .menu-btn .zmdi {
+  transition: all ease-in-out 0.3s;
+}
+
+header .menu-bar .control-menu .menu-btn:hover .zmdi {
+  transform: scale(1.2);
 }
 
 .user-timer {
@@ -104,7 +121,7 @@ header .menu-bar .control-menu .menu-btn {
   background: none;
   border: none;
   color: #eee;
-  border-bottom: 1px solid #00453a;
+  border-bottom: 1px solid #222d32;
 }
 
 .login .login-form input[type="text"]:focus, .login .login-form button:focus {
@@ -147,9 +164,15 @@ header .menu-bar .control-menu .menu-btn {
   cursor: pointer;
   padding: 0.5em;
   border-radius: 5px;
-  border: 1px solid #00362d;
+  border: 1px solid #1b2327;
   text-transform: uppercase;
   font-size: 1em;
+  transition: all ease-in-out 0.3s;
+}
+
+.login .login-form button:hover {
+  background: rgba(238, 238, 238, 0.1);
+  border-color: 1px solid #040506;
 }
 
 .login .version {
@@ -170,7 +193,7 @@ header .menu-bar .control-menu .menu-btn {
 body {
   color: #eee;
   font-family: "Roboto Condensed", sans-serif;
-  background-color: rgba(0, 77, 64, 0.9);
+  background-color: rgba(38, 50, 56, 0.9);
   font-size: 16px;
   -ms-overflow-style: scrollbar;
   -webkit-app-region: drag;

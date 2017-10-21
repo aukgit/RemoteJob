@@ -1,30 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  color: #eee;
-  font-family: "Roboto Condensed", sans-serif;
-  background-color: #000;
-  font-size: 16px;
-  -ms-overflow-style: scrollbar;
-  -webkit-app-region: drag;
-}
-
-input[type="submit"],
-input[type="reset"],
-input[type="button"],
-input[type="text"],
-button,
-textarea, .menu-btn {
-  -webkit-app-region: no-drag;
-}
-
 header {
-  border-bottom: 1px solid #474747;
+  background-color: #004d40;
+  min-height: 2.2em;
+  border-bottom: 1px solid #00453a;
 }
 
 header .brand {
@@ -92,4 +70,118 @@ header .menu-bar .control-menu .menu-btn {
   font-size: 2em;
   outline: none;
   cursor: pointer;
+}
+
+.login {
+  padding: 0 1em;
+}
+
+.login .brand-logo {
+  font-weight: 300;
+  text-align: center;
+  margin: 1em 0;
+}
+
+.login .brand-logo h2 {
+  font-weight: 200;
+}
+
+.login .brand-logo .tag {
+  font-size: 0.7em;
+  margin: 0;
+  padding: 0;
+}
+
+.login .login-form {
+  padding: 0.5em 0.9em;
+}
+
+.login .login-form input[type="text"], .login .login-form button {
+  display: inline-block;
+  width: 100%;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  background: none;
+  border: none;
+  color: #eee;
+  border-bottom: 1px solid #00453a;
+}
+
+.login .login-form input[type="text"]:focus, .login .login-form button:focus {
+  outline: none;
+}
+
+.login .login-form ::-webkit-input-placeholder {
+  color: rgba(238, 238, 238, 0.5);
+}
+
+.login .login-form .password-option {
+  display: inline-block;
+  width: 100%;
+  margin: 1em 0;
+  position: relative;
+}
+
+.login .login-form .password-option input[type="checkbox"] {
+  outline: none;
+}
+
+.login .login-form .password-option #forget-pass {
+  position: absolute;
+  color: #eee;
+  display: inline-block;
+  text-align: right;
+  text-decoration: none;
+  cursor: pointer !important;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.login .login-form .password-option label, .login .login-form .password-option #forget-pass {
+  padding: 0.5em;
+}
+
+.login .login-form button {
+  margin: 0.5em 0 0 0;
+  cursor: pointer;
+  padding: 0.5em;
+  border-radius: 5px;
+  border: 1px solid #00362d;
+  text-transform: uppercase;
+  font-size: 1em;
+}
+
+.login .version {
+  margin: 0 0 0.5em 0;
+  opacity: 0.5;
+}
+
+.login p {
+  text-align: center;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: #eee;
+  font-family: "Roboto Condensed", sans-serif;
+  background-color: rgba(0, 77, 64, 0.9);
+  font-size: 16px;
+  -ms-overflow-style: scrollbar;
+  -webkit-app-region: drag;
+}
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+input[type="text"],
+input[type="checkbox"],
+button, label, .password-option,
+textarea, .menu-btn {
+  -webkit-app-region: no-drag;
 }

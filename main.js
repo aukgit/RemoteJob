@@ -1,16 +1,16 @@
 const electron = require('electron');
 const path = require('path');
 const url = require('url');
-const {app, BrowserWindow, Menu, Tray} = electron;
+const {app, BrowserWindow, Menu, Tray, ipcMain} = electron;
 
-let mainWindow, appIcon;
+let mainWindow, appIcon, loginWindow, preferenceWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    //width: 350,
-    //height: 120,
-    width: 900,
-    height: 640,
+    width: 350,
+    height: 120,
+    //width: 900,
+    //height: 640,
     frame: false,
     icon: path.join(__dirname, 'icons/png/64x64.png')
   });
@@ -25,7 +25,7 @@ function createWindow() {
     app.quit();
   });
 
-  mainWindow.webContents.toggleDevTools();
+  //mainWindow.webContents.toggleDevTools();
 
 }
 
@@ -39,8 +39,59 @@ function createContextMenu() {
   });
 }
 
+function createLoginWindow() {
+  loginWindow = new BrowserWindow({
+    width: 350,
+    height: 350,
+    frame: false,
+    icon: path.join(__dirname, 'icons/png/64x64.png')
+  });
+
+  loginWindow.loadURL(url.format({
+    pathname: path.join(__dirname,'./src/login.html'),
+    protocol: 'file:',
+    slashes: true
+  }));
+
+}
+
+function createPreferenceWindow() {
+  preferenceWindow = new BrowserWindow({
+    width: 640,
+    height: 480,
+    parent: mainWindow,
+    frame: false,
+    //show: false,
+    icon: path.join(__dirname, 'icons/png/64x64.png')
+  });
+
+  preferenceWindow.loadURL(url.format({
+    pathname: path.join(__dirname, './src/preference.html'),
+    protocol: 'file:',
+    slashes: true
+  }));
+
+  preferenceWindow.once('ready-to-show', () => {
+   preferenceWindow.show();
+ });
+
+ preferenceWindow.on('closed', () => {
+   preferenceWindow = null;
+ });
+
+}
+
+ipcMain.on('show-preference', () => {
+  createPreferenceWindow();
+});
+
+ipcMain.on('hide-preference', () => {
+  preferenceWindow.close();
+});
+
 app.on('ready', () => {
-  createWindow();
+  //createWindow();
+  createLoginWindow();
   createContextMenu();
 });
 

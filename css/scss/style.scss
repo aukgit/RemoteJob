@@ -1,0 +1,31 @@
+@import "fonts";
+@import "variables";
+@import "header";
+@import "main";
+@import "login";
+@import "preference";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: $primary-color;
+  font-family: $primary-font;
+  background-color: rgba($primary-bg-color,0.9);
+  font-size: $primary-font-size;
+  -ms-overflow-style: scrollbar;
+  -webkit-app-region:drag;
+}
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+input[type="text"],
+input[type="checkbox"],
+button, label, .password-option,
+textarea, .menu-btn {
+	-webkit-app-region: no-drag;
+}

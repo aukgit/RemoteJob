@@ -1,11 +1,9 @@
 const activeWin = require('active-win');
 const gkm = require('gkm');
-//const robot = require("robotjs");
 const moment = require('moment');
 const autosave = require('./../autosave/autosave');
 const processDbm = require('./../dbm/processDbm');
 const screenshotDbm = require('./../dbm/screenshotDbm');
-
 
 let mouseInfo = {
   xPos: null,
@@ -14,6 +12,8 @@ let mouseInfo = {
   totalClick: 0,
   totalKeypress: 0
 };
+
+let sequenceTime = 0, seq = 0;
 
 let getActiveWindow = function(fn) {
   activeWin().then((res) => {
@@ -58,6 +58,7 @@ let getContinuousActiveWindow = function(fn) {
   gkm.events.on('mouse.*', function(data) {
     setMousePos(data);
     if (data[0] === "1" || data[0] === "2" || data[0] === "3") {
+      sequenceTime = moment().format('LT');
       getActiveWindow(fn);
     }
   });
@@ -67,6 +68,7 @@ let getContinuousActiveWindow = function(fn) {
 let setCurrentWindowInfo = function(p) {
   currenWindow.title = p.title;
   currenWindow.started = moment().format('LTS');
+  sequenceTime = moment().format('LT');
 };
 
 let currenWindow = {
@@ -74,7 +76,9 @@ let currenWindow = {
   started: null,
   ended: null,
   screenshotId: null,
-  mouseData: mouseInfo
+  mouseData: mouseInfo,
+  sequence: seq,
+  totalActiveTime: 0
 };
 
 let setScreenshotID = function() {
@@ -98,7 +102,7 @@ let addCurrentActiveProcess = function(info) {
     setScreenshotID();
     currenWindow.ended = moment().format('LTS');
     //console.log("Ended: ", currenWindow);
-
+    setSequence(currenWindow.started);
     if ((currenWindow.screenshotId !== null) && (currenWindow.title)) {
       processDbm.addActiveProcess(currenWindow);
       mouseInfo.totalClick = 0;
@@ -113,6 +117,16 @@ let addCurrentActiveProcess = function(info) {
     //console.log("Active: ", currenWindow);
   }
 };
+
+function setSequence(started) {
+  if(moment(started,'LTS').format('LT') !== sequenceTime){
+    seq = 0;
+    currenWindow.sequence = seq;
+  } else {
+    currenWindow.sequence = seq;
+    seq++;
+  }
+}
 
 let save = function() {
   autosave.saveData(currenWindow)

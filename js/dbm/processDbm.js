@@ -5,7 +5,7 @@ let createProcessTable = function () {
 }
 
 let createActiveProcessTable = function () {
-  db.run("CREATE TABLE IF NOT EXISTS ActiveProcesses (id INTEGER PRIMARY KEY, Process TEXT, Started TEXT, Closed TEXT, MousePosX INTEGER, MousePosY INTEGER, TotalMouseClick INTEGER, MouseBtn INTEGER, TotalKeyPress INTEGER, ScreenshotId INTEGER, FOREIGN KEY (Process) REFERENCES Processes(id), FOREIGN KEY (ScreenshotId) REFERENCES Images(id))");
+  db.run("CREATE TABLE IF NOT EXISTS ActiveProcesses (id INTEGER PRIMARY KEY, Process TEXT, Started TEXT, Closed TEXT, MousePosX INTEGER, MousePosY INTEGER, TotalMouseClick INTEGER, MouseBtn INTEGER, TotalKeyPress INTEGER, ScreenshotId INTEGER, SequenceOfStartingMinutes INTEGER, TotalActiveTime INTEGER, FOREIGN KEY (Process) REFERENCES Processes(id), FOREIGN KEY (ScreenshotId) REFERENCES Images(id))");
 }
 
 let addProcess = function (p) {
@@ -23,15 +23,15 @@ let getAllProcesses = function () {
 
 let addActiveProcess = function (p) {
   let m = p.mouseData, btn = parseInt(m.btn);
-  console.log(m);
-  let stmt = db.prepare("INSERT INTO ActiveProcesses (Process, Started, Closed, MousePosX, MousePosY, TotalMouseClick, MouseBtn, TotalKeyPress, ScreenshotId) VALUES (?,?,?,?,?,?,?,?,?)");
-  stmt.run(p.title, p.started, p.ended, m.xPos, m.yPos, m.totalClick, btn, m.totalKeypress, p.screenshotId);
+  //console.log(m);
+  let stmt = db.prepare("INSERT INTO ActiveProcesses (Process, Started, Closed, MousePosX, MousePosY, TotalMouseClick, MouseBtn, TotalKeyPress, ScreenshotId, SequenceOfStartingMinutes, TotalActiveTime) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+  stmt.run(p.title, p.started, p.ended, m.xPos, m.yPos, m.totalClick, btn, m.totalKeypress, p.screenshotId,p.sequence,p.totalActiveTime);
 }
 
 let getAllActiveProcesses = function () {
   db.serialize(() => {
     db.all('SELECT * from ActiveProcesses', (err, res) => {
-      console.log(res);
+      //console.log(res);
     });
   });
 }

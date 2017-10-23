@@ -100,7 +100,8 @@ ipcMain.on('loadMainWindow', (e, config) => {
 });
 
 app.on('ready', () => {
-  createLoginWindow();
+  createWindow();
+  //createLoginWindow();
   createContextMenu();
 });
 

@@ -1,5 +1,5 @@
 {
-  "name": "uat",
+  "name": "RemoteJob",
   "version": "1.0.0",
   "description": "User activity tracking system using nodejs",
   "main": "main.js",

@@ -7,10 +7,10 @@ let mainWindow, appIcon, loginWindow, preferenceWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    //width: 350,
-    //height: 120,
-    //width: 900,
-    //height: 640,
+    width: 350,
+    height: 120,
+    // width: 900,
+    // height: 640,
     frame: false,
     icon: path.join(__dirname, 'icons/png/64x64.png')
   });
@@ -25,7 +25,7 @@ function createWindow() {
     app.quit();
   });
 
-  mainWindow.webContents.toggleDevTools();
+  //mainWindow.webContents.toggleDevTools();
 
 }
 
@@ -53,12 +53,16 @@ function createLoginWindow() {
     slashes: true
   }));
 
+  loginWindow.on('closed', () => {
+    loginWindow = null;
+  });
+
 }
 
 function createPreferenceWindow() {
   preferenceWindow = new BrowserWindow({
-    width: 640,
-    height: 480,
+    width: 520,
+    height: 378,
     parent: mainWindow,
     frame: false,
     //show: false,
@@ -89,9 +93,14 @@ ipcMain.on('hide-preference', () => {
   preferenceWindow.close();
 });
 
-app.on('ready', () => {
+ipcMain.on('loadMainWindow', (e, config) => {
+  console.log(config);
   createWindow();
-  //createLoginWindow();
+  loginWindow.close();
+});
+
+app.on('ready', () => {
+  createLoginWindow();
   createContextMenu();
 });
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
   <link rel="stylesheet" href="../css/material-design-iconic-font.min.css">
 
 </head>
+
 <body>
 
   <header>
@@ -18,25 +20,71 @@
     </h2>
   </header>
 
-  <main>
+  <main class="preference">
     <div class="container">
 
-      <div class="options">
-        <ul class="">
-          <li>Launch at syetem startup</li>
-          <li>Start tracking on sign in</li>
-          <li>Sign in on launch</li>
-          <li>Change Password</li>
-          <li>Upload Logs</li>
-        </ul>
+      <div class="general-settings">
+
+        <div class="pref-option">
+          <input type="checkbox" id="start-with-windows" name="start-with-windows" value="" class="square-checkbox"> <label for="start-with-windows">Launch at system startup</label>
+        </div>
+
+        <div class="pref-option">
+          <input type="checkbox" id="sign-in-on-start" name="sign-in-on-start" value="" class="square-checkbox"> <label for="sign-in-on-start">Sign in on start</label>
+        </div>
+
+        <div class="pref-option">
+          <input type="checkbox" id="track-on-start" name="track-on-start" value="" class="square-checkbox"> <label for="track-on-start">Start tracking on startup</label>
+        </div>
+
+        <div class="pref-option">
+          <i class="zmdi zmdi-lock-outline"></i>
+          <a href="#" id="change-pass">Change password</a>
+        </div>
+
+        <div class="pref-option">
+          <input type="checkbox" id="upload-logs" name="upload-logs" value="" class="square-checkbox"> <label for="upload-logs">Upload logs</label>
+        </div>
+
       </div>
 
-      <button id="save">Save</button>
-      <button id="cancel">cancel</button>
+      <div class="sec-title">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+      </div>
+
+      <div class="camera-settings">
+        <div class="camera-icon">
+          <img src="../img/aperture.png" alt="">
+        </div>
+        <div class="camera-options">
+
+          <div class="camera-option">
+            <input type="checkbox" id="enable-web-cam" name="enable-web-cam" value="" class="square-checkbox"> <label for="enable-web-cam">Launch at system startup</label>
+          </div>
+
+          <div class="camera-option">
+            <i class="zmdi zmdi-camera"></i>
+            <a href="#" id="change-pass">MY GoPro</a>
+          </div>
+
+          <div class="camera-option">
+            <i class="zmdi zmdi-camera"></i>
+            <a href="#" id="change-pass">B7 Supershot</a>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="pref-control">
+        <button id="save">Save</button>
+        <button id="cancel">Cancel</button>
+      </div>
+
     </div>
   </main>
 
   <script src="../js/preference.js" charset="utf-8"></script>
 
 </body>
+
 </html>

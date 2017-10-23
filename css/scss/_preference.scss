@@ -1,0 +1,94 @@
+.preference {
+  padding: 1em;
+  background: $primary-bg-color*0.5;
+  .pref-option{
+    display: inline-block;
+    width: 50%;
+    float: left;
+    margin-bottom: 0.5em;
+    clear: right;
+    .square-checkbox {
+      + label:before{
+      	margin-left: 0;
+      }
+    }
+    .zmdi-lock-outline {
+      margin-left: 0.2em;
+    }
+    #change-pass {
+      text-decoration: none;
+      color: $primary-color;
+      margin-left: 0.6em;
+    }
+    &:last-child {
+      margin-bottom: 1em;
+    }
+  }
+  .sec-title {
+    clear: both;
+    border-top: 1px solid $primary-bg-color*0.7;
+    border-bottom: 1px solid $primary-bg-color*0.7;
+    margin: 1em 0;
+    margin-top: 3em;
+    padding: 0.5em;
+  }
+  .camera-settings {
+    //clear: both;
+    .camera-icon, .camera-options {
+      width: 50%;
+      float: left;
+      margin-bottom: 1em;
+    }
+    .camera-icon {
+      text-align: center;
+      img {
+        width: 40%;
+        height: auto;
+      }
+    }
+    .camera-options {
+      .camera-option {
+        width: 100%;
+        margin-bottom: 0.5em;
+        i {
+          margin-left: -0.4em;
+        }
+        a {
+          margin-left: 0.4em;
+          text-decoration: none;
+          color: $primary-color;
+        }
+      }
+    }
+  }
+  .pref-control {
+    clear: both;
+    border-top: 1px solid $primary-bg-color*0.7;
+    padding-top: 1em;
+    display: block;
+    width: 100%;
+    text-align: center;
+    #save, #cancel {
+      color: $primary-color;
+      display: inline-block;
+      width: 40%;
+      cursor: pointer;
+      padding: 0.5em;
+      outline: none;
+      background: none;
+      border-radius: 5px;
+      font-family: $primary-font;
+      border: 1px solid $primary-bg-color*0.7;
+      font-size: 1em;
+      transition: all ease-in-out 0.3s;
+      &:hover {
+        background: rgba($primary-color,0.1);
+        border-color: 1px solid $primary-bg-color*0.1;
+      }
+    }
+    #save {
+      margin-right: 1em;
+      margin-left: -1em;
+    }
+  }
+}

@@ -17,8 +17,8 @@
     </h2> -->
     <nav class="menu-bar">
       <ul class="control-menu">
-        <li class="menu-btn" id="minimize"><i class="zmdi zmdi-window-minimize"></i></li>
-        <li class="menu-btn" id="close"><i class="zmdi zmdi-close"></i></li>
+        <li class="menu-btn" id="minimize"><i class="zmdi menu-icon zmdi-window-minimize"></i></li>
+        <li class="menu-btn" id="close"><i class="zmdi menu-icon zmdi-close"></i></li>
       </ul>
     </nav>
   </header>
@@ -30,15 +30,16 @@
         <p class="tag">We do rocket-science with JavaScript</p>
       </div>
       <p>Please enter your email and password</p>
-      <form action="" class="login-form">
-        <input type="text" name="" value="" placeholder="email">
-        <input type="text" name="" value="" placeholder="password">
+      <form class="login-form" id="loginForm">
+        <input type="text" name="" id="email" placeholder="email">
+        <input type="password" name="password" id="password" placeholder="password">
         <span class="password-option">
-          <input type="checkbox" id="remember" name="remember" value=""> <label for="remember">Remember password</label>
-          <span href="#" id="forget-pass">Forget password</span>
+
+          <input type="checkbox" id="remember" name="remember" value="" class="square-checkbox"> <label for="remember">Remember password</label>
+          <a href="#" id="forget-pass">Forget password</a>
         </span>
         <p class="version">Version 0.1.7</p>
-        <button type="button" name="button">Login</button>
+        <button type="submit" name="submit" id="submit">Login</button>
       </form>
     </div>
   </main>

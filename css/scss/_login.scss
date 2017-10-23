@@ -15,7 +15,7 @@
   }
   .login-form {
     padding: 0.5em 0.9em;
-    input[type="text"], button {
+    input[type="text"], input[type="password"], button {
       display: inline-block;
       width: 100%;
       padding: 0.5em;
@@ -60,7 +60,7 @@
       padding: 0.5em;
       border-radius: 5px;
       border: 1px solid $primary-bg-color*0.7;
-      text-transform: uppercase;
+      font-family: $primary-font;
       font-size: 1em;
       transition: all ease-in-out 0.3s;
       &:hover {

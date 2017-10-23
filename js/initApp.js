@@ -31,6 +31,11 @@ function renderUI() {
     const window = remote.getCurrentWindow();
     window.hide();
   });
+
+  document.getElementById("settings").addEventListener("click", function(e) {
+    ipcRenderer.send('show-preference');
+  });
+
 }
 
 document.onreadystatechange = function() {

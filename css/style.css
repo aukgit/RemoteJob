@@ -1,7 +1,30 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
+@import url("https://fonts.googleapis.com/css?family=Ubuntu+Condensed");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+body {
+  color: #eee;
+  font-family: "Ubuntu Condensed", sans-serif;
+  background-color: rgba(38, 50, 56, 0.9);
+  font-size: 16px;
+  -ms-overflow-style: scrollbar;
+  -webkit-app-region: drag; }
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+input[type="text"],
+input[type="password"],
+input[type="checkbox"],
+button, label, .password-option,
+textarea, .menu-btn, a {
+  -webkit-app-region: no-drag; }
+
 header {
   background-color: #263238;
-  min-height: 2.1em;
+  min-height: 2.2em;
   border-bottom: 1px solid #222d32; }
   header .brand {
     font-weight: 300;
@@ -24,9 +47,9 @@ header {
           margin-right: 0; }
         header .menu-bar .control-menu .menu-btn:hover {
           background: rgba(238, 238, 238, 0.1); }
-        header .menu-bar .control-menu .menu-btn .zmdi {
+        header .menu-bar .control-menu .menu-btn .menu-icon {
           transition: all ease-in-out 0.3s; }
-        header .menu-bar .control-menu .menu-btn:hover .zmdi {
+        header .menu-bar .control-menu .menu-btn:hover .menu-icon {
           transform: scale(1.2); }
 
 .user-timer {
@@ -36,8 +59,8 @@ header {
     font-weight: 400;
     font-size: 1.2em; }
     .user-timer .user::before {
-      content: '\f111';
-      font-family: 'FontAwesome';
+      content: '\f26d';
+      font-family: "Material-Design-Iconic-Font";
       font-size: 0.5em;
       margin-right: 10px;
       margin-left: 5px;
@@ -77,7 +100,7 @@ header {
       padding: 0; }
   .login .login-form {
     padding: 0.5em 0.9em; }
-    .login .login-form input[type="text"], .login .login-form button {
+    .login .login-form input[type="text"], .login .login-form input[type="password"], .login .login-form button {
       display: inline-block;
       width: 100%;
       padding: 0.5em;
@@ -86,7 +109,7 @@ header {
       border: none;
       color: #eee;
       border-bottom: 1px solid #222d32; }
-      .login .login-form input[type="text"]:focus, .login .login-form button:focus {
+      .login .login-form input[type="text"]:focus, .login .login-form input[type="password"]:focus, .login .login-form button:focus {
         outline: none; }
     .login .login-form ::-webkit-input-placeholder {
       color: rgba(238, 238, 238, 0.5); }
@@ -115,7 +138,7 @@ header {
       padding: 0.5em;
       border-radius: 5px;
       border: 1px solid #1b2327;
-      text-transform: uppercase;
+      font-family: "Ubuntu Condensed", sans-serif;
       font-size: 1em;
       transition: all ease-in-out 0.3s; }
       .login .login-form button:hover {
@@ -127,24 +150,96 @@ header {
   .login p {
     text-align: center; }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box; }
+.preference {
+  padding: 1em;
+  background: #13191c; }
+  .preference .pref-option {
+    display: inline-block;
+    width: 50%;
+    float: left;
+    margin-bottom: 0.5em;
+    clear: right; }
+    .preference .pref-option .square-checkbox + label:before {
+      margin-left: 0; }
+    .preference .pref-option .zmdi-lock-outline {
+      margin-left: 0.2em; }
+    .preference .pref-option #change-pass {
+      text-decoration: none;
+      color: #eee;
+      margin-left: 0.6em; }
+    .preference .pref-option:last-child {
+      margin-bottom: 1em; }
+  .preference .sec-title {
+    clear: both;
+    border-top: 1px solid #1b2327;
+    border-bottom: 1px solid #1b2327;
+    margin: 1em 0;
+    margin-top: 3em;
+    padding: 0.5em; }
+  .preference .camera-settings .camera-icon, .preference .camera-settings .camera-options {
+    width: 50%;
+    float: left;
+    margin-bottom: 1em; }
+  .preference .camera-settings .camera-icon {
+    text-align: center; }
+    .preference .camera-settings .camera-icon img {
+      width: 40%;
+      height: auto; }
+  .preference .camera-settings .camera-options .camera-option {
+    width: 100%;
+    margin-bottom: 0.5em; }
+    .preference .camera-settings .camera-options .camera-option i {
+      margin-left: -0.4em; }
+    .preference .camera-settings .camera-options .camera-option a {
+      margin-left: 0.4em;
+      text-decoration: none;
+      color: #eee; }
+  .preference .pref-control {
+    clear: both;
+    border-top: 1px solid #1b2327;
+    padding-top: 1em;
+    display: block;
+    width: 100%;
+    text-align: center; }
+    .preference .pref-control #save, .preference .pref-control #cancel {
+      color: #eee;
+      display: inline-block;
+      width: 40%;
+      cursor: pointer;
+      padding: 0.5em;
+      outline: none;
+      background: none;
+      border-radius: 5px;
+      font-family: "Ubuntu Condensed", sans-serif;
+      border: 1px solid #1b2327;
+      font-size: 1em;
+      transition: all ease-in-out 0.3s; }
+      .preference .pref-control #save:hover, .preference .pref-control #cancel:hover {
+        background: rgba(238, 238, 238, 0.1);
+        border-color: 1px solid #040506; }
+    .preference .pref-control #save {
+      margin-right: 1em;
+      margin-left: -1em; }
 
-body {
-  color: #eee;
-  font-family: "Roboto Condensed", sans-serif;
-  background-color: rgba(38, 50, 56, 0.9);
-  font-size: 16px;
-  -ms-overflow-style: scrollbar;
-  -webkit-app-region: drag; }
-
-input[type="submit"],
-input[type="reset"],
-input[type="button"],
-input[type="text"],
-input[type="checkbox"],
-button, label, .password-option,
-textarea, .menu-btn {
-  -webkit-app-region: no-drag; }
+.square-checkbox {
+  display: none; }
+  .square-checkbox + label {
+    cursor: pointer; }
+  .square-checkbox + label:before {
+    height: 1em;
+    border: 1px solid #222d32;
+    content: "";
+    display: inline-block;
+    width: 1em;
+    vertical-align: middle;
+    margin-right: 0.5em;
+    position: relative;
+    top: -1px;
+    margin-left: -0.5em; }
+  .square-checkbox:checked + label:before {
+    content: "\f26b";
+    font-family: "Material-Design-Iconic-Font";
+    color: #eee;
+    font-size: 1em;
+    text-align: center;
+    line-height: 1em; }

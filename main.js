@@ -94,14 +94,14 @@ ipcMain.on('hide-preference', () => {
 });
 
 ipcMain.on('loadMainWindow', (e, config) => {
-  console.log(config);
+  //console.log(config);
   createWindow();
   loginWindow.close();
 });
 
 app.on('ready', () => {
-  createWindow();
-  //createLoginWindow();
+  //createWindow();
+  createLoginWindow();
   createContextMenu();
 });
 

@@ -26,9 +26,3 @@ To install *scrot* run the following command:
 ```bash
 sudo apt-get install scrot
 ```
-
-### Todo
-- [ ] Optimize image as musch as possible
-- [ ] Implement native node module to track mouse event
-- [ ] Increasing efficiency
-- [ ] Clean the project

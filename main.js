@@ -9,9 +9,11 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 350,
     height: 120,
+    backgroundColor: '#3B464B',
     // width: 900,
     // height: 640,
     frame: false,
+    show: false,
     icon: path.join(__dirname, 'icons/png/64x64.png')
   });
 
@@ -20,6 +22,10 @@ function createWindow() {
     protocol: 'file:',
     slashes: true
   }));
+
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
+  });
 
   mainWindow.on('closed', () => {
     app.quit();
@@ -44,6 +50,7 @@ function createLoginWindow() {
     width: 350,
     height: 350,
     frame: false,
+    show: false,
     icon: path.join(__dirname, 'icons/png/64x64.png')
   });
 
@@ -52,6 +59,10 @@ function createLoginWindow() {
     protocol: 'file:',
     slashes: true
   }));
+
+  loginWindow.once('ready-to-show', () => {
+    loginWindow.show();
+  });
 
   loginWindow.on('closed', () => {
     loginWindow = null;
@@ -65,7 +76,7 @@ function createPreferenceWindow() {
     height: 378,
     parent: mainWindow,
     frame: false,
-    //show: false,
+    show: false,
     icon: path.join(__dirname, 'icons/png/64x64.png')
   });
 

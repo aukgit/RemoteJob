@@ -52,13 +52,13 @@ header {
         header .menu-bar .control-menu .menu-btn:hover .menu-icon {
           transform: scale(1.2); }
 
-.user-timer {
+.main .user-timer {
   padding: 7px;
   position: relative; }
-  .user-timer .user {
+  .main .user-timer .user {
     font-weight: 400;
     font-size: 1.2em; }
-    .user-timer .user::before {
+    .main .user-timer .user::before {
       content: '\f26d';
       font-family: "Material-Design-Iconic-Font";
       font-size: 0.5em;
@@ -67,14 +67,14 @@ header {
       position: relative;
       top: -2px;
       color: #64dd17; }
-  .user-timer .timer {
+  .main .user-timer .timer {
     margin-left: 23px;
     display: inline-block;
     padding: 5px 10px;
     margin-top: 10px;
     background: #0c0c0c;
     border-radius: 5px; }
-  .user-timer .timer-control {
+  .main .user-timer .timer-control {
     position: absolute;
     right: 12px;
     top: 50%;

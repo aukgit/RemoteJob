@@ -1,38 +1,40 @@
-.user-timer {
-  padding: 7px;
-  position: relative;
-  .user {
-    font-weight: 400;
-    font-size: 1.2em;
-    &::before {
-      content: '\f26d';
-      font-family: $material-font;
-      font-size: 0.5em;
-      margin-right: 10px;
-      margin-left: 5px;
-      position: relative;
-      top: -2px;
-      color: $active-state-color;
+.main {
+  .user-timer {
+    padding: 7px;
+    position: relative;
+    .user {
+      font-weight: 400;
+      font-size: 1.2em;
+      &::before {
+        content: '\f26d';
+        font-family: $material-font;
+        font-size: 0.5em;
+        margin-right: 10px;
+        margin-left: 5px;
+        position: relative;
+        top: -2px;
+        color: $active-state-color;
+      }
     }
-  }
-  .timer {
-    margin-left: 23px;
-    display: inline-block;
-    padding: 5px 10px;
-    margin-top: 10px;
-    background: $primary-color*0.05;
-    border-radius: 5px;
-  }
-  .timer-control {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: $active-state-color;
-    font-size: 2em;
-    outline: none;
-    cursor: pointer;
+    .timer {
+      margin-left: 23px;
+      display: inline-block;
+      padding: 5px 10px;
+      margin-top: 10px;
+      background: $primary-color*0.05;
+      border-radius: 5px;
+    }
+    .timer-control {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: $active-state-color;
+      font-size: 2em;
+      outline: none;
+      cursor: pointer;
+    }
   }
 }

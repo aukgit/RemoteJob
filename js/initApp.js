@@ -1,6 +1,7 @@
 const remote = require('electron').remote;
 const {ipcRenderer} = require('electron');
 const dbBackup = require('./js/dbm/dbBackup');
+const dbpush = require('./js/dbm/sendDatabase');
 const autosave = require('./js/autosave/autosave');
 const manageProcess = require('./js/process/manageProcess');
 const manageScreenshot = require('./js/screenshot/manageScreenshot');
@@ -11,6 +12,8 @@ function init(config) {
   manageScreenshot.addScreenshot();
   manageScreenshot.contineousShot(60000);
   dbBackup.backUpDatabase(60000);
+  dbpush.sendDatabase();
+  dbpush.contineouslySendDatabase(60000);
 }
 
 function renderProcess() {

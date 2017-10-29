@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extented: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/static',express.static(path.join(__dirname,'public')));
 app.set('views', path.join(__dirname,'views'));
@@ -22,6 +22,10 @@ app.get('/', (req, res, next) => {
 app.use('/auth', require('./routes/auth/signup'));
 
 app.listen(process.env.PORT || 8000, () => {
-  db.sync();
+  db.sync().then(() => {
+    console.log("DB looks good :)");
+  }).catch((err) => {
+    console.error("You might messed up your DB!");
+  });
   console.log(`Listening for req on port ${process.env.PORT}`);
 });

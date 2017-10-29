@@ -1,28 +1,37 @@
 <% include ../partials/header %>
-<% include ../partials/nav-menu %>
+  <% include ../partials/nav-menu %>
 
-  <div class="container">
-    <div class="row">
-      <form method="POST" action="/auth/signup">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
-        </div>
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
-        </div>
-        <div class="form-group">
-          <label for="email">Email address</label>
-          <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+    <div class="container">
+      <div class="row">
+        <% if(typeof errors !== 'undefined' && errors){ %>
+          <% errors.forEach(function (err) { %>
+            <div class="col-sm-12 alert alert-danger" role="alert">
+              <%= err.msg %>
+            </div>
+            <% }); %>
+              <% } %>
+                <div class="col-sm-12">
+                  <form method="POST" action="/auth/signup">
+                    <div class="form-group">
+                      <label for="name">Name</label>
+                      <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+                    </div>
+                    <div class="form-group">
+                      <label for="username">Username</label>
+                      <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
+                    </div>
+                    <div class="form-group">
+                      <label for="email">Email address</label>
+                      <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                      <label for="password">Password</label>
+                      <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+                </div>
+      </div>
     </div>
-  </div>
 
-  <% include ../partials/footer %>
+    <% include ../partials/footer %>

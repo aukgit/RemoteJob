@@ -1,9 +1,7 @@
 const activeWin = require('active-win');
 const gkm = require('gkm');
 const moment = require('moment');
-//const autosave = require('./../autosave/autosave');
 const processDbm = require('./../dbm/processDbm');
-//const screenshotDbm = require('./../dbm/screenshotDbm');
 
 let mouseInfo = {
   xPos: null,

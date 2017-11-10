@@ -67,7 +67,7 @@ let getContinuousActiveWindow = function(fn) {
 
 let setCurrentWindowInfo = function(p) {
   currenWindow.title = p.title;
-  currenWindow.started = moment().format('LTS');
+  currenWindow.started = Number(moment().format('x'));
   sequenceTime = moment().format('LT');
 };
 
@@ -100,7 +100,7 @@ let addCurrentActiveProcess = function(info) {
   setScreenshotID();
   if (info.title !== currenWindow.title) {
     setScreenshotID();
-    currenWindow.ended = moment().format('LTS');
+    currenWindow.ended = Number(moment().format('x'));
     //console.log("Ended: ", currenWindow);
     setSequence(currenWindow.started);
     if ((currenWindow.screenshotId !== null) && (currenWindow.title)) {

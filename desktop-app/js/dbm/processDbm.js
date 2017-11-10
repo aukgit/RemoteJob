@@ -25,7 +25,7 @@ let addMousePos = function (mouseInfo) {
 let getAllProcesses = function () {
   db.serialize(() => {
     db.all('SELECT * from Processes', (err, res) => {
-      //console.log(res);
+
     });
   });
 }
@@ -37,10 +37,10 @@ let addActiveProcess = function (p) {
   stmt.run(p.title, p.started, p.ended, m.xPos, m.yPos, m.totalClick, btn, m.totalKeypress, p.screenshotId,p.sequence,p.totalActiveTime);
 }
 
-let getAllActiveProcesses = function () {
+let getAllActiveProcesses = function (fn) {
   db.serialize(() => {
-    db.all('SELECT * from ActiveProcesses', (err, res) => {
-      //console.log(res);
+    db.all('SELECT id, Process, datetime(Started/1000,"unixepoch") as Started, datetime(Closed/1000, "unixepoch") as Closed, MousePosX, MousePosY, TotalMouseClick, MouseBtn, TotalKeyPress, ScreenshotId, SequenceOfStartingMinutes, TotalActiveTime  from ActiveProcesses', (err, res) => {
+      fn(res);
     });
   });
 }

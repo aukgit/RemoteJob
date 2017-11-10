@@ -4,7 +4,7 @@ const path = require('path');
 const file = path.join(__dirname, '../../tmp/data.json');
 
 let saveData = function (p) {
-  p.ended = moment().format('LTS');
+  p.ended = moment().format('x');
   jsonfile.writeFile(file, p, function (err) {
     if(err){
       console.error(err);

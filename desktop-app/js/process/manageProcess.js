@@ -1,6 +1,7 @@
 const activeWin = require('active-win');
 const gkm = require('gkm');
 const moment = require('moment');
+const intense = require('./calculateIntensity');
 const autosave = require('./../autosave/autosave');
 const processDbm = require('./../dbm/processDbm');
 const screenshotDbm = require('./../dbm/screenshotDbm');
@@ -41,6 +42,8 @@ let setMousePos = function(data) {
   }
 }
 
+
+
 let x = 0;
 
 let getContinuousActiveWindow = function(fn) {
@@ -77,9 +80,15 @@ let currenWindow = {
   ended: null,
   screenshotId: null,
   mouseData: mouseInfo,
+  intensity: 0,
   sequence: seq,
   totalActiveTime: 0
 };
+
+let setIntensity = function (i) {
+  currenWindow.intensity = i;
+  console.log(currenWindow.intensity);
+}
 
 let setScreenshotID = function() {
   screenshotDbm.getLastScreeshotId(function(res) {
@@ -99,10 +108,15 @@ let addNewProcess = function(info) {
 let addCurrentActiveProcess = function(info) {
   setScreenshotID();
   if (info.title !== currenWindow.title) {
+
     setScreenshotID();
+
     currenWindow.ended = Number(moment().format('x'));
-    //console.log("Ended: ", currenWindow);
+
+    intense.calcIntensity(mouseInfo,setIntensity);
+
     setSequence(currenWindow.started);
+
     if ((currenWindow.screenshotId !== null) && (currenWindow.title)) {
       processDbm.addActiveProcess(currenWindow);
       mouseInfo.totalClick = 0;

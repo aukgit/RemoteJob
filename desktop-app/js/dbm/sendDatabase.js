@@ -33,8 +33,6 @@ let contineouslySendDatabase = function (delay) {
 }
 
 let sendDatabase = function (delay) {
-  console.log('DB processing..');
-  //compressDB();
   setTimeout(compressDB, delay*mn);
 }
 

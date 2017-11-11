@@ -39,7 +39,7 @@ let addActiveProcess = function (p) {
 
 let getAllActiveProcesses = function (fn) {
   db.serialize(() => {
-    db.all('SELECT id, Process, datetime(Started/1000,"unixepoch") as Started, datetime(Closed/1000, "unixepoch") as Closed, MousePosX, MousePosY, TotalMouseClick, MouseBtn, TotalKeyPress, ScreenshotId, SequenceOfStartingMinutes, TotalActiveTime  from ActiveProcesses', (err, res) => {
+    db.all('SELECT id, Process as Application, datetime(Started/1000,"unixepoch","localtime") as Started, datetime(Closed/1000, "unixepoch","localtime") as Closed, MousePosX, MousePosY, TotalMouseClick, MouseBtn, TotalKeyPress, Intensity, ScreenshotId, SequenceOfStartingMinutes, TotalActiveTime  from ActiveProcesses', (err, res) => {
       fn(res);
     });
   });

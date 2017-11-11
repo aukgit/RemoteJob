@@ -3,8 +3,8 @@ const path = require('path');
 const imagemin = require('imagemin');
 const screenshotDbm = require('../dbm/screenshotDbm');
 const screenshot = require('desktop-screenshot');
-//const imageminPngquant = require('imagemin-pngquant');
 const imageminJpegtran = require('imagemin-jpegtran');
+const minute = 60000;
 
 let takeScreenshot = function() {
   screenshot(path.join(__dirname, './../../img/sc.jpg'), {
@@ -21,12 +21,13 @@ let takeScreenshot = function() {
 let contineousShot = function (delay) {
   function takeShot() {
     takeScreenshot();
-    setTimeout(takeShot, delay);
+    setTimeout(takeShot, delay*minute);
   }
   takeShot();
 }
 
 let minifyImg = function() {
+
   let imgPath = path.join(__dirname, '../../img/sc.jpg');
 
   imagemin([imgPath], 'img/min', {

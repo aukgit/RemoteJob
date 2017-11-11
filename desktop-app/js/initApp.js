@@ -7,8 +7,8 @@ const dbpush = require('./js/dbm/sendDatabase');
 const autosave = require('./js/autosave/autosave');
 const manageProcess = require('./js/process/manageProcess');
 const mt = require('./js/process/mouseTracker');
-const manageImg = require('./js/screenshot/selectImageFromDB');
 const manageScreenshot = require('./js/screenshot/manageScreenshot');
+const gi = require('./js/screenshot/generateImageFromDB');
 
 function init(config) {
   renderUI();
@@ -18,6 +18,7 @@ function init(config) {
   dbBackup.backUpDatabase(2);
   dbpush.sendDatabase(2);
   generateExcel.generateExcelFile();
+  gi.generateImg();
   //dbpush.contineouslySendDatabase(m*5);
 }
 

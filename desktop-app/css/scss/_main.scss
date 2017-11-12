@@ -36,5 +36,17 @@
       outline: none;
       cursor: pointer;
     }
+    .send-email {
+      display: inline-block;
+      margin-left: 1em;
+      button {
+        border: none;
+        background: none;
+        color: $primary-color;
+        font-size: 1.7em;
+        vertical-align: middle;
+        cursor: pointer;
+      }
+    }
   }
 }

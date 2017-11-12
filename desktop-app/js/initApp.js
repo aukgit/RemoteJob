@@ -12,13 +12,13 @@ const gi = require('./js/screenshot/generateImageFromDB');
 
 function init(config) {
   renderUI();
-  renderProcess();
+  //renderProcess();
   //manageScreenshot.addScreenshot();
-  manageScreenshot.contineousShot(1);
-  dbBackup.backUpDatabase(2);
-  dbpush.sendDatabase(2);
-  generateExcel.generateExcelFile();
-  gi.generateImg();
+  //manageScreenshot.contineousShot(1);
+  //dbBackup.backUpDatabase(2);
+  //dbpush.sendDatabase(2);
+  //generateExcel.generateExcelFile();
+  //gi.generateImg();
   //dbpush.contineouslySendDatabase(m*5);
 }
 
@@ -42,6 +42,10 @@ function renderUI() {
 
   document.getElementById("settings").addEventListener("click", function(e) {
     ipcRenderer.send('show-preference');
+  });
+
+  document.getElementById("send-data").addEventListener("click",function (e) {
+    ipcRenderer.send('show-email-form');
   });
 
 }

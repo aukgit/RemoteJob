@@ -3,7 +3,7 @@ const path = require('path');
 const url = require('url');
 const {app, BrowserWindow, Menu, Tray, ipcMain} = electron;
 
-let mainWindow, appIcon, loginWindow, preferenceWindow;
+let mainWindow, appIcon, loginWindow, preferenceWindow, sendEmailWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -96,9 +96,40 @@ function createPreferenceWindow() {
 
 }
 
+function createSendEmailWindow() {
+  sendEmailWindow = new BrowserWindow({
+    width: 500,
+    height: 340,
+    parent: mainWindow,
+    frame: false,
+    show: false,
+    icon: path.join(__dirname, 'icons/png/64x64.png')
+  });
+
+  sendEmailWindow.loadURL(url.format({
+    pathname: path.join(__dirname, './src/send-email.html'),
+    protocol: 'file:',
+    slashes: true
+  }));
+
+  sendEmailWindow.once('ready-to-show', () => {
+   sendEmailWindow.show();
+ });
+
+ sendEmailWindow.on('closed', () => {
+   sendEmailWindow = null;
+ });
+
+}
+
+ipcMain.on('show-email-form', () => {
+  createSendEmailWindow();
+});
+
 ipcMain.on('show-preference', () => {
   createPreferenceWindow();
 });
+
 
 ipcMain.on('hide-preference', () => {
   preferenceWindow.close();

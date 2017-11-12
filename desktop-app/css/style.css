@@ -85,6 +85,16 @@ header {
     font-size: 2em;
     outline: none;
     cursor: pointer; }
+  .main .user-timer .send-email {
+    display: inline-block;
+    margin-left: 1em; }
+    .main .user-timer .send-email button {
+      border: none;
+      background: none;
+      color: #eee;
+      font-size: 1.7em;
+      vertical-align: middle;
+      cursor: pointer; }
 
 .login {
   padding: 0 1em; }
@@ -149,6 +159,39 @@ header {
     opacity: 0.5; }
   .login p {
     text-align: center; }
+
+.email-form {
+  padding: 0.5em 0.9em; }
+  .email-form input[type="text"], .email-form input[type="password"], .email-form button, .email-form textarea {
+    display: inline-block;
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+    background: none;
+    border: none;
+    font-size: 1em;
+    color: #eee;
+    border-bottom: 1px solid #222d32; }
+    .email-form input[type="text"]:focus, .email-form input[type="password"]:focus, .email-form button:focus, .email-form textarea:focus {
+      outline: none; }
+  .email-form textarea {
+    color: #eee;
+    font-family: "Ubuntu Condensed", sans-serif;
+    font-size: 1.2em; }
+  .email-form ::-webkit-input-placeholder {
+    color: rgba(238, 238, 238, 0.5); }
+  .email-form button {
+    margin: 0.5em 0 0 0;
+    cursor: pointer;
+    padding: 0.5em;
+    border-radius: 5px;
+    border: 1px solid #1b2327;
+    font-family: "Ubuntu Condensed", sans-serif;
+    font-size: 1em;
+    transition: all ease-in-out 0.3s; }
+    .email-form button:hover {
+      background: rgba(238, 238, 238, 0.1);
+      border-color: 1px solid #040506; }
 
 .preference {
   padding: 1em;

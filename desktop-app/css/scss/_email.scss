@@ -1,0 +1,39 @@
+.email-form {
+  padding: 0.5em 0.9em;
+  input[type="text"], input[type="password"], button, textarea {
+    display: inline-block;
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+    background: none;
+    border: none;
+    font-size: 1em;
+    color: $primary-color;
+    border-bottom: 1px solid $primary-bg-color*0.9;
+    &:focus {
+      outline: none;
+    }
+  }
+  textarea {
+    color: $primary-color;
+    font-family: $primary-font;
+    font-size: 1.2em;
+  }
+  ::-webkit-input-placeholder {
+    color: rgba($primary-color, 0.5);
+  }
+  button {
+    margin: 0.5em 0 0 0;
+    cursor: pointer;
+    padding: 0.5em;
+    border-radius: 5px;
+    border: 1px solid $primary-bg-color*0.7;
+    font-family: $primary-font;
+    font-size: 1em;
+    transition: all ease-in-out 0.3s;
+    &:hover {
+      background: rgba($primary-color,0.1);
+      border-color: 1px solid $primary-bg-color*0.1;
+    }
+  }
+}

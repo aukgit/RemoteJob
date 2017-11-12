@@ -12,12 +12,6 @@ let fileInfo = {
   path: imgPath
 };
 
-let images = [];
-
-let imagesFromDB = function imagesFromDB(img) {
-  images.push(img);
-}
-
 let getImage = function getImageFromDB(list) {
     for (let i = 0; i < list.length; i++) {
       db.serialize(() => {

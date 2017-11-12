@@ -87,7 +87,6 @@ let currenWindow = {
 
 let setIntensity = function (i) {
   currenWindow.intensity = i;
-  console.log(currenWindow.intensity);
 }
 
 let setScreenshotID = function() {
@@ -113,7 +112,7 @@ let addCurrentActiveProcess = function(info) {
 
     currenWindow.ended = Number(moment().format('x'));
 
-    intense.calcIntensity(mouseInfo,setIntensity);
+    intense.calcIntensity(mouseInfo, setIntensity);
 
     setSequence(currenWindow.started);
 

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>RemoteJob | Send Email</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/material-design-iconic-font.min.css">
+
+</head>
+<body>
+  <header>
+    <!-- <h2 class="brand">
+      x-Product
+    </h2> -->
+    <nav class="menu-bar">
+      <ul class="control-menu">
+        <li class="menu-btn" id="minimize"><i class="zmdi menu-icon zmdi-window-minimize"></i></li>
+        <li class="menu-btn" id="close"><i class="zmdi menu-icon zmdi-close"></i></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="email">
+    <div class="container">
+
+      <form class="email-form" id="emailForm">
+        <input type="text" name="started" id="started" placeholder="started">
+        <input type="text" name="ended" id="ended" placeholder="ended">
+        <textarea rows="5" name="description" id="description" placeholder="description"></textarea>
+        <button type="submit" name="submit" id="submit">Send</button>
+      </form>
+    </div>
+  </main>
+
+  <script src="../js/send-email.js" charset="utf-8"></script>
+
+</body>
+</html>

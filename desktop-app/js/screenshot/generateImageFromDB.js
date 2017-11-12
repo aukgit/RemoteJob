@@ -5,19 +5,34 @@ const path = require('path');
 const fs = require('fs');
 const imgPath = path.join(__dirname, '../../email-data/img');
 
-let fileInfo = {'fileName': 'username_', 'type':'png'};
+let fileInfo = {
+  username: 'username_',
+  fileName: '',
+  type:'jpg',
+  path: imgPath
+};
+
+let images = [];
+
+let imagesFromDB = function imagesFromDB(img) {
+  images.push(img);
+}
 
 let getImage = function getImageFromDB(list) {
-  db.serialize(() => {
     for (let i = 0; i < list.length; i++) {
-      fileInfo.fileName += list[i];
+      db.serialize(() => {
       db.all('SELECT *  from Images WHERE id='+list[i], (err, res) => {
-        fs.writeFile(imgPath+"/"+fileInfo.fileName+"."+fileInfo.type, res[0].img, 'base64', (err) => {
-          //console.log(err);
-        });
-        console.log(list[i]);
+        fileInfo.fileName = fileInfo.username + list[i];
+        return createImage(res[0].img, fileInfo);
       });
-      fileInfo.fileName = "username_";
+    });
+  }
+}
+
+let createImage = function createImageFromString(img, fileInfo) {
+  fs.writeFile(imgPath+"/"+fileInfo.fileName+"."+fileInfo.type, img, 'base64', (err) => {
+    if(err){
+      console.log(err);
     }
   });
 }

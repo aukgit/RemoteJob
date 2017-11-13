@@ -1,5 +1,17 @@
 .email-form {
   padding: 0.5em 0.9em;
+  .email-type {
+    margin: 0.5em 0;
+    display: block;
+    width: 100%;
+    .email-option {
+      display: inline-block;
+      width: 49%;
+      input[type="radio"] {
+        margin-right: 0.7em;
+      }
+    }
+  }
   input[type="text"], input[type="password"], button, textarea {
     display: inline-block;
     width: 100%;

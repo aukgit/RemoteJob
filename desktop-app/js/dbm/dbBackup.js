@@ -6,7 +6,7 @@ let backUpDatabase = function (delay) {
     fs.createReadStream(path.join(__dirname,'../../db/data.db')).pipe(fs.createWriteStream(path.join(__dirname,'../../db/backup_data.db')));
     setTimeout(createBackup, delay*mn);
   }
-  createBackup();
+  setTimeout(createBackup(), delay*mn);
 }
 
 module.exports = {

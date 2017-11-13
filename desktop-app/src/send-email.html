@@ -27,8 +27,15 @@
     <div class="container">
 
       <form class="email-form" id="emailForm">
-        <input type="text" name="started" id="started" placeholder="started">
-        <input type="text" name="ended" id="ended" placeholder="ended">
+        <span class="email-type">
+          <span class="email-option">
+            <input type="radio" name="emailType" id="started" value="started"><label for="started">Started</label>
+          </span>
+          <span class="email-option">
+            <input type="radio" name="emailType" id="ended" value="ended"><label for="ended">Ended</label>
+          </span>
+        </span>
+        <input type="text" name="subject" id="subject" placeholder="subject">
         <textarea rows="5" name="description" id="description" placeholder="description"></textarea>
         <button type="submit" name="submit" id="submit">Send</button>
       </form>

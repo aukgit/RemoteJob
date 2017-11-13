@@ -3,7 +3,7 @@ const path = require('path');
 const moment = require('moment');
 const crypto = require('crypto');
 const lzma = require('lzma-native');
-const mail = require('../mail/mailDB');
+const mailer = require('../mail/mailer');
 const mn = 7500;
 
 let getSecret = function () {
@@ -21,7 +21,7 @@ let compressDB = function () {
       let file = {
         path: path.join(__dirname,'../../db/'+fileInitial+'_data.db.xz')
       };
-      mail.sendDB(file);
+      mailer.sendData(file);
 }
 
 let contineouslySendDatabase = function (delay) {
@@ -37,6 +37,6 @@ let sendDatabase = function (delay) {
 }
 
 module.exports = {
-  sendDatabase: sendDatabase,
-  contineouslySendDatabase: contineouslySendDatabase
+  sendDatabase,
+  contineouslySendDatabase
 }

@@ -95,6 +95,8 @@ header {
       font-size: 1.7em;
       vertical-align: middle;
       cursor: pointer; }
+    .main .user-timer .send-email button:focus {
+      outline: none; }
 
 .login {
   padding: 0 1em; }
@@ -162,6 +164,15 @@ header {
 
 .email-form {
   padding: 0.5em 0.9em; }
+  .email-form .email-type {
+    margin: 0.5em 0;
+    display: block;
+    width: 100%; }
+    .email-form .email-type .email-option {
+      display: inline-block;
+      width: 49%; }
+      .email-form .email-type .email-option input[type="radio"] {
+        margin-right: 0.7em; }
   .email-form input[type="text"], .email-form input[type="password"], .email-form button, .email-form textarea {
     display: inline-block;
     width: 100%;

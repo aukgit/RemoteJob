@@ -47,6 +47,9 @@
         vertical-align: middle;
         cursor: pointer;
       }
+      button:focus {
+        outline: none;
+      }
     }
   }
 }

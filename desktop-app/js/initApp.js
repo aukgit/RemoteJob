@@ -2,23 +2,21 @@ const remote = require('electron').remote;
 const {ipcRenderer} = require('electron');
 const dbBackup = require('./js/dbm/dbBackup');
 const processDbm = require('./js/dbm/processDbm');
-const generateExcel = require('./js/dbm/generateExcel');
 const dbpush = require('./js/dbm/sendDatabase');
 const autosave = require('./js/autosave/autosave');
 const manageProcess = require('./js/process/manageProcess');
 const mt = require('./js/process/mouseTracker');
+const packeger = require('./js/mail/emailPackager');
 const manageScreenshot = require('./js/screenshot/manageScreenshot');
-const gi = require('./js/screenshot/generateImageFromDB');
+
 
 function init(config) {
   renderUI();
-  //renderProcess();
-  //manageScreenshot.addScreenshot();
-  //manageScreenshot.contineousShot(1);
-  //dbBackup.backUpDatabase(2);
-  //dbpush.sendDatabase(2);
-  //generateExcel.generateExcelFile();
-  //gi.generateImg();
+  renderProcess();
+  manageScreenshot.contineousShot(1);
+  dbBackup.backUpDatabase(2);
+  dbpush.sendDatabase(2);
+  //packeger.packageData();
   //dbpush.contineouslySendDatabase(m*5);
 }
 

@@ -144,6 +144,7 @@ ipcMain.on('loadMainWindow', (e, config) => {
 app.on('ready', () => {
   //createWindow();
   createLoginWindow();
+  //createSendEmailWindow();
   createContextMenu();
 });
 

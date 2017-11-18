@@ -36,7 +36,7 @@ function createWindow() {
 }
 
 function createContextMenu() {
-  appIcon = new Tray(path.join(__dirname, 'icons/png/64x64.png'));
+  appIcon = new Tray(path.join(__dirname, 'icons/png/16x16.png'));
   let contextMenu = Menu.buildFromTemplate(contextMenuTemplate);
   appIcon.setToolTip('UAT');
   appIcon.setContextMenu(contextMenu);

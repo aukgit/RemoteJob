@@ -56,6 +56,6 @@ let addScreenshot = function() {
 }
 
 module.exports = {
-  addScreenshot: addScreenshot,
-  contineousShot: contineousShot
+  addScreenshot,
+  contineousShot
 }

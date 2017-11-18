@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const nodemailer = require('nodemailer');
+const removeData = require('../dbm/removeData');
 
 const config = JSON.parse(fs.readFileSync(path.join(__dirname, 'config.json')));
 
@@ -45,8 +46,7 @@ let sendData = function (msg, file) {
       if (error) {
         console.log(error);
       } else {
-        console.log('Mail sent!');
-        console.log('Info:', info);
+        removeData.emptyAllTables(['ActiveProcesses','MousePos','Processes','images']);
       }
     });
   }

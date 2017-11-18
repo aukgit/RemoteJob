@@ -3,7 +3,7 @@ const moment = require('moment');
 const path = require('path');
 const file = path.join(__dirname, '../../tmp/data.json');
 
-let saveData = function (p) {
+let saveData = function savaDataAsJSON(p) {
   p.ended = moment().format('x');
   jsonfile.writeFile(file, p, function (err) {
     if(err){
@@ -12,7 +12,15 @@ let saveData = function (p) {
   });
 }
 
-let readSavedData = function (fn) {
+let resetData = function resetDataFile() {
+  jsonfile.writeFile(file, {}, function (err) {
+    if(err){
+      console.error(err);
+    }
+  });
+}
+
+let readSavedData = function readData(fn) {
   jsonfile.readFile(file, function(err, obj) {
     if (obj) {
       //console.log(obj);
@@ -24,6 +32,7 @@ let readSavedData = function (fn) {
 }
 
 module.exports = {
-  saveData: saveData,
-  readSavedData: readSavedData
+  saveData,
+  resetData,
+  readSavedData
 };

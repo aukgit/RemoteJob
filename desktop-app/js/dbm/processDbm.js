@@ -54,9 +54,9 @@ let initTables = function () {
 initTables();
 
 module.exports = {
-  addProcess: addProcess,
-  addMousePos: addMousePos,
-  getAllProcesses: getAllProcesses,
-  addActiveProcess: addActiveProcess,
-  getAllActiveProcesses: getAllActiveProcesses
+  addProcess,
+  addMousePos,
+  getAllProcesses,
+  addActiveProcess,
+  getAllActiveProcesses
 };

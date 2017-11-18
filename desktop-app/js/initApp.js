@@ -6,18 +6,15 @@ const dbpush = require('./js/dbm/sendDatabase');
 const autosave = require('./js/autosave/autosave');
 const manageProcess = require('./js/process/manageProcess');
 const mt = require('./js/process/mouseTracker');
-const packeger = require('./js/mail/emailPackager');
 const manageScreenshot = require('./js/screenshot/manageScreenshot');
 
 
 function init(config) {
   renderUI();
   renderProcess();
-  manageScreenshot.contineousShot(1);
-  dbBackup.backUpDatabase(2);
-  dbpush.sendDatabase(2);
-  //packeger.packageData();
-  //dbpush.contineouslySendDatabase(m*5);
+  manageScreenshot.contineousShot(10);
+  dbBackup.backUpDatabase(5);
+  //dbpush.contineouslySendDatabase(5);
 }
 
 function renderProcess() {
@@ -45,11 +42,10 @@ function renderUI() {
   document.getElementById("send-data").addEventListener("click",function (e) {
     ipcRenderer.send('show-email-form');
   });
-
 }
 
 document.onreadystatechange = function() {
-  if (document.readyState == "complete") {
+  if (document.readyState === "complete") {
     init();
   }
 };

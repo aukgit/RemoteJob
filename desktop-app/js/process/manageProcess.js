@@ -91,7 +91,9 @@ let setIntensity = function (i) {
 
 let setScreenshotID = function() {
   screenshotDbm.getLastScreeshotId(function(res) {
-    currenWindow.screenshotId = res.ID;
+    if(res){
+      currenWindow.screenshotId = res.ID;
+    }
   });
 }
 setScreenshotID();
@@ -157,13 +159,16 @@ let addActiveProcess = function() {
 };
 
 let addInterruptedProcess = function(p) {
-  if (p.title) {
+  p.ended = Number(p.ended);
+
+  let today = moment().format('L');
+  if (p.title && moment(p.ended).format('L') === today) {
     processDbm.addActiveProcess(p);
   }
 }
 
 module.exports = {
-  addProcess: addProcess,
-  addActiveProcess: addActiveProcess,
-  addInterruptedProcess: addInterruptedProcess
+  addProcess,
+  addActiveProcess,
+  addInterruptedProcess
 };

@@ -8,7 +8,8 @@ let getLastScreeshotId = function (fn) {
   let stmt = "SELECT * FROM images ORDER BY ID DESC LIMIT 1";
   db.all(stmt, [], (err, res) => {
     if(err){
-      console.log(err);
+      res = { ID: 1};
+      fn(res);
     } else {
       fn(res[0]);
     }
@@ -35,7 +36,7 @@ let initTables = function () {
 initTables();
 
 module.exports = {
-  addScreenshot: addScreenshot,
-  getLastScreeshotId: getLastScreeshotId,
-  getAllScreenshot: getAllScreenshot,
+  addScreenshot,
+  getLastScreeshotId,
+  getAllScreenshot,
 }

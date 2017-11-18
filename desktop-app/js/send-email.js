@@ -1,11 +1,8 @@
 const remote = require('electron').remote;
 const {ipcRenderer} = require('electron');
 const mailer = require('../js/mail/mailer');
+const autosave = require('../js/autosave/autosave');
 const packeger = require('../js/mail/emailPackager');
-
-const path = require('path');
-
-console.log(path.join(__dirname,'./'));
 
 let emailForm = document.getElementById("emailForm");
 emailForm.addEventListener('submit', generateEmail);
@@ -37,6 +34,9 @@ function generateEmail(e) {
 
   if (emailType === "ended") {
     packeger.packageData(msg);
+    autosave.resetData();
+  } else {
+    mailer.sendEmail(msg);
   }
 
   const window = remote.getCurrentWindow();

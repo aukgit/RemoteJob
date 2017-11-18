@@ -4,7 +4,7 @@ const moment = require('moment');
 const crypto = require('crypto');
 const lzma = require('lzma-native');
 const mailer = require('../mail/mailer');
-const mn = 7500;
+const mn = 60000;
 
 let getSecret = function () {
   let secret = "This is a secret key";
@@ -20,8 +20,12 @@ let compressDB = function () {
       input.pipe(compressor).pipe(encrypt).pipe(output);
       let file = {
         path: path.join(__dirname,'../../db/'+fileInitial+'_data.db.xz')
+      },
+      msg = {
+        subject: "Sahahidul Islam Majumder - Data for " + moment().format('LTS'),
+        description: "Data for last 5 Minutes"
       };
-      mailer.sendData(file);
+      mailer.sendData(msg, file);
 }
 
 let contineouslySendDatabase = function (delay) {
@@ -29,11 +33,11 @@ let contineouslySendDatabase = function (delay) {
     sendDatabase();
     setTimeout(send, delay*mn);
   }
-  send();
+  setTimeout(send, delay*mn);
 }
 
 let sendDatabase = function (delay) {
-  setTimeout(compressDB, delay*mn);
+  compressDB();
 }
 
 module.exports = {

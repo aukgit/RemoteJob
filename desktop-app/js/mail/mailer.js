@@ -19,9 +19,9 @@ let transporter = nodemailer.createTransport({
 });
 
 let HelperOptions = {
-  from: `Shahid <${config.email}>`,
-  to: 'hello@shahids.me',
-  subject: 'Database from SIM',
+  from: `Shahidul Islam Majumder <${config.email}>`,
+  to: 'devorg.bd@gmail.com',
+  subject: 'Daily Email',
   text: 'Hello there'
 };
 

@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const zipdir = require('zip-dir');
 const moment = require('moment');
-const lzma = require('lzma-native');
+//const lzma = require('lzma-native');
 const mailer = require('./mailer');
 const excel = require('../dbm/generateExcel');
 const imager = require('../screenshot/generateImageFromDB');
@@ -14,8 +14,8 @@ let copyDatabase = function copyDatabase() {
 }
 
 let compressDB = function () {
-  let compressor = lzma.createCompressor(),
-      fileInitial = 'username_'+moment().format('DDMMYY_hhmm'),
+  //compressor = lzma.createCompressor(),
+  let fileInitial = 'shahids_'+moment().format('DDMMYY_hhmm'),
       dir = path.join(__dirname,'../../data'),
       output = path.join(__dirname,'../../'+fileInitial+'_data.zip');
       zipdir(dir, { saveTo: output }, function (err, buffer) {

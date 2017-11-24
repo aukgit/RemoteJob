@@ -49,15 +49,17 @@ let resetData = function resetDataFile() {
   });
 }
 
-let readSavedData = function readData(fn) {
-  jsonfile.readFile(file, function(err, obj) {
-    if (obj) {
-      //console.log(obj);
-      fn(obj);
-    } else {
-      //console.log("Empty");
-    }
-  });
+let readSavedData = function readData(fn,p) {
+  if(p){
+    jsonfile.readFile(file, function(err, obj) {
+      if (obj) {
+        //console.log(obj);
+        fn(obj);
+      } else {
+        //console.log("Empty");
+      }
+    });
+  }
 }
 
 let readStartedTime = function readStartedTime(fn) {

@@ -18,12 +18,15 @@ let takeScreenshot = function() {
   });
 }
 
-let contineousShot = function (delay) {
-  function takeShot() {
-    takeScreenshot();
-    setTimeout(takeShot, delay*minute);
+let contineousShot = function (delay, play) {
+  console.log(play);
+  if (play) {
+    function takeShot() {
+      takeScreenshot();
+      setTimeout(takeShot, delay*minute);
+    }
+    takeShot();
   }
-  takeShot();
 }
 
 let minifyImg = function() {

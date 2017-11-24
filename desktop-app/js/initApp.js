@@ -22,14 +22,14 @@ function renderScreenshot() {
 
 }
 
-function runApp() {
-  autosave.readSavedData(manageProcess.addInterruptedProcess);
-  manageProcess.addProcess();
-  manageProcess.addActiveProcess();
-  mt.getMousePos();
-  manageScreenshot.contineousShot(10);
-  dbBackup.backUpDatabase(5);
-  //dbpush.contineouslySendDatabase(5);
+function runApp(play) {
+  autosave.readSavedData(manageProcess.addInterruptedProcess, play);
+  manageProcess.addProcess(play);
+  manageProcess.addActiveProcess(play);
+  mt.getMousePos(play);
+  manageScreenshot.contineousShot(10, play);
+  dbBackup.backUpDatabase(5, play);
+  //dbpush.contineouslySendDatabase(5, play);
 }
 
 function renderUI() {
@@ -60,10 +60,11 @@ function renderUI() {
     if (play) {
       play = false;
       playPause();
-      runApp();
+      runApp(play);
     } else {
       play = true;
-      playPause();
+      playPause(play);
+      runApp(play);
     }
   });
 

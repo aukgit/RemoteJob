@@ -33,10 +33,12 @@ let setMousePos = function(data) {
   }
 }
 
-let getMousePos = function(fn) {
-  gkm.events.on('mouse.*', function(data) {
-    setMousePos(data);
-  });
+let getMousePos = function(play) {
+  if (play) {
+    gkm.events.on('mouse.*', function(data) {
+      setMousePos(data);
+    });
+  }
 };
 
 

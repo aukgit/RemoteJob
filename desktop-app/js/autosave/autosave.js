@@ -3,6 +3,7 @@ const moment = require('moment');
 const path = require('path');
 const file = path.join(__dirname, '../../tmp/data.json');
 const timeDataPath = path.join(__dirname, '../../tmp/time.json');
+const workTime = path.join(__dirname, '../../tmp/worktime.json');
 
 let saveData = function savaDataAsJSON(p) {
   p.ended = moment().format('x');
@@ -17,6 +18,25 @@ let saveStartedTime = function saveTime(time) {
   jsonfile.writeFile(timeDataPath, time, function (err) {
     if(err){
       console.error(err);
+    }
+  });
+}
+
+let saveTotalWorkingTime = function saveWorkingTime(time) {
+  jsonfile.writeFile(workTime, time, function (err) {
+    if(err){
+      console.error(err);
+    }
+  });
+}
+
+let readTotalWorkingTime = function readWorkingTime(fn) {
+  jsonfile.readFile(workTime, function(err, obj) {
+    if (obj) {
+      console.log(obj);
+      fn(obj);
+    } else {
+      //console.log("Empty");
     }
   });
 }
@@ -54,7 +74,9 @@ let readStartedTime = function readStartedTime(fn) {
 module.exports = {
   saveData,
   saveStartedTime,
+  saveTotalWorkingTime,
   resetData,
   readSavedData,
-  readStartedTime
+  readStartedTime,
+  readTotalWorkingTime
 };

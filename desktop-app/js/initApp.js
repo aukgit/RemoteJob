@@ -73,7 +73,6 @@ function renderUI() {
 function setWorkTime(t) {
   if(t){
     time = Number(t);
-    console.log(time);
     hour.innerHTML = pad(moment.duration(time*1000).hours())+'h';
     mins.innerHTML = pad(moment.duration(time*1000).minutes())+'m';
     secs.innerHTML = pad(moment.duration(time*1000).seconds())+'s';

@@ -20,7 +20,7 @@ let transporter = nodemailer.createTransport({
 
 let HelperOptions = {
   from: `Shahidul Islam Majumder <${config.email}>`,
-  to: 'devorg.bd@gmail.com',
+  to: 'xp.pground@gmail.com',
   subject: 'Daily Email',
   text: 'Hello there'
 };

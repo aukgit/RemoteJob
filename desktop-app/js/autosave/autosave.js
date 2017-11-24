@@ -33,7 +33,6 @@ let saveTotalWorkingTime = function saveWorkingTime(time) {
 let readTotalWorkingTime = function readWorkingTime(fn) {
   jsonfile.readFile(workTime, function(err, obj) {
     if (obj) {
-      console.log(obj);
       fn(obj);
     } else {
       //console.log("Empty");

@@ -2,9 +2,6 @@ const jsonfile = require('jsonfile');
 const moment = require('moment');
 const path = require('path');
 const {db} = require('../dbm/initDB');
-const file = path.join(__dirname, '../../tmp/data.json');
-const timeDataPath = path.join(__dirname, '../../tmp/time.json');
-const workTime = path.join(__dirname, '../../tmp/worktime.json');
 
 let saveData = function savaDataAsJSON(p) {
   if (p) {
@@ -14,20 +11,7 @@ let saveData = function savaDataAsJSON(p) {
   }
 }
 
-let saveStartedTime = function saveTime(time) {
-  jsonfile.writeFile(timeDataPath, time, function (err) {
-    if(err){
-      console.error(err);
-    }
-  });
-}
-
-let resetData = function resetDataFile() {
-  let stmt = db.prepare("REPLACE INTO Temp (Title, Data, CreatedAt) VALUES (?,?,?)");
-  stmt.run('Process', JSON.stringify({}) , moment().format('x'));
-}
-
-let readSavedData = function readData(fn,p) {
+let readSavedData = function readData(fn, p) {
   if(p){
     db.serialize(() => {
       db.all('SELECT Data from Temp WHERE Title = "Process"', (err, res) => {
@@ -41,16 +25,50 @@ let readSavedData = function readData(fn,p) {
   }
 }
 
+let resetData = function resetDataFile() {
+  let stmt = db.prepare("REPLACE INTO Temp (Title, Data, CreatedAt) VALUES (?,?,?)");
+  stmt.run('Process', JSON.stringify({}) , moment().format('x'));
+}
+
+let saveStartedTime = function saveTime(time) {
+  if (time) {
+    let stmt = db.prepare("REPLACE INTO Temp (Title, Data, CreatedAt) VALUES (?,?,?)");
+    stmt.run('StartedTime', time.toString() , moment().format('x'));
+  }
+}
+
 let readStartedTime = function readStartedTime(fn) {
-  jsonfile.readFile(timeDataPath, function(err, obj) {
-    if (obj) {
-      //console.log(obj);
-      fn(obj);
-    } else {
-      //console.log("Empty");
-    }
+  db.serialize(() => {
+    db.all('SELECT Data from Temp WHERE Title = "StartedTime"', (err, res) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(Number(res[0].Data));
+        fn(Number(res[0].Data));
+      }
+    });
   });
 }
+
+let saveTotalWorkingTime = function saveWorkingTime(time) {
+  if (time) {
+    let stmt = db.prepare("REPLACE INTO Temp (Title, Data, CreatedAt) VALUES (?,?,?)");
+    stmt.run('TotalWorkingTime', time.toString() , moment().format('x'));
+  }
+}
+
+ let readTotalWorkingTime = function readWorkingTime(fn) {
+   db.serialize(() => {
+     db.all('SELECT Data from Temp WHERE Title = "TotalWorkingTime"', (err, res) => {
+       if (err) {
+         console.log(err);
+       } else {
+         console.log(Number(res[0].Data));
+         fn(Number(res[0].Data));
+       }
+     });
+   });
+ }
 
 module.exports = {
   saveData,

@@ -27,35 +27,16 @@ let resetData = function resetDataFile() {
   stmt.run('Process', JSON.stringify({}) , moment().format('x'));
 }
 
-let readSavedData = function readData(fn) {
-  db.serialize(() => {
-    db.all('SELECT Data from Temp WHERE Title = "Process"', (err, res) => {
-      if (err) {
-        console.log(err);
-      } else {
-        fn(JSON.parse(res[0].Data));
-      }
-    });
-  });
-}
-
-let resetData = function resetDataFile() {
-  jsonfile.writeFile(file, {}, function (err) {
-    if(err){
-      console.error(err);
-    }
-  });
-}
-
 let readSavedData = function readData(fn,p) {
   if(p){
-    jsonfile.readFile(file, function(err, obj) {
-      if (obj) {
-        //console.log(obj);
-        fn(obj);
-      } else {
-        //console.log("Empty");
-      }
+    db.serialize(() => {
+      db.all('SELECT Data from Temp WHERE Title = "Process"', (err, res) => {
+        if (err) {
+          console.log(err);
+        } else {
+          fn(JSON.parse(res[0].Data));
+        }
+      });
     });
   }
 }

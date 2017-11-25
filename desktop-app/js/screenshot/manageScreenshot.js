@@ -19,7 +19,6 @@ let takeScreenshot = function() {
 }
 
 let contineousShot = function (delay, play) {
-  console.log(play);
   if (play) {
     function takeShot() {
       takeScreenshot();

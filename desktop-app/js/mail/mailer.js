@@ -3,7 +3,7 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 const removeData = require('../dbm/removeData');
 
-const config = JSON.parse(fs.readFileSync(path.join(__dirname, 'config.json')));
+const config = JSON.parse(fs.readFileSync(path.join(__dirname, 'config.test.json')));
 
 let transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -20,7 +20,7 @@ let transporter = nodemailer.createTransport({
 
 let HelperOptions = {
   from: `Shahidul Islam Majumder <${config.email}>`,
-  to: 'devorg.bd@gmail.com',
+  to: 'xp.pground@gmail.com',
   subject: 'Daily Email',
   text: 'Hello there'
 };

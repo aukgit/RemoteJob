@@ -150,12 +150,16 @@ let save = function() {
 
 setTimeout(save, 1000);
 
-let addProcess = function() {
-  getContinuousActiveWindow(addNewProcess);
+let addProcess = function(play) {
+  if (play) {
+    getContinuousActiveWindow(addNewProcess);
+  }
 };
 
-let addActiveProcess = function() {
-  getContinuousActiveWindow(addCurrentActiveProcess);
+let addActiveProcess = function(play) {
+  if (play) {
+    getContinuousActiveWindow(addCurrentActiveProcess);
+  }
 };
 
 let addInterruptedProcess = function(p) {

@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Ubuntu+Condensed");
+@font-face {
+  font-family: 'Ubuntu Condensed';
+  src: url("../fonts/Ubuntu.ttf"); }
+
 * {
   margin: 0;
   padding: 0;

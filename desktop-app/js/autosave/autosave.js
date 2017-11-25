@@ -4,6 +4,7 @@ const path = require('path');
 const {db} = require('../dbm/initDB');
 const file = path.join(__dirname, '../../tmp/data.json');
 const timeDataPath = path.join(__dirname, '../../tmp/time.json');
+const workTime = path.join(__dirname, '../../tmp/worktime.json');
 
 let saveData = function savaDataAsJSON(p) {
   if (p) {
@@ -38,6 +39,27 @@ let readSavedData = function readData(fn) {
   });
 }
 
+let resetData = function resetDataFile() {
+  jsonfile.writeFile(file, {}, function (err) {
+    if(err){
+      console.error(err);
+    }
+  });
+}
+
+let readSavedData = function readData(fn,p) {
+  if(p){
+    jsonfile.readFile(file, function(err, obj) {
+      if (obj) {
+        //console.log(obj);
+        fn(obj);
+      } else {
+        //console.log("Empty");
+      }
+    });
+  }
+}
+
 let readStartedTime = function readStartedTime(fn) {
   jsonfile.readFile(timeDataPath, function(err, obj) {
     if (obj) {
@@ -52,7 +74,9 @@ let readStartedTime = function readStartedTime(fn) {
 module.exports = {
   saveData,
   saveStartedTime,
+  saveTotalWorkingTime,
   resetData,
   readSavedData,
-  readStartedTime
+  readStartedTime,
+  readTotalWorkingTime
 };

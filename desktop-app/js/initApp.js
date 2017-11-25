@@ -1,8 +1,6 @@
 const remote = require('electron').remote;
 const moment = require('moment');
-const {
-  ipcRenderer
-} = require('electron');
+const {ipcRenderer} = require('electron');
 const dbBackup = require('./js/dbm/dbBackup');
 const processDbm = require('./js/dbm/processDbm');
 const dbpush = require('./js/dbm/sendDatabase');
@@ -18,17 +16,20 @@ let play = false,
 
 function init(config) {
   renderUI();
-  renderProcess();
-  manageScreenshot.contineousShot(10);
-  dbBackup.backUpDatabase(5);
-  //dbpush.contineouslySendDatabase(5);
 }
 
-function renderProcess() {
-  autosave.readSavedData(manageProcess.addInterruptedProcess);
-  manageProcess.addProcess();
-  manageProcess.addActiveProcess();
-  mt.getMousePos();
+function renderScreenshot() {
+
+}
+
+function runApp(play) {
+  autosave.readSavedData(manageProcess.addInterruptedProcess, play);
+  manageProcess.addProcess(play);
+  manageProcess.addActiveProcess(play);
+  mt.getMousePos(play);
+  manageScreenshot.contineousShot(10, play);
+  dbBackup.backUpDatabase(5, play);
+  //dbpush.contineouslySendDatabase(5, play);
 }
 
 function renderUI() {
@@ -54,18 +55,28 @@ function renderUI() {
   hours = document.getElementById("hour"),
     mins = document.getElementById("mins"),
     secs = document.getElementById("secs"),
-    lastUpdateTime = new Date().getTime(),
-    hourCount = new Date(lastUpdateTime);
+    autosave.readTotalWorkingTime(setWorkTime);
   timerControl.addEventListener('click', () => {
     if (play) {
       play = false;
       playPause();
+      runApp(play);
     } else {
       play = true;
-      playPause();
+      playPause(play);
+      runApp(play);
     }
   });
 
+}
+
+function setWorkTime(t) {
+  if(t){
+    time = Number(t);
+    hour.innerHTML = pad(moment.duration(time*1000).hours())+'h';
+    mins.innerHTML = pad(moment.duration(time*1000).minutes())+'m';
+    secs.innerHTML = pad(moment.duration(time*1000).seconds())+'s';
+  }
 }
 
 function playPause() {
@@ -76,7 +87,7 @@ function playPause() {
     console.log("Playing");
   } else {
     playPauseBtn.className = "zmdi zmdi-play-circle-outline";
-    stopTimer();
+    //stopTimer();
     console.log("Paused");
   }
 }
@@ -92,18 +103,12 @@ function updateTimer() {
       hour.innerHTML = pad(moment.duration(time*1000).hours())+'h';
       mins.innerHTML = pad(moment.duration(time*1000).minutes())+'m';
       secs.innerHTML = pad(moment.duration(time*1000).seconds())+'s';
+      autosave.saveTotalWorkingTime(time);
       updateTimer();
     }, 1000);
   }
 }
 
-
-function startTimer() {
-}
-
-function stopTimer() {
-
-}
 
 document.onreadystatechange = function() {
   if (document.readyState === "complete") {

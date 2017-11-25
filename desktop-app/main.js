@@ -10,8 +10,8 @@ function createWindow() {
     width: 350,
     height: 120,
     backgroundColor: '#3B464B',
-    width: 900,
-    height: 640,
+    //width: 900,
+    //height: 640,
     frame: false,
     show: false,
     icon: path.join(__dirname, 'icons/png/64x64.png')
@@ -31,14 +31,14 @@ function createWindow() {
     app.quit();
   });
 
-  mainWindow.webContents.toggleDevTools();
+  //mainWindow.webContents.toggleDevTools();
 
 }
 
 function createContextMenu() {
   appIcon = new Tray(path.join(__dirname, 'icons/png/16x16.png'));
   let contextMenu = Menu.buildFromTemplate(contextMenuTemplate);
-  appIcon.setToolTip('UAT');
+  appIcon.setToolTip('RemoteJob');
   appIcon.setContextMenu(contextMenu);
   appIcon.on('click', () => {
     mainWindow.show();

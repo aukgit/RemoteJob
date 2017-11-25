@@ -18,22 +18,25 @@ let takeScreenshot = function() {
   });
 }
 
-let contineousShot = function (delay) {
-  function takeShot() {
-    takeScreenshot();
-    setTimeout(takeShot, delay*minute);
+let contineousShot = function (delay, play) {
+  console.log(play);
+  if (play) {
+    function takeShot() {
+      takeScreenshot();
+      setTimeout(takeShot, delay*minute);
+    }
+    takeShot();
   }
-  takeShot();
 }
 
 let minifyImg = function() {
 
   let imgPath = path.join(__dirname, '../../img/sc.jpg');
 
-  imagemin([imgPath], 'img/min', {
+  imagemin([imgPath], path.join(__dirname,'../../img/min'), {
     use: [imageminJpegtran()]
   }).then(() => {
-    let imgPath = path.join(__dirname, './../../img/min/sc.jpg');
+    let imgPath = path.join(__dirname, './../../img/sc.jpg');
     generateBlob(imgPath);
   });
 

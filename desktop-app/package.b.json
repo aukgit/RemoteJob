@@ -1,13 +1,9 @@
 {
   "name": "RemoteJob",
-  "email": "xp@gmail.com",
-  "author": "Shahid <hello@shahids.me> (http://shahids.me/)",
-  "license": "MIT",
-  "url": "http://shahids.me",
   "version": "1.0.0",
   "description": "A NodeJS based desktop application to trac user activity",
   "productName": "RemoteJob",
-  "homepage": "https://github.com/aukgit/RemoteJob/",
+  "category": "Utility",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -19,8 +15,11 @@
     "nodejs",
     "electron"
   ],
+  "author": "Shahid",
+  "license": "MIT",
   "build": {
     "appId": "me.shahids.remotejob",
+    "category": "productivity",
     "dmg": {
       "contents": [
         {
@@ -39,9 +38,7 @@
       "target": [
         "AppImage",
         "deb"
-      ],
-      "icon": "build/icons",
-      "maintainer": "Shahid"
+      ]
     },
     "win": {
       "target": "squirrel",
@@ -52,6 +49,7 @@
     "active-win": "^2.0.0",
     "base64-to-image": "^1.0.2",
     "desktop-screenshot": "^0.1.1",
+    "electron": "^1.7.6",
     "gkm": "^0.1.0",
     "imagemin": "^5.3.1",
     "imagemin-jpegtran": "^5.0.2",

@@ -1,7 +1,9 @@
 const fs = require('fs');
 const path = require('path');
+const electron = require('electron');
+const uData = (electron.app || electron.remote.app).getPath('userData');
 const nodemailer = require('nodemailer');
-const removeData = require('../dbm/removeData');
+const removeData = require(path.join(__dirname, '../dbm/removeData'));
 
 const config = JSON.parse(fs.readFileSync(path.join(__dirname, 'config.test.json')));
 
@@ -37,7 +39,7 @@ let sendEmail = function sendMailWithData(msg) {
   });
 }
 
-let sendData = function (msg, file) {
+let sendData = function(msg, file) {
   HelperOptions.attachments = file;
   HelperOptions.subject = msg.subject;
   HelperOptions.text = msg.description;
@@ -46,7 +48,35 @@ let sendData = function (msg, file) {
       if (error) {
         console.log(error);
       } else {
-        removeData.emptyAllTables(['ActiveProcesses','MousePos','Processes','images']);
+        removeData.emptyAllTables(['ActiveProcesses', 'MousePos', 'Processes', 'images']);
+
+        const dataPack = uData + '/data/dataPack',
+              emailData = uData + '/data/emailData';
+        fs.readdir(dataPack, (err, files) => {
+          if (err)
+            throw err;
+
+          for (let file of files) {
+            fs.unlink(path.join(dataPack, file), err => {
+              if (err)
+                throw err;
+              }
+            );
+          }
+        });
+        fs.readdir(emailData, (err, files) => {
+          if (err)
+            throw err;
+
+          for (const file of files) {
+            fs.unlink(path.join(emailData, file), err => {
+              if (err)
+                throw err;
+              }
+            );
+          }
+        });
+
       }
     });
   }

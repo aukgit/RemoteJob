@@ -1,10 +1,11 @@
-const activeWin = require('active-win');
 const gkm = require('gkm');
+const path = require('path');
 const moment = require('moment');
-const intense = require('./calculateIntensity');
-const autosave = require('./../autosave/autosave');
-const processDbm = require('./../dbm/processDbm');
-const screenshotDbm = require('./../dbm/screenshotDbm');
+const activeWin = require('active-win');
+const intense = require(path.join(__dirname,'./calculateIntensity'));
+const autosave = require(path.join(__dirname,'./../autosave/autosave'));
+const processDbm = require(path.join(__dirname,'./../dbm/processDbm'));
+const screenshotDbm = require(path.join(__dirname,'./../dbm/screenshotDbm'));
 
 let mouseInfo = {
   xPos: null,

@@ -1,9 +1,11 @@
-const {db} = require('../dbm/initDB');
-const base64ToImage = require('base64-to-image');
-const sm = require('./selectImageFromDB');
-const path = require('path');
 const fs = require('fs');
-const imgPath = path.join(__dirname, '../../data/img');
+const path = require('path');
+const base64ToImage = require('base64-to-image');
+const electron = require('electron');
+const uData = (electron.app || electron.remote.app).getPath('userData');
+const imgPath = uData + '/data/dataPack';
+const {db} = require(path.join(__dirname, '../dbm/initDB'));
+const sm = require(path.join(__dirname, './selectImageFromDB'));
 
 let fileInfo = {
   username: 'username_',
@@ -34,18 +36,6 @@ let getImage = function getImageFromDB(list, callback) {
     });
   }
 }
-
-// let getImage = function getImageFromDB(list) {
-//     for (let i = 0; i < list.length; i++) {
-//       db.serialize(() => {
-//       db.all('SELECT *  from Images WHERE id='+list[i], (err, res) => {
-//         fileInfo.fileName = fileInfo.username + list[i];
-//         createImage(res[0].img, fileInfo);
-//       });
-//     });
-//   }
-// }
-
 
 let createImage = function createImageFromString(img, c) {
   return new Promise((res, rej) => {

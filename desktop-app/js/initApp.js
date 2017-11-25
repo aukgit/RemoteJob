@@ -1,14 +1,15 @@
 const remote = require('electron').remote;
 const moment = require('moment');
+const path = require('path');
 const {ipcRenderer} = require('electron');
-const dbBackup = require('./js/dbm/dbBackup');
-const processDbm = require('./js/dbm/processDbm');
-const dbpush = require('./js/dbm/sendDatabase');
-const autosave = require('./js/autosave/autosave');
-const timer = require('./js/timer/stopwatch');
-const manageProcess = require('./js/process/manageProcess');
-const mt = require('./js/process/mouseTracker');
-const manageScreenshot = require('./js/screenshot/manageScreenshot');
+const dbBackup = require(path.join(__dirname,'./js/dbm/dbBackup'));
+const processDbm = require(path.join(__dirname,'./js/dbm/processDbm'));
+const dbpush = require(path.join(__dirname,'./js/dbm/sendDatabase'));
+const autosave = require(path.join(__dirname,'./js/autosave/autosave'));
+const timer = require(path.join(__dirname,'./js/timer/stopwatch'));
+const manageProcess = require(path.join(__dirname,'./js/process/manageProcess'));
+const mt = require(path.join(__dirname,'./js/process/mouseTracker'));
+const manageScreenshot = require(path.join(__dirname,'./js/screenshot/manageScreenshot'));
 
 let play = false,
   time = 0,
@@ -84,11 +85,9 @@ function playPause() {
   if (play) {
     playPauseBtn.className = "zmdi zmdi-pause-circle-outline";
     updateTimer();
-    console.log("Playing");
   } else {
     playPauseBtn.className = "zmdi zmdi-play-circle-outline";
     //stopTimer();
-    console.log("Paused");
   }
 }
 

@@ -1,6 +1,8 @@
 const electron = require('electron');
 const path = require('path');
 const url = require('url');
+const fs = require('fs');
+const uData = (electron.app || electron.remote.app).getPath('userData');
 const {app, BrowserWindow, Menu, Tray, ipcMain} = electron;
 
 let mainWindow, appIcon, loginWindow, preferenceWindow, sendEmailWindow;
@@ -142,6 +144,24 @@ ipcMain.on('loadMainWindow', (e, config) => {
 });
 
 app.on('ready', () => {
+  let data = uData + '/data',
+   emailData = uData + '/data/emailData',
+   dataPack = uData + '/data/dataPack',
+   img = uData + '/data/img';
+
+  if (!fs.existsSync(data)){
+      fs.mkdirSync(data);
+  }
+  if (!fs.existsSync(dataPack)){
+      fs.mkdirSync(dataPack);
+  }
+  if (!fs.existsSync(emailData)){
+      fs.mkdirSync(emailData);
+  }
+  if (!fs.existsSync(img)){
+      fs.mkdirSync(img);
+  }
+
   //createWindow();
   createLoginWindow();
   //createSendEmailWindow();

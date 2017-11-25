@@ -1,4 +1,5 @@
-const {db} = require('./initDB');
+const path = require('path');
+const {db} = require(path.join(__dirname,'./initDB'));
 
 let createProcessTable = function () {
   db.run("CREATE TABLE IF NOT EXISTS Processes (id INTEGER PRIMARY KEY, PID INTEGER, Title TEXT UNIQUE)");

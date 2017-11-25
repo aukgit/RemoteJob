@@ -1,9 +1,10 @@
+const path = require('path');
 const moment = require('moment');
 const remote = require('electron').remote;
 const {ipcRenderer} = require('electron');
-const mailer = require('../js/mail/mailer');
-const autosave = require('../js/autosave/autosave');
-const packeger = require('../js/mail/emailPackager');
+const mailer = require(path.join(__dirname,'../js/mail/mailer'));
+const autosave = require(path.join(__dirname,'../js/autosave/autosave'));
+const packeger = require(path.join(__dirname,'../js/mail/emailPackager'));
 
 let emailForm = document.getElementById("emailForm");
 emailForm.addEventListener('submit', generateEmail);
@@ -47,7 +48,6 @@ function generateEmail(e) {
     msg.subject = `Shahidul Islam Majumder [${moment().format('DD-MMM-YYYY')}] [${startedTime}] - (started)`;
     mailer.sendEmail(msg);
   }
-
   const window = remote.getCurrentWindow();
   window.hide();
 }

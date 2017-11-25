@@ -1,4 +1,5 @@
-const {db} = require('./initDB');
+const path = require('path');
+const {db} = require(path.join(__dirname, './initDB'));
 
 let createImagesTable = function () {
   db.run("CREATE TABLE IF NOT EXISTS images (ID INTEGER PRIMARY KEY, img BLOB)");

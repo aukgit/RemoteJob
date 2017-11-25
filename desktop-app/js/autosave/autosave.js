@@ -1,7 +1,7 @@
 const jsonfile = require('jsonfile');
 const moment = require('moment');
 const path = require('path');
-const {db} = require('../dbm/initDB');
+const {db} = require(path.join(__dirname, '../dbm/initDB'));
 
 let saveData = function savaDataAsJSON(p) {
   if (p) {
@@ -43,8 +43,10 @@ let readStartedTime = function readStartedTime(fn) {
       if (err) {
         console.log(err);
       } else {
-        console.log(Number(res[0].Data));
-        fn(Number(res[0].Data));
+        if (res) {
+          console.log(res[0].Data);
+          fn(res[0].Data);
+        }
       }
     });
   });
@@ -63,8 +65,10 @@ let saveTotalWorkingTime = function saveWorkingTime(time) {
        if (err) {
          console.log(err);
        } else {
-         console.log(Number(res[0].Data));
-         fn(Number(res[0].Data));
+         if (res) {
+           console.log(Number(res[0].Data));
+           fn(Number(res[0].Data));
+         }
        }
      });
    });

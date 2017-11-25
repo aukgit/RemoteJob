@@ -1,7 +1,8 @@
-const activeWin = require('active-win');
 const gkm = require('gkm');
+const path = require('path');
 const moment = require('moment');
-const processDbm = require('./../dbm/processDbm');
+const activeWin = require('active-win');
+const processDbm = require(path.join(__dirname, './../dbm/processDbm'));
 
 let mouseInfo = {
   xPos: null,

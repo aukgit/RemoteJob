@@ -1,13 +1,15 @@
 const fs = require('fs');
 const path = require('path');
 const imagemin = require('imagemin');
-const screenshotDbm = require('../dbm/screenshotDbm');
+const electron = require('electron');
+const uData = (electron.app || electron.remote.app).getPath('userData');
 const screenshot = require('desktop-screenshot');
 const imageminJpegtran = require('imagemin-jpegtran');
+const screenshotDbm = require(path.join(__dirname, '../dbm/screenshotDbm'));
 const minute = 60000;
 
 let takeScreenshot = function() {
-  screenshot(path.join(__dirname, './../../img/sc.jpg'), {
+  screenshot(uData + '/data/img/sc.jpg', {
     quality: 45
   }, (error, complete) => {
     if (error) {
@@ -30,12 +32,12 @@ let contineousShot = function (delay, play) {
 
 let minifyImg = function() {
 
-  let imgPath = path.join(__dirname, '../../img/sc.jpg');
+  let imgPath = uData + '/data/img/sc.jpg';
 
-  imagemin([imgPath], path.join(__dirname,'../../img/min'), {
+  imagemin([imgPath], uData + '/data/img/min', {
     use: [imageminJpegtran()]
   }).then(() => {
-    let imgPath = path.join(__dirname, './../../img/sc.jpg');
+    let imgPath = uData + '/data/img/min/sc.jpg';
     generateBlob(imgPath);
   });
 

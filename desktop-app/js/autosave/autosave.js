@@ -1,16 +1,16 @@
 const jsonfile = require('jsonfile');
 const moment = require('moment');
 const path = require('path');
+const {db} = require('../dbm/initDB');
 const file = path.join(__dirname, '../../tmp/data.json');
 const timeDataPath = path.join(__dirname, '../../tmp/time.json');
 
 let saveData = function savaDataAsJSON(p) {
-  p.ended = moment().format('x');
-  jsonfile.writeFile(file, p, function (err) {
-    if(err){
-      console.error(err);
-    }
-  });
+  if (p) {
+    p.ended = moment().format('x');
+    let stmt = db.prepare("REPLACE INTO Temp (Title, Data, CreatedAt) VALUES (?,?,?)");
+    stmt.run('Process', JSON.stringify(p) , moment().format('x'));
+  }
 }
 
 let saveStartedTime = function saveTime(time) {
@@ -22,21 +22,19 @@ let saveStartedTime = function saveTime(time) {
 }
 
 let resetData = function resetDataFile() {
-  jsonfile.writeFile(file, {}, function (err) {
-    if(err){
-      console.error(err);
-    }
-  });
+  let stmt = db.prepare("REPLACE INTO Temp (Title, Data, CreatedAt) VALUES (?,?,?)");
+  stmt.run('Process', JSON.stringify({}) , moment().format('x'));
 }
 
 let readSavedData = function readData(fn) {
-  jsonfile.readFile(file, function(err, obj) {
-    if (obj) {
-      //console.log(obj);
-      fn(obj);
-    } else {
-      //console.log("Empty");
-    }
+  db.serialize(() => {
+    db.all('SELECT Data from Temp WHERE Title = "Process"', (err, res) => {
+      if (err) {
+        console.log(err);
+      } else {
+        fn(JSON.parse(res[0].Data));
+      }
+    });
   });
 }
 

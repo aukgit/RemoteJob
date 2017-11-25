@@ -12,6 +12,10 @@ let createActiveProcessTable = function () {
   db.run("CREATE TABLE IF NOT EXISTS ActiveProcesses (id INTEGER PRIMARY KEY, Process TEXT, Started INTEGER, Closed INTEGER, MousePosX INTEGER, MousePosY INTEGER, TotalMouseClick INTEGER, MouseBtn INTEGER, TotalKeyPress INTEGER, Intensity REAL, ScreenshotId INTEGER, SequenceOfStartingMinutes INTEGER, TotalActiveTime INTEGER, FOREIGN KEY (Process) REFERENCES Processes(id), FOREIGN KEY (ScreenshotId) REFERENCES Images(id))");
 }
 
+let createTempDataTable = function () {
+  db.run("CREATE TABLE IF NOT EXISTS Temp (Title TEXT PRIMARY KEY, Data TEXT, CreatedAt INTEGER)");
+}
+
 let addProcess = function (p) {
   let stmt = db.prepare("INSERT OR IGNORE INTO Processes (PID, Title) VALUES (?,?)");
   stmt.run(p.pid, p.title);
@@ -47,6 +51,7 @@ let getAllActiveProcesses = function (fn) {
 
 let initTables = function () {
   createProcessTable();
+  createTempDataTable();
   createMousePosTable();
   createActiveProcessTable();
 }

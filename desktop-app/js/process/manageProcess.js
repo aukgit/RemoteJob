@@ -160,7 +160,6 @@ let addActiveProcess = function() {
 
 let addInterruptedProcess = function(p) {
   p.ended = Number(p.ended);
-
   let today = moment().format('L');
   if (p.title && moment(p.ended).format('L') === today) {
     processDbm.addActiveProcess(p);

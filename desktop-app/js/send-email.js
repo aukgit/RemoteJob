@@ -8,7 +8,7 @@ const packeger = require(path.join(__dirname,'../js/mail/emailPackager'));
 
 let emailForm = document.getElementById("emailForm");
 emailForm.addEventListener('submit', generateEmail);
-let startedTime = null, msg = {};
+let startedTime = null, msg = {}, mailSubject = {};
 
 
 function init() {
@@ -27,11 +27,21 @@ function renderUI() {
   });
 }
 
+function setTotalWorkingTime(total) {
+  mailSubject.total = (Number(total)/(60*60)).toFixed(2);
+  console.log(mailSubject.total);
+  formatAndPackage();
+}
+
 function setStartedTime(time) {
-  startedTime = time;
-  msg.subject = `Shahidul Islam Majumder [${moment().format('DD-MMM-YYYY')}] [${startedTime}] - [${moment().format('hh:mma')}] - [7 hours] - (ended)`;
+  mailSubject.startedTime = time;
+  autosave.readTotalWorkingTime(setTotalWorkingTime);
+}
+
+function formatAndPackage() {
+  msg.subject = `Shahidul Islam Majumder [${moment().format('DD-MMM-YYYY')}] [${mailSubject.startedTime}] - [${moment().format('hh:mma')}] - [${mailSubject.total} hours] - (ended)`;
   packeger.packageData(msg);
-  autosave.resetData();
+  setTimeout(autosave.resetData(),2000);
 }
 
 function generateEmail(e) {

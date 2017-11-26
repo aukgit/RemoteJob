@@ -8,7 +8,7 @@ const {db} = require(path.join(__dirname, '../dbm/initDB'));
 const sm = require(path.join(__dirname, './selectImageFromDB'));
 
 let fileInfo = {
-  username: 'username_',
+  username: 'shahids_',
   fileName: '',
   type:'jpg',
   path: imgPath
@@ -43,7 +43,6 @@ let createImage = function createImageFromString(img, c) {
       if(err){
         rej(err);
       } else {
-        console.log(fileInfo.fileName);
         res(img);
       }
     });

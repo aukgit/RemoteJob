@@ -26,7 +26,7 @@ let compressDB = function () {
             filename: fileInitial + '_data.zip',
             path: output
           };
-          console.log("I'm at packager");
+          console.log("Packaging data...");
           mailer.sendData(m, file);
         }
       });

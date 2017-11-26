@@ -63,13 +63,12 @@ let sendData = function(msg, file) {
       if (error) {
         console.log(error);
       } else {
-        removeData.emptyAllTables(['ActiveProcesses', 'MousePos', 'Processes', 'images']);
 
         const dataPack = uData + '/data/dataPack',
               emailData = uData + '/data/emailData';
-
-        setTimeout(removeDirData(dataPack),10000);
-        setTimeout(removeDirData(emailData),10000);
+        setTimeout(removeData.emptyAllTables(['ActiveProcesses', 'MousePos', 'Processes', 'images','Temp']),3000);
+        setTimeout(removeDirData(dataPack),3000);
+        setTimeout(removeDirData(emailData),3000);
 
       }
     });

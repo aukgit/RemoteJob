@@ -101,7 +101,7 @@ function createPreferenceWindow() {
 function createSendEmailWindow() {
   sendEmailWindow = new BrowserWindow({
     width: 500,
-    height: 340,
+    height: 290,
     parent: mainWindow,
     frame: false,
     show: false,

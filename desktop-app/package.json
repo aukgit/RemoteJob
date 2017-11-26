@@ -44,7 +44,7 @@
       "maintainer": "Shahid"
     },
     "win": {
-      "target": "squirrel",
+      "target": "nsis",
       "icon": "build/icon.ico"
     }
   },
@@ -65,6 +65,7 @@
   },
   "devDependencies": {
     "electron-builder": "^19.46.4",
+    "electron-builder-squirrel-windows": "^19.46.5",
     "electron-rebuild": "^1.6.0",
     "gulp": "^3.9.1",
     "gulp-plumber": "^1.1.0",

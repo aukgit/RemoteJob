@@ -23,6 +23,7 @@ let compressDB = function () {
       zipdir(dir, { saveTo: output }, function (err, buffer) {
         if(buffer){
           let file = {
+            filename: fileInitial + '_data.zip',
             path: output
           };
           console.log("I'm at packager");

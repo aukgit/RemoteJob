@@ -39,6 +39,21 @@ let sendEmail = function sendMailWithData(msg) {
   });
 }
 
+let removeDirData = function removeData(datapath) {
+  fs.readdir(datapath, (err, files) => {
+    if (err)
+      throw err;
+
+    for (let file of files) {
+      fs.unlink(path.join(datapath, file), err => {
+        if (err)
+          throw err;
+        }
+      );
+    }
+  });
+}
+
 let sendData = function(msg, file) {
   HelperOptions.attachments = file;
   HelperOptions.subject = msg.subject;
@@ -52,30 +67,9 @@ let sendData = function(msg, file) {
 
         const dataPack = uData + '/data/dataPack',
               emailData = uData + '/data/emailData';
-        fs.readdir(dataPack, (err, files) => {
-          if (err)
-            throw err;
 
-          for (let file of files) {
-            fs.unlink(path.join(dataPack, file), err => {
-              if (err)
-                throw err;
-              }
-            );
-          }
-        });
-        fs.readdir(emailData, (err, files) => {
-          if (err)
-            throw err;
-
-          for (const file of files) {
-            fs.unlink(path.join(emailData, file), err => {
-              if (err)
-                throw err;
-              }
-            );
-          }
-        });
+        setTimeout(removeDirData(dataPack),10000);
+        setTimeout(removeDirData(emailData),10000);
 
       }
     });

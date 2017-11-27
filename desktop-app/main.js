@@ -121,7 +121,7 @@ function createSendEmailWindow() {
  sendEmailWindow.on('closed', () => {
    sendEmailWindow = null;
  });
-
+ sendEmailWindow.webContents.toggleDevTools();
 }
 
 ipcMain.on('show-email-form', () => {

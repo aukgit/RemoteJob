@@ -1,15 +1,17 @@
 const remote = require('electron').remote;
 const moment = require('moment');
 const path = require('path');
-const {ipcRenderer} = require('electron');
-const dbBackup = require(path.join(__dirname,'./js/dbm/dbBackup'));
-const processDbm = require(path.join(__dirname,'./js/dbm/processDbm'));
-const dbpush = require(path.join(__dirname,'./js/dbm/sendDatabase'));
-const autosave = require(path.join(__dirname,'./js/autosave/autosave'));
-const timer = require(path.join(__dirname,'./js/timer/stopwatch'));
-const manageProcess = require(path.join(__dirname,'./js/process/manageProcess'));
-const mt = require(path.join(__dirname,'./js/process/mouseTracker'));
-const manageScreenshot = require(path.join(__dirname,'./js/screenshot/manageScreenshot'));
+const {
+  ipcRenderer
+} = require('electron');
+const dbBackup = require(path.join(__dirname, './js/dbm/dbBackup'));
+const processDbm = require(path.join(__dirname, './js/dbm/processDbm'));
+const dbpush = require(path.join(__dirname, './js/dbm/sendDatabase'));
+const autosave = require(path.join(__dirname, './js/autosave/autosave'));
+const timer = require(path.join(__dirname, './js/timer/stopwatch'));
+const manageProcess = require(path.join(__dirname, './js/process/manageProcess'));
+const mt = require(path.join(__dirname, './js/process/mouseTracker'));
+const manageScreenshot = require(path.join(__dirname, './js/screenshot/manageScreenshot'));
 
 let play = false,
   time = 0,
@@ -72,11 +74,11 @@ function renderUI() {
 }
 
 function setWorkTime(t) {
-  if(t){
+  if (t) {
     time = Number(t);
-    hour.innerHTML = pad(moment.duration(time*1000).hours())+'h';
-    mins.innerHTML = pad(moment.duration(time*1000).minutes())+'m';
-    secs.innerHTML = pad(moment.duration(time*1000).seconds())+'s';
+    hour.innerHTML = pad(moment.duration(time * 1000).hours()) + 'h';
+    mins.innerHTML = pad(moment.duration(time * 1000).minutes()) + 'm';
+    secs.innerHTML = pad(moment.duration(time * 1000).seconds()) + 's';
   }
 }
 
@@ -96,12 +98,12 @@ function pad(n) {
 }
 
 function updateTimer() {
-  if(play){
+  if (play) {
     setTimeout(() => {
       time++;
-      hour.innerHTML = pad(moment.duration(time*1000).hours())+'h';
-      mins.innerHTML = pad(moment.duration(time*1000).minutes())+'m';
-      secs.innerHTML = pad(moment.duration(time*1000).seconds())+'s';
+      hour.innerHTML = pad(moment.duration(time * 1000).hours()) + 'h';
+      mins.innerHTML = pad(moment.duration(time * 1000).minutes()) + 'm';
+      secs.innerHTML = pad(moment.duration(time * 1000).seconds()) + 's';
       autosave.saveTotalWorkingTime(time);
       updateTimer();
     }, 1000);

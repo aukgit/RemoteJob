@@ -17,7 +17,7 @@ function renderUI() {
 
   document.getElementById("close").addEventListener("click", function(e) {
     const window = remote.getCurrentWindow();
-    window.hide();
+    window.close();
   });
 }
 

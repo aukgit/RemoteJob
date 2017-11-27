@@ -5,6 +5,7 @@ const {ipcRenderer} = require('electron');
 const mailer = require(path.join(__dirname,'../js/mail/mailer'));
 const autosave = require(path.join(__dirname,'../js/autosave/autosave'));
 const packeger = require(path.join(__dirname,'../js/mail/emailPackager'));
+const {db} = require(path.join(__dirname, '../js/dbm/initDB'));
 
 let emailForm = document.getElementById("emailForm");
 emailForm.addEventListener('submit', generateEmail);
@@ -29,7 +30,6 @@ function renderUI() {
 
 function setTotalWorkingTime(total) {
   mailSubject.total = (Number(total)/(60*60)).toFixed(2);
-  console.log(mailSubject.total);
   formatAndPackage();
 }
 
@@ -41,7 +41,7 @@ function setStartedTime(time) {
 function formatAndPackage() {
   msg.subject = `Shahidul Islam Majumder [${moment().format('DD-MMM-YYYY')}] [${mailSubject.startedTime}] - [${moment().format('hh:mma')}] - [${mailSubject.total} hours] - (ended)`;
   packeger.packageData(msg);
-  setTimeout(autosave.resetData(),2000);
+  setTimeout(autosave.resetData, 5000);
 }
 
 function generateEmail(e) {

@@ -44,7 +44,12 @@ let readStartedTime = function readStartedTime(fn) {
         console.log(err);
       } else {
         if (res) {
-          fn(res[0].Data);
+          if (res[0]) {
+            fn(res[0].Data);
+          } else {
+            console.log("No data!");
+            fn(0);
+          }
         }
       }
     });
@@ -69,6 +74,7 @@ let saveTotalWorkingTime = function saveWorkingTime(time) {
              fn(Number(res[0].Data));
            } else {
              console.log("No Data!");
+             fn(0);
            }
          }
        }

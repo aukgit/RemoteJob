@@ -41,6 +41,7 @@ let createImage = function createImageFromString(img, c) {
   return new Promise((res, rej) => {
     fs.writeFile(imgPath+"/"+fileInfo.fileName+c+"."+fileInfo.type, img, 'base64', (err) => {
       if(err){
+        console.log(err);
         rej(err);
       } else {
         res(img);

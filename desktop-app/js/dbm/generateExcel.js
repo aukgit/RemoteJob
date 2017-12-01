@@ -8,7 +8,7 @@ const processDbm = require(path.join(__dirname,'./processDbm'));
 let dataToExcel = function (data) {
   if (data) {
     let xls = json2xls(data);
-    let targetFile = path.join(uData + '/data/dataPack/data.xlsx');
+    let targetFile = path.join(uData, '/data/dataPack/data.xlsx');
     fs.writeFileSync(targetFile, xls, 'binary', (err) => {
       if(err){
         console.log("Error in excel");

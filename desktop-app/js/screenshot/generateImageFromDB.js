@@ -3,7 +3,7 @@ const path = require('path');
 const base64ToImage = require('base64-to-image');
 const electron = require('electron');
 const uData = (electron.app || electron.remote.app).getPath('userData');
-const imgPath = uData + '/data/dataPack';
+const imgPath = path.join(uData, '/data/dataPack');
 const {db} = require(path.join(__dirname, '../dbm/initDB'));
 const sm = require(path.join(__dirname, './selectImageFromDB'));
 

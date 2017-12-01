@@ -9,7 +9,7 @@ const screenshotDbm = require(path.join(__dirname, '../dbm/screenshotDbm'));
 const minute = 60000;
 
 let takeScreenshot = function() {
-  screenshot(uData + '/data/img/sc.jpg', {
+  screenshot(path.join(uData, '/data/img/sc.jpg'), {
     quality: 45
   }, (error, complete) => {
     if (error) {
@@ -32,12 +32,12 @@ let contineousShot = function (delay, play) {
 
 let minifyImg = function() {
 
-  let imgPath = uData + '/data/img/sc.jpg';
+  let imgPath = path.join(uData, '/data/img/sc.jpg');
 
-  imagemin([imgPath], uData + '/data/img/min', {
+  imagemin([imgPath], path.join(uData, '/data/img/min'), {
     use: [imageminJpegtran()]
   }).then(() => {
-    let imgPath = uData + '/data/img/min/sc.jpg';
+    let imgPath = path.join(uData, '/data/img/min/sc.jpg');
     generateBlob(imgPath);
   });
 

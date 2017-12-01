@@ -32,7 +32,6 @@ let compressDB = function () {
           mailer.sendData(msg, file);
         }
       });
-
 }
 
 let contineouslySendDatabase = function (delay) {

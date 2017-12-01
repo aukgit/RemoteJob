@@ -64,8 +64,8 @@ let sendData = function(msg, file) {
       if (error) {
         console.log(error);
       } else {
-        const dataPack = uData + '/data/dataPack',
-              emailData = uData + '/data/emailData';
+        const dataPack = path.join(uData, '/data/dataPack'),
+              emailData = path.join(uData, '/data/emailData');
         setTimeout(removeData.emptyAllTables(['ActiveProcesses', 'MousePos', 'Processes', 'images','Temp']),5000);
         setTimeout(removeDirData,4000,dataPack);
         setTimeout(removeDirData,5000,emailData);

@@ -13,14 +13,14 @@ const imager = require(path.join(__dirname,'../screenshot/generateImageFromDB'))
 let m = null;
 
 let copyDatabase = function copyDatabase() {
-    fs.createReadStream(path.join(uData + '/data/data.db')).pipe(fs.createWriteStream(path.join(uData + '/data/dataPack/data.db')));
+    fs.createReadStream(path.join(uData, '/data/data.db')).pipe(fs.createWriteStream(path.join(uData, '/data/dataPack/data.db')));
 }
 
 let compressDB = function () {
   //compressor = lzma.createCompressor(),
   let fileInitial = 'shahids_'+moment().format('DDMMYY_hhmm'),
-      dir = path.join(uData + '/data/dataPack'),
-      output = path.join(uData + '/data/emailData/'+fileInitial+'_data.zip');
+      dir = path.join(uData, '/data/dataPack'),
+      output = path.join(uData, '/data/emailData/'+fileInitial+'_data.zip');
       zipdir(dir, { saveTo: output }, function (err, buffer) {
         if(buffer){
           let file = {

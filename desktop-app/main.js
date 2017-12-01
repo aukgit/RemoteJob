@@ -75,7 +75,7 @@ function createLoginWindow() {
 function createPreferenceWindow() {
   preferenceWindow = new BrowserWindow({
     width: 520,
-    height: 378,
+    height: 379,
     parent: mainWindow,
     frame: false,
     show: false,

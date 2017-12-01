@@ -17,7 +17,7 @@ function renderUI() {
 
   document.getElementById("close").addEventListener("click", function(e) {
     const window = remote.getCurrentWindow();
-    window.close();
+    ipcRenderer.send('close-app');
   });
 }
 

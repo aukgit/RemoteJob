@@ -71,8 +71,8 @@ let getContinuousActiveWindow = function(fn) {
 
 let setCurrentWindowInfo = function(p) {
   currenWindow.title = p.title;
-  currenWindow.started = Number(moment().format('x'));
-  sequenceTime = moment().format('LT');
+  currenWindow.started = moment().valueOf();
+  sequenceTime = moment().valueOf();
 };
 
 let currenWindow = {
@@ -113,7 +113,7 @@ let addCurrentActiveProcess = function(info) {
 
     setScreenshotID();
 
-    currenWindow.ended = Number(moment().format('x'));
+    currenWindow.ended = moment().valueOf();
 
     intense.calcIntensity(mouseInfo, setIntensity);
 
@@ -135,13 +135,15 @@ let addCurrentActiveProcess = function(info) {
 };
 
 function setSequence(started) {
-  if(moment(started,'LTS').format('LT') !== sequenceTime){
+  console.log(`Started: ${moment(started).format('LT')}, SequenceTime: ${sequenceTime}`);
+  if(moment(started).format('LT') !== sequenceTime){
     seq = 0;
     currenWindow.sequence = seq;
   } else {
     currenWindow.sequence = seq;
     seq++;
   }
+  console.log("Secuence", currenWindow.sequence);
 }
 
 let save = function() {

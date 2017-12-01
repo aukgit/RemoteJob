@@ -120,6 +120,8 @@ let addCurrentActiveProcess = function(info) {
     setSequence(currenWindow.started);
 
     if ((currenWindow.screenshotId !== null) && (currenWindow.title)) {
+      let t = currenWindow.ended - currenWindow.started;
+      currenWindow.totalActiveTime = moment.duration(t).seconds();
       processDbm.addActiveProcess(currenWindow);
       mouseInfo.totalClick = 0;
       mouseInfo.totalKeypress = 0;
@@ -135,7 +137,6 @@ let addCurrentActiveProcess = function(info) {
 };
 
 function setSequence(started) {
-  console.log(`Started: ${moment(started).format('LT')}, SequenceTime: ${sequenceTime}`);
   if(moment(started).format('LT') !== sequenceTime){
     seq = 0;
     currenWindow.sequence = seq;
@@ -143,7 +144,6 @@ function setSequence(started) {
     currenWindow.sequence = seq;
     seq++;
   }
-  console.log("Secuence", currenWindow.sequence);
 }
 
 let save = function() {

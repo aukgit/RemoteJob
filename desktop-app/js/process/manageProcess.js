@@ -148,7 +148,7 @@ function setSequence(started) {
 
 let save = function() {
   autosave.saveData(currenWindow)
-  setTimeout(save, 1000)
+  setTimeout(save, 1000);
 }
 
 setTimeout(save, 1000);

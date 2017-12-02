@@ -21,7 +21,6 @@
   ],
   "build": {
     "appId": "me.shahids.remotejob",
-    "asar": "false",
     "dmg": {
       "contents": [
         {

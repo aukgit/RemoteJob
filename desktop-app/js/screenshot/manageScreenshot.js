@@ -1,10 +1,11 @@
 const fs = require('fs');
+require ('hazardous');
 const path = require('path');
 const imagemin = require('imagemin');
-const electron = require('electron');
-const uData = (electron.app || electron.remote.app).getPath('userData');
 const screenshot = require('desktop-screenshot');
 const imageminJpegtran = require('imagemin-jpegtran');
+const electron = require('electron');
+const uData = (electron.app || electron.remote.app).getPath('userData');
 const screenshotDbm = require(path.join(__dirname, '../dbm/screenshotDbm'));
 const minute = 60000;
 

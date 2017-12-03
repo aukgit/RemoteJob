@@ -53,6 +53,7 @@
     "base64-to-image": "^1.0.2",
     "desktop-screenshot": "^0.1.1",
     "gkm": "^0.1.0",
+    "hazardous": "^0.3.0",
     "imagemin": "^5.3.1",
     "imagemin-jpegtran": "^5.0.2",
     "imagemin-pngquant": "^5.0.1",

@@ -1,4 +1,5 @@
 const gkm = require('gkm');
+require('hazardous');
 const path = require('path');
 const moment = require('moment');
 const activeWin = require('active-win');
@@ -15,14 +16,13 @@ let mouseInfo = {
   totalKeypress: 0
 };
 
-let sequenceTime = 0, seq = 0;
+let sequenceTime = 0, seq = 0, x = 0;
 
 let getActiveWindow = function(fn) {
   activeWin().then((res) => {
     fn(res);
   });
 };
-
 
 let c = 0;
 
@@ -38,14 +38,9 @@ let setMousePos = function(data) {
       mouseInfo.totalClick++;
       mouseInfo.btn = data[0];
       c = 0;
-      //console.log(mouseInfo);
     }
   }
 }
-
-
-
-let x = 0;
 
 let getContinuousActiveWindow = function(fn) {
 
@@ -132,7 +127,6 @@ let addCurrentActiveProcess = function(info) {
     currenWindow.ended = null;
   } else {
     currenWindow.ended = null;
-    //console.log("Active: ", currenWindow);
   }
 };
 

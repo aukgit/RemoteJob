@@ -1,4 +1,5 @@
 const fs = require('fs');
+require('hazardous');
 const path = require('path');
 const electron = require('electron');
 const uData = (electron.app || electron.remote.app).getPath('userData');

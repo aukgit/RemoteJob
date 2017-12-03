@@ -32,9 +32,7 @@ function createWindow() {
   mainWindow.on('closed', () => {
     app.quit();
   });
-
   //mainWindow.webContents.toggleDevTools();
-
 }
 
 function createContextMenu() {

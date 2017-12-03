@@ -1,4 +1,5 @@
 const gkm = require('gkm');
+require('hazardous');
 const path = require('path');
 const moment = require('moment');
 const activeWin = require('active-win');

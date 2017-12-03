@@ -1,4 +1,5 @@
 const fs = require('fs');
+require('hazardous');
 const path = require('path');
 const zipdir = require('zip-dir');
 const moment = require('moment');

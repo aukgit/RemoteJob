@@ -37,7 +37,6 @@ let getAllProcesses = function () {
 
 let addActiveProcess = function (p) {
   let m = p.mouseData, btn = parseInt(m.btn);
-  //console.log(m);
   let stmt = db.prepare("INSERT INTO ActiveProcesses (Process, Started, Closed, MousePosX, MousePosY, TotalMouseClick, MouseBtn, TotalKeyPress, Intensity, ScreenshotId, SequenceOfStartingMinutes, TotalActiveTime) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
   stmt.run(p.title, p.started, p.ended, m.xPos, m.yPos, m.totalClick, btn, m.totalKeypress, p.intensity,  p.screenshotId, p.sequence, p.totalActiveTime);
 }

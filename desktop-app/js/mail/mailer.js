@@ -22,9 +22,9 @@ let transporter = nodemailer.createTransport({
 
 let HelperOptions = {
   from: `Shahidul Islam Majumder <${config.email}>`,
-  to: 'xp.pground@gmail.com',
-  subject: 'Daily Email',
-  text: 'Hello there'
+  to: 'devorg.bd@gmail.com',
+  subject: 'Daily Activity Email',
+  text: 'This is the body text'
 };
 
 let sendEmail = function sendMailWithData(msg) {

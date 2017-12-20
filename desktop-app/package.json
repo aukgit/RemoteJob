@@ -1,0 +1,76 @@
+{
+  "name": "RemoteJob",
+  "email": "xp@gmail.com",
+  "author": "Shahid <hello@shahids.me> (http://shahids.me/)",
+  "license": "MIT",
+  "url": "http://shahids.me",
+  "version": "1.0.0",
+  "description": "A NodeJS based desktop application to trac user activity",
+  "productName": "RemoteJob",
+  "homepage": "https://github.com/aukgit/RemoteJob/",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "rebuild": "node_modules/.bin/electron-rebuild -f -w sqlite3",
+    "pack": "build --dir",
+    "dist": "build"
+  },
+  "keywords": [
+    "nodejs",
+    "electron"
+  ],
+  "build": {
+    "appId": "me.shahids.remotejob",
+    "asar": false,
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "build/icons",
+      "maintainer": "Shahid"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    }
+  },
+  "dependencies": {
+    "active-win": "^2.0.0",
+    "base64-to-image": "^1.0.2",
+    "desktop-screenshot": "^0.1.1",
+    "gkm": "^0.1.0",
+    "hazardous": "^0.3.0",
+    "imagemin": "^5.3.1",
+    "imagemin-jpegtran": "^5.0.2",
+    "imagemin-pngquant": "^5.0.1",
+    "json2xls": "^0.1.2",
+    "jsonfile": "^4.0.0",
+    "moment": "^2.19.1",
+    "nodemailer": "^4.3.1",
+    "sqlite3": "^3.1.13",
+    "zip-dir": "^1.0.2"
+  },
+  "devDependencies": {
+    "electron-builder": "^19.46.4",
+    "electron-builder-squirrel-windows": "^19.46.5",
+    "electron-rebuild": "^1.6.0",
+    "gulp": "^3.9.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^3.1.0"
+  }
+}

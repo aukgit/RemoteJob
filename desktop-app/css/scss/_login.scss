@@ -1,0 +1,79 @@
+.login {
+  padding: 0 1em;
+  .brand-logo {
+    font-weight: 300;
+    text-align: center;
+    margin: 1em 0;
+    h2 {
+      font-weight: 200;
+    }
+    .tag {
+      font-size: 0.7em;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  .login-form {
+    padding: 0.5em 0.9em;
+    input[type="text"], input[type="password"], button {
+      display: inline-block;
+      width: 100%;
+      padding: 0.5em;
+      margin-bottom: 0.5em;
+      background: none;
+      border: none;
+      color: $primary-color;
+      border-bottom: 1px solid $primary-bg-color*0.9;
+      &:focus {
+        outline: none;
+      }
+    }
+    ::-webkit-input-placeholder {
+      color: rgba($primary-color, 0.5);
+    }
+    .password-option {
+      display: inline-block;
+      width: 100%;
+      margin: 1em 0;
+      position: relative;
+      input[type="checkbox"] {
+        outline: none;
+      }
+      #forget-pass {
+        position: absolute;
+        color: $primary-color;
+        display: inline-block;
+        text-align: right;
+        text-decoration: none;
+        cursor: pointer !important;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      label, #forget-pass {
+        padding: 0.5em;
+      }
+    }
+    button {
+      margin: 0.5em 0 0 0;
+      cursor: pointer;
+      padding: 0.5em;
+      border-radius: 5px;
+      border: 1px solid $primary-bg-color*0.7;
+      font-family: $primary-font;
+      font-size: 1em;
+      transition: all ease-in-out 0.3s;
+      &:hover {
+        background: rgba($primary-color,0.1);
+        border-color: 1px solid $primary-bg-color*0.1;
+      }
+    }
+  }
+  .version {
+    margin: 0 0 0.5em 0;
+    opacity: 0.5;
+  }
+  p {
+    text-align: center;
+  }
+}

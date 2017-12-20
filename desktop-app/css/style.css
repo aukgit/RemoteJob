@@ -1,0 +1,303 @@
+@import url("https://fonts.googleapis.com/css?family=Ubuntu+Condensed");
+@font-face {
+  font-family: 'Ubuntu Condensed';
+  src: url("../fonts/Ubuntu.ttf"); }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+body {
+  color: #eee;
+  font-family: "Ubuntu Condensed", sans-serif;
+  background-color: rgba(38, 50, 56, 0.9);
+  font-size: 16px;
+  -ms-overflow-style: scrollbar;
+  -webkit-app-region: drag; }
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+input[type="text"],
+input[type="password"],
+input[type="checkbox"],
+button, label, .password-option,
+textarea, .menu-btn, a {
+  -webkit-app-region: no-drag; }
+
+header {
+  background-color: #263238;
+  min-height: 2.2em;
+  border-bottom: 1px solid #222d32; }
+  header .brand {
+    font-weight: 300;
+    font-size: 1.2em;
+    display: inline-block;
+    padding: 5px;
+    margin: 0 0 0 7px; }
+  header .menu-bar {
+    float: right; }
+    header .menu-bar .control-menu {
+      padding: 0;
+      list-style: none; }
+      header .menu-bar .control-menu .menu-btn {
+        display: inline-block;
+        padding: 0.4em 0.7em;
+        cursor: pointer;
+        margin-right: 0px;
+        transition: all ease-in-out 0.3s; }
+        header .menu-bar .control-menu .menu-btn:last-child {
+          margin-right: 0; }
+        header .menu-bar .control-menu .menu-btn:hover {
+          background: rgba(238, 238, 238, 0.1); }
+        header .menu-bar .control-menu .menu-btn .menu-icon {
+          transition: all ease-in-out 0.3s; }
+        header .menu-bar .control-menu .menu-btn:hover .menu-icon {
+          transform: scale(1.2); }
+
+.main .user-timer {
+  padding: 7px;
+  position: relative; }
+  .main .user-timer .user {
+    font-weight: 400;
+    font-size: 1.2em; }
+    .main .user-timer .user::before {
+      content: '\f26d';
+      font-family: "Material-Design-Iconic-Font";
+      font-size: 0.5em;
+      margin-right: 10px;
+      margin-left: 5px;
+      position: relative;
+      top: -2px;
+      color: #64dd17; }
+  .main .user-timer .timer {
+    margin-left: 23px;
+    display: inline-block;
+    padding: 5px 10px;
+    margin-top: 10px;
+    background: #0c0c0c;
+    border-radius: 5px; }
+  .main .user-timer .timer-control {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #64dd17;
+    font-size: 2em;
+    outline: none;
+    cursor: pointer; }
+  .main .user-timer .send-email {
+    display: inline-block;
+    margin-left: 1em; }
+    .main .user-timer .send-email button {
+      border: none;
+      background: none;
+      color: #eee;
+      font-size: 1.7em;
+      vertical-align: middle;
+      cursor: pointer; }
+    .main .user-timer .send-email button:focus {
+      outline: none; }
+
+.login {
+  padding: 0 1em; }
+  .login .brand-logo {
+    font-weight: 300;
+    text-align: center;
+    margin: 1em 0; }
+    .login .brand-logo h2 {
+      font-weight: 200; }
+    .login .brand-logo .tag {
+      font-size: 0.7em;
+      margin: 0;
+      padding: 0; }
+  .login .login-form {
+    padding: 0.5em 0.9em; }
+    .login .login-form input[type="text"], .login .login-form input[type="password"], .login .login-form button {
+      display: inline-block;
+      width: 100%;
+      padding: 0.5em;
+      margin-bottom: 0.5em;
+      background: none;
+      border: none;
+      color: #eee;
+      border-bottom: 1px solid #222d32; }
+      .login .login-form input[type="text"]:focus, .login .login-form input[type="password"]:focus, .login .login-form button:focus {
+        outline: none; }
+    .login .login-form ::-webkit-input-placeholder {
+      color: rgba(238, 238, 238, 0.5); }
+    .login .login-form .password-option {
+      display: inline-block;
+      width: 100%;
+      margin: 1em 0;
+      position: relative; }
+      .login .login-form .password-option input[type="checkbox"] {
+        outline: none; }
+      .login .login-form .password-option #forget-pass {
+        position: absolute;
+        color: #eee;
+        display: inline-block;
+        text-align: right;
+        text-decoration: none;
+        cursor: pointer !important;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%); }
+      .login .login-form .password-option label, .login .login-form .password-option #forget-pass {
+        padding: 0.5em; }
+    .login .login-form button {
+      margin: 0.5em 0 0 0;
+      cursor: pointer;
+      padding: 0.5em;
+      border-radius: 5px;
+      border: 1px solid #1b2327;
+      font-family: "Ubuntu Condensed", sans-serif;
+      font-size: 1em;
+      transition: all ease-in-out 0.3s; }
+      .login .login-form button:hover {
+        background: rgba(238, 238, 238, 0.1);
+        border-color: 1px solid #040506; }
+  .login .version {
+    margin: 0 0 0.5em 0;
+    opacity: 0.5; }
+  .login p {
+    text-align: center; }
+
+.email-form {
+  padding: 0.5em 0.9em; }
+  .email-form .email-type {
+    margin: 0.5em 0;
+    display: block;
+    width: 100%; }
+    .email-form .email-type .email-option {
+      display: inline-block;
+      width: 49%; }
+      .email-form .email-type .email-option input[type="radio"] {
+        margin-right: 0.7em; }
+  .email-form input[type="text"], .email-form input[type="password"], .email-form button, .email-form textarea {
+    display: inline-block;
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+    background: none;
+    border: none;
+    font-size: 1em;
+    color: #eee;
+    border-bottom: 1px solid #222d32; }
+    .email-form input[type="text"]:focus, .email-form input[type="password"]:focus, .email-form button:focus, .email-form textarea:focus {
+      outline: none; }
+  .email-form textarea {
+    color: #eee;
+    font-family: "Ubuntu Condensed", sans-serif;
+    font-size: 1.2em; }
+  .email-form ::-webkit-input-placeholder {
+    color: rgba(238, 238, 238, 0.5); }
+  .email-form button {
+    margin: 0.5em 0 0 0;
+    cursor: pointer;
+    padding: 0.5em;
+    border-radius: 5px;
+    border: 1px solid #1b2327;
+    font-family: "Ubuntu Condensed", sans-serif;
+    font-size: 1em;
+    transition: all ease-in-out 0.3s; }
+    .email-form button:hover {
+      background: rgba(238, 238, 238, 0.1);
+      border-color: 1px solid #040506; }
+
+.preference {
+  padding: 1em;
+  background: #13191c; }
+  .preference .pref-option {
+    display: inline-block;
+    width: 50%;
+    float: left;
+    margin-bottom: 0.5em;
+    clear: right; }
+    .preference .pref-option .square-checkbox + label:before {
+      margin-left: 0; }
+    .preference .pref-option .zmdi-lock-outline {
+      margin-left: 0.2em; }
+    .preference .pref-option #change-pass {
+      text-decoration: none;
+      color: #eee;
+      margin-left: 0.6em; }
+    .preference .pref-option:last-child {
+      margin-bottom: 1em; }
+  .preference .sec-title {
+    clear: both;
+    border-top: 1px solid #1b2327;
+    border-bottom: 1px solid #1b2327;
+    margin: 1em 0;
+    margin-top: 3em;
+    padding: 0.5em; }
+  .preference .camera-settings .camera-icon, .preference .camera-settings .camera-options {
+    width: 50%;
+    float: left;
+    margin-bottom: 1em; }
+  .preference .camera-settings .camera-icon {
+    text-align: center; }
+    .preference .camera-settings .camera-icon img {
+      width: 40%;
+      height: auto; }
+  .preference .camera-settings .camera-options .camera-option {
+    width: 100%;
+    margin-bottom: 0.5em; }
+    .preference .camera-settings .camera-options .camera-option i {
+      margin-left: -0.4em; }
+    .preference .camera-settings .camera-options .camera-option a {
+      margin-left: 0.4em;
+      text-decoration: none;
+      color: #eee; }
+  .preference .pref-control {
+    clear: both;
+    border-top: 1px solid #1b2327;
+    padding-top: 1em;
+    display: block;
+    width: 100%;
+    text-align: center; }
+    .preference .pref-control #save, .preference .pref-control #cancel {
+      color: #eee;
+      display: inline-block;
+      width: 40%;
+      cursor: pointer;
+      padding: 0.5em;
+      outline: none;
+      background: none;
+      border-radius: 5px;
+      font-family: "Ubuntu Condensed", sans-serif;
+      border: 1px solid #1b2327;
+      font-size: 1em;
+      transition: all ease-in-out 0.3s; }
+      .preference .pref-control #save:hover, .preference .pref-control #cancel:hover {
+        background: rgba(238, 238, 238, 0.1);
+        border-color: 1px solid #040506; }
+    .preference .pref-control #save {
+      margin-right: 1em;
+      margin-left: -1em; }
+
+.square-checkbox {
+  display: none; }
+  .square-checkbox + label {
+    cursor: pointer; }
+  .square-checkbox + label:before {
+    height: 1em;
+    border: 1px solid #222d32;
+    content: "";
+    display: inline-block;
+    width: 1em;
+    vertical-align: middle;
+    margin-right: 0.5em;
+    position: relative;
+    top: -1px;
+    margin-left: -0.5em; }
+  .square-checkbox:checked + label:before {
+    content: "\f26b";
+    font-family: "Material-Design-Iconic-Font";
+    color: #eee;
+    font-size: 1em;
+    text-align: center;
+    line-height: 1em; }

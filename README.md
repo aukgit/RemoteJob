@@ -8,7 +8,19 @@ git clone https://github.com/aukgit/RemoteJob.git
 ```
 
 ```bash
+git checkout dev
+```
+
+```bash
 npm install
+```
+
+Copy and replace the sqlite3 node module from the `desktop-app > module_replace` directory
+
+Then run
+
+```bash
+npm i -S electron
 ```
 
 ```bash
@@ -26,9 +38,3 @@ To install *scrot* run the following command:
 ```bash
 sudo apt-get install scrot
 ```
-
-### Todo
-- [ ] Optimize image as musch as possible
-- [ ] Implement native node module to track mouse event
-- [ ] Increasing efficiency
-- [ ] Clean the project

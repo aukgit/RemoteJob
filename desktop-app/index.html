@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>RemoteJob</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/material-design-iconic-font.min.css">
+</head>
+
+<body>
+  <header>
+    <h2 class="brand">
+      x-Product
+    </h2>
+    <nav class="menu-bar">
+      <ul class="control-menu">
+        <li class="menu-btn" id="settings"><i class="zmdi menu-icon zmdi-settings"></i></li>
+        <li class="menu-btn" id="stats"><i class="zmdi menu-icon zmdi-chart"></i></li>
+        <li class="menu-btn" id="minimize"><i class="zmdi menu-icon zmdi-window-minimize"></i></li>
+        <li class="menu-btn" id="close"><i class="zmdi menu-icon zmdi-close"></i></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="main">
+    <div class="user-timer">
+      <h2 class="user">Shahidul Islam</h2>
+      <p class="timer">
+        <span class="hour" id="hour">00h</span>
+        <span class="minutes" id="mins">00m</span>
+        <span class="seconds" id="secs">00s</span>
+      </p>
+      <p class="send-email">
+        <button type="button" name="button" id="send-data">
+          <i class="zmdi zmdi-email"></i>
+        </button>
+      </p>
+      <button class="timer-control" id="timerControls">
+        <i class="zmdi zmdi-play-circle-outline" id="playPauseBtn"></i>
+      </button>
+    </div>
+  </main>
+
+  <script src="js/initApp.js" charset="utf-8"></script>
+
+</body>
+
+</html>

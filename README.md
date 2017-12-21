@@ -45,6 +45,8 @@ Change receiver email on  `mailer.js` file:
 to: 'receiver_email@gmail.com'
 ```
 
+Now run the app by executing the following command
+
 ```bash
 npm start
 ```

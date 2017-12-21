@@ -3,7 +3,13 @@ const path = require('path');
 const url = require('url');
 const fs = require('fs');
 const uData = (electron.app || electron.remote.app).getPath('userData');
-const {app, BrowserWindow, Menu, Tray, ipcMain} = electron;
+const {
+  app,
+  BrowserWindow,
+  Menu,
+  Tray,
+  ipcMain
+} = electron;
 
 let mainWindow, appIcon, loginWindow, preferenceWindow, sendEmailWindow;
 
@@ -20,7 +26,7 @@ function createWindow() {
   });
 
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname,'index.html'),
+    pathname: path.join(__dirname, 'index.html'),
     protocol: 'file:',
     slashes: true
   }));
@@ -55,7 +61,7 @@ function createLoginWindow() {
   });
 
   loginWindow.loadURL(url.format({
-    pathname: path.join(__dirname,'./src/login.html'),
+    pathname: path.join(__dirname, './src/login.html'),
     protocol: 'file:',
     slashes: true
   }));
@@ -87,12 +93,12 @@ function createPreferenceWindow() {
   }));
 
   preferenceWindow.once('ready-to-show', () => {
-   preferenceWindow.show();
- });
+    preferenceWindow.show();
+  });
 
- preferenceWindow.on('closed', () => {
-   preferenceWindow = null;
- });
+  preferenceWindow.on('closed', () => {
+    preferenceWindow = null;
+  });
 
 }
 
@@ -113,13 +119,13 @@ function createSendEmailWindow() {
   }));
 
   sendEmailWindow.once('ready-to-show', () => {
-   sendEmailWindow.show();
- });
+    sendEmailWindow.show();
+  });
 
- sendEmailWindow.on('closed', () => {
-   sendEmailWindow = null;
- });
- //sendEmailWindow.webContents.toggleDevTools();
+  sendEmailWindow.on('closed', () => {
+    sendEmailWindow = null;
+  });
+  //sendEmailWindow.webContents.toggleDevTools();
 }
 
 ipcMain.on('show-email-form', () => {
@@ -141,27 +147,28 @@ ipcMain.on('close-app', () => {
 
 ipcMain.on('loadMainWindow', (e, config) => {
   //console.log(config);
+  // TODO: Config should be configured before creating the window
   createWindow();
   loginWindow.close();
 });
 
 app.on('ready', () => {
   let data = uData + '/data',
-   emailData = uData + '/data/emailData',
-   dataPack = uData + '/data/dataPack',
-   img = uData + '/data/img';
+    emailData = uData + '/data/emailData',
+    dataPack = uData + '/data/dataPack',
+    img = uData + '/data/img';
 
-  if (!fs.existsSync(data)){
-      fs.mkdirSync(data);
+  if (!fs.existsSync(data)) {
+    fs.mkdirSync(data);
   }
-  if (!fs.existsSync(dataPack)){
-      fs.mkdirSync(dataPack);
+  if (!fs.existsSync(dataPack)) {
+    fs.mkdirSync(dataPack);
   }
-  if (!fs.existsSync(emailData)){
-      fs.mkdirSync(emailData);
+  if (!fs.existsSync(emailData)) {
+    fs.mkdirSync(emailData);
   }
-  if (!fs.existsSync(img)){
-      fs.mkdirSync(img);
+  if (!fs.existsSync(img)) {
+    fs.mkdirSync(img);
   }
 
   //createWindow();
@@ -171,29 +178,28 @@ app.on('ready', () => {
 });
 
 
-let contextMenuTemplate = [
-  {
+let contextMenuTemplate = [{
     label: 'Start',
-    click(){
+    click() {
 
     }
   },
   {
     label: 'Stop',
-    click(){
+    click() {
 
     }
   },
   {
     label: 'Pause',
-    click(){
+    click() {
 
     }
   },
   {
     label: 'Close',
     accelerator: 'CommandOrControl+Q',
-    click(){
+    click() {
       app.quit();
     }
   }

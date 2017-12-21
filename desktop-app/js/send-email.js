@@ -29,7 +29,7 @@ function renderUI() {
 }
 
 function setTotalWorkingTime(total) {
-  mailSubject.total = (Number(total)/(60*60)).toFixed(2);
+  mailSubject.total = (Number(total)/60).toFixed(2);
   formatAndPackage();
 }
 

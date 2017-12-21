@@ -116,7 +116,8 @@ let addCurrentActiveProcess = function(info) {
 
     if ((currenWindow.screenshotId !== null) && (currenWindow.title)) {
       let t = currenWindow.ended - currenWindow.started;
-      currenWindow.totalActiveTime = moment.duration(t).seconds();
+      currenWindow.totalActiveTime = parseInt(t/1000);
+      console.log(currenWindow.totalActiveTime);
       processDbm.addActiveProcess(currenWindow);
       mouseInfo.totalClick = 0;
       mouseInfo.totalKeypress = 0;

@@ -15,7 +15,7 @@ const manageScreenshot = require(path.join(__dirname, './js/screenshot/manageScr
 
 let play = false,
   time = 0,
-  hours, mins, secs;
+  hours, mins;
 
 function init(config) {
   renderUI();
@@ -24,6 +24,15 @@ function init(config) {
 function renderScreenshot() {
 
 }
+
+/**
+ * After loading the main window run the app
+ * main.js > it creates the login window
+ * login window captures config data
+ * login.js sends the config file to main window
+ * mainWindow runs the runApp as the initial function
+ * play is a boolean var which indicates the state of the app
+ */
 
 function runApp(play) {
   autosave.readSavedData(manageProcess.addInterruptedProcess, play);
@@ -36,28 +45,27 @@ function runApp(play) {
 }
 
 function renderUI() {
-  document.getElementById("minimize").addEventListener("click", function(e) {
+  document.getElementById("minimize").addEventListener("click", function (e) {
     const window = remote.getCurrentWindow();
     window.minimize();
   });
 
-  document.getElementById("close").addEventListener("click", function(e) {
+  document.getElementById("close").addEventListener("click", function (e) {
     const window = remote.getCurrentWindow();
     window.hide();
   });
 
-  document.getElementById("settings").addEventListener("click", function(e) {
+  document.getElementById("settings").addEventListener("click", function (e) {
     ipcRenderer.send('show-preference');
   });
 
-  document.getElementById("send-data").addEventListener("click", function(e) {
+  document.getElementById("send-data").addEventListener("click", function (e) {
     ipcRenderer.send('show-email-form');
   });
 
   let timerControl = document.getElementById("timerControls");
   hours = document.getElementById("hour"),
     mins = document.getElementById("mins"),
-    secs = document.getElementById("secs"),
     autosave.readTotalWorkingTime(setWorkTime);
   timerControl.addEventListener('click', () => {
     if (play) {
@@ -76,9 +84,8 @@ function renderUI() {
 function setWorkTime(t) {
   if (t) {
     time = Number(t);
-    hour.innerHTML = pad(moment.duration(time * 1000).hours()) + 'h';
-    mins.innerHTML = pad(moment.duration(time * 1000).minutes()) + 'm';
-    secs.innerHTML = pad(moment.duration(time * 1000).seconds()) + 's';
+    hour.innerHTML = pad(parseInt(time / 60)) + 'h';
+    mins.innerHTML = pad(time % 60) + 'm';
   }
 }
 
@@ -97,21 +104,25 @@ function pad(n) {
   return ('00' + n).substr(-2);
 }
 
+let startTimer;
+
+function setTime() {
+  ++time;
+  hour.innerHTML = pad(parseInt(time / 60)) + 'h';
+  mins.innerHTML = pad(time % 60) + 'm';
+  autosave.saveTotalWorkingTime(time);
+}
+
 function updateTimer() {
   if (play) {
-    setTimeout(() => {
-      time++;
-      hour.innerHTML = pad(moment.duration(time * 1000).hours()) + 'h';
-      mins.innerHTML = pad(moment.duration(time * 1000).minutes()) + 'm';
-      secs.innerHTML = pad(moment.duration(time * 1000).seconds()) + 's';
-      autosave.saveTotalWorkingTime(time);
-      updateTimer();
-    }, 1000);
+    startTimer = setInterval(setTime, 60000);
+  } else {
+    clearInterval(startTimer);
   }
 }
 
 
-document.onreadystatechange = function() {
+document.onreadystatechange = function () {
   if (document.readyState === "complete") {
     init();
   }

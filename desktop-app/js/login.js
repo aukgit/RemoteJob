@@ -21,6 +21,11 @@ function renderUI() {
   });
 }
 
+/**
+ * request for online authentication and set
+ * app config file from response
+ */
+
 function requestAuth(e) {
   e.preventDefault();
   let email = document.getElementById('email').value;

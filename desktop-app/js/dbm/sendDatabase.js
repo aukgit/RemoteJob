@@ -5,21 +5,29 @@ const uData = (electron.app || electron.remote.app).getPath('userData');
 const moment = require('moment');
 const crypto = require('crypto');
 const zipdir = require('zip-dir');
-//const lzma = require('lzma-native');
 const mailer = require(path.join(__dirname, '../mail/mailer'));
-const mn = 60000;
+const minute = 60000;
+let intervalFunction;
 
-let getSecret = function () {
+/**
+ * Get secret key from the config file
+ */
+
+let getSecretKey = function (secretKey) {
   let secret = "This is a secret key";
-  return secret;
+  return secretKey;
 }
 
+/**
+ * Compress database and generate message body for email
+ */
+
 let compressDB = function () {
-  //compressor = lzma.createCompressor(),
   let fileInitial = moment().format('DDMMYY_hhmm'),
       input = path.join(uData,'/data/data.db'),
       output = path.join(uData,'/data/'+fileInitial+'_data.db.xz'),
-      encrypt = crypto.createCipher("aes-256-ctr", getSecret());
+      encrypt = crypto.createCipher("aes-256-ctr", getSecretKey());
+
       zipdir(input, { saveTo: output }, function (err, buffer) {
         if(buffer){
           let file = {
@@ -32,17 +40,18 @@ let compressDB = function () {
           mailer.sendData(msg, file);
         }
       });
+
 }
 
-let contineouslySendDatabase = function (delay) {
-  function send() {
-    sendDatabase();
-    setTimeout(send, delay*mn);
-  }
-  setTimeout(send, delay*mn);
+let contineouslySendDatabase = function (delayTime) {
+  setInterval(sendDatabase, delayTime*minute);
 }
 
-let sendDatabase = function (delay) {
+/**
+ * comress the database before sending
+ */
+
+let sendDatabase = function (delayTime) {
   compressDB();
 }
 

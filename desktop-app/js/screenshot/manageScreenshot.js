@@ -8,6 +8,12 @@ const electron = require('electron');
 const uData = (electron.app || electron.remote.app).getPath('userData');
 const screenshotDbm = require(path.join(__dirname, '../dbm/screenshotDbm'));
 const minute = 60000;
+let intervalFunction;
+
+/**
+ * take desktop screenshot with defined quality
+ * and save to user data location
+ */
 
 let takeScreenshot = function() {
   screenshot(path.join(uData, '/data/img/sc.jpg'), {
@@ -21,15 +27,19 @@ let takeScreenshot = function() {
   });
 }
 
-let contineousShot = function (delay, play) {
-  if (play) {
-    function takeShot() {
-      takeScreenshot();
-      setTimeout(takeShot, delay*minute);
-    }
-    takeShot();
+
+let contineousShot = function (delayTime, isPlaying) {
+  if (isPlaying) {
+    intervalFunction = setInterval(takeScreenshot, delayTime*minute);
+  } else {
+    clearInterval(intervalFunction);
   }
 }
+
+/**
+ * minify image to save on db
+ * call generateBlob to generate binary string from image
+ */
 
 let minifyImg = function() {
 
@@ -43,6 +53,11 @@ let minifyImg = function() {
   });
 
 }
+
+/**
+ * save generated blob to database by calling
+ * screenshotDbm.js > addScreenshot
+ */
 
 let generateBlob = function(imgPath) {
   let imgBlob = null;

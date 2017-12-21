@@ -17,9 +17,13 @@ let createTempDataTable = function () {
   db.run("CREATE TABLE IF NOT EXISTS Temp (Title TEXT PRIMARY KEY, Data TEXT, CreatedAt INTEGER)");
 }
 
-let addProcess = function (p) {
+/**
+ * Add new process to database
+ */
+
+let addProcess = function (processInfo) {
   let stmt = db.prepare("INSERT OR IGNORE INTO Processes (PID, Title) VALUES (?,?)");
-  stmt.run(p.pid, p.title);
+  stmt.run(processInfo.pid, processInfo.title);
 }
 
 let addMousePos = function (mouseInfo) {
@@ -30,24 +34,33 @@ let addMousePos = function (mouseInfo) {
 let getAllProcesses = function () {
   db.serialize(() => {
     db.all('SELECT * from Processes', (err, res) => {
-
+      //Process name and ID
     });
   });
 }
 
-let addActiveProcess = function (p) {
-  let m = p.mouseData, btn = parseInt(m.btn);
+let addActiveProcess = function (processInfo) {
+  let mouseInfo = processInfo.mouseData, btnClicked = parseInt(mouseInfo.btn);
   let stmt = db.prepare("INSERT INTO ActiveProcesses (Process, Started, Closed, MousePosX, MousePosY, TotalMouseClick, MouseBtn, TotalKeyPress, Intensity, ScreenshotId, SequenceOfStartingMinutes, TotalActiveTime) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
-  stmt.run(p.title, p.started, p.ended, m.xPos, m.yPos, m.totalClick, btn, m.totalKeypress, p.intensity,  p.screenshotId, p.sequence, p.totalActiveTime);
+  stmt.run(processInfo.title, processInfo.started, processInfo.ended, mouseInfo.xPos, mouseInfo.yPos, mouseInfo.totalClick, btnClicked, mouseInfo.totalKeypress, processInfo.intensity,  processInfo.screenshotId, processInfo.sequence, processInfo.totalActiveTime);
 }
 
-let getAllActiveProcesses = function (fn) {
+/**
+ * get active process info as js object
+ * send the response as argument in callback
+ */
+
+let getAllActiveProcesses = function (callback) {
   db.serialize(() => {
     db.all('SELECT id, Process as Application, datetime(Started/1000,"unixepoch","localtime") as Started, datetime(Closed/1000, "unixepoch","localtime") as Closed, MousePosX, MousePosY, TotalMouseClick, MouseBtn, TotalKeyPress, Intensity, ScreenshotId, SequenceOfStartingMinutes, TotalActiveTime  from ActiveProcesses', (err, res) => {
-      fn(res);
+      callback(res);
     });
   });
 }
+
+/**
+ * Create/Intialize DB tables if not exists
+ */
 
 let initTables = function () {
   createProcessTable();

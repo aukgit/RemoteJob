@@ -9,16 +9,21 @@ const uData = (electron.app || electron.remote.app).getPath('userData');
 const mailer = require(path.join(__dirname,'./mailer'));
 const {db} = require(path.join(__dirname,'../dbm/initDB'));
 const excel = require(path.join(__dirname,'../dbm/generateExcel'));
-const imager = require(path.join(__dirname,'../screenshot/generateImageFromDB'));
+const imageGenerator = require(path.join(__dirname,'../screenshot/generateImageFromDB'));
 
-let m = null;
+let emailMessage = null;
+
+/**
+ * Copy database file in email package directory
+ */
 
 let copyDatabase = function copyDatabase() {
     fs.createReadStream(path.join(uData, '/data/data.db')).pipe(fs.createWriteStream(path.join(uData, '/data/dataPack/data.db')));
 }
 
+
+
 let compressDB = function () {
-  //compressor = lzma.createCompressor(),
   let fileInitial = 'shahids_'+moment().format('DDMMYY_hhmm'),
       dir = path.join(uData, '/data/dataPack'),
       output = path.join(uData, '/data/emailData/'+fileInitial+'_data.zip');
@@ -29,19 +34,25 @@ let compressDB = function () {
             path: output
           };
           mailer.sendData(m, file);
-          //db.close();
         }
       });
 }
 
+/**
+ * Organize data for email attachment (in dataPack folder)
+ * 1. Generate Excel file
+ * 2. Copy database
+ * 3. Generate image and after that compress the directory
+ */
+
 let organizeData = function organizeData() {
   excel.generateExcelFile();
   copyDatabase();
-  imager.generateImg(compressDB);
+  imageGenerator.generateImg(compressDB);
 }
 
-let packageData = function packageData(msg) {
-  m = msg;
+let packageData = function packageData(message) {
+  emailMessage = message;
   organizeData();
 }
 

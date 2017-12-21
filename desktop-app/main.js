@@ -22,6 +22,7 @@ function createWindow() {
     // height: 640,
     frame: false,
     show: false,
+    resizable: false,
     icon: path.join(__dirname, 'icons/png/64x64.png')
   });
 
@@ -57,6 +58,7 @@ function createLoginWindow() {
     height: 350,
     frame: false,
     show: false,
+    resizable: false,
     icon: path.join(__dirname, 'icons/png/64x64.png')
   });
 
@@ -83,6 +85,7 @@ function createPreferenceWindow() {
     parent: mainWindow,
     frame: false,
     show: false,
+    resizable: false,
     icon: path.join(__dirname, 'icons/png/64x64.png')
   });
 
@@ -109,6 +112,7 @@ function createSendEmailWindow() {
     parent: mainWindow,
     frame: false,
     show: false,
+    resizable: false,
     icon: path.join(__dirname, 'icons/png/64x64.png')
   });
 

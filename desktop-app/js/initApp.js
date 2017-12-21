@@ -8,21 +8,22 @@ const dbBackup = require(path.join(__dirname, './js/dbm/dbBackup'));
 const processDbm = require(path.join(__dirname, './js/dbm/processDbm'));
 const dbpush = require(path.join(__dirname, './js/dbm/sendDatabase'));
 const autosave = require(path.join(__dirname, './js/autosave/autosave'));
-const timer = require(path.join(__dirname, './js/timer/stopwatch'));
 const manageProcess = require(path.join(__dirname, './js/process/manageProcess'));
 const mt = require(path.join(__dirname, './js/process/mouseTracker'));
 const manageScreenshot = require(path.join(__dirname, './js/screenshot/manageScreenshot'));
 
-let play = false,
-  time = 0,
-  hours, mins;
+const config = {
+  "screenshotDelay": 10,
+  "databaseBackupDelay": 5,
+  "databaseSendDelay": 5
+};
+
+let isPlaying = false,
+  totalWorkTime = 0,
+  hours, mins, startTimer;
 
 function init(config) {
   renderUI();
-}
-
-function renderScreenshot() {
-
 }
 
 /**
@@ -31,35 +32,36 @@ function renderScreenshot() {
  * login window captures config data
  * login.js sends the config file to main window
  * mainWindow runs the runApp as the initial function
- * play is a boolean var which indicates the state of the app
+ * isPlaying is a boolean variable which indicates the state of
+ * the app
  */
 
-function runApp(play) {
-  autosave.readSavedData(manageProcess.addInterruptedProcess, play);
-  manageProcess.addProcess(play);
-  manageProcess.addActiveProcess(play);
-  mt.getMousePos(play);
-  manageScreenshot.contineousShot(10, play);
-  dbBackup.backUpDatabase(5, play);
-  //dbpush.contineouslySendDatabase(5, play);
+function runApp(isPlaying) {
+  autosave.readSavedData(manageProcess.addInterruptedProcess, isPlaying);
+  manageProcess.addProcess(isPlaying);
+  manageProcess.addActiveProcess(isPlaying);
+  mt.getMousePos(isPlaying);
+  manageScreenshot.contineousShot(config.screenshotDelay, isPlaying);
+  dbBackup.backUpDatabase(config.databaseBackupDelay, isPlaying);
+  //dbpush.contineouslySendDatabase(config.databaseSendDelay, isPlaying);
 }
 
 function renderUI() {
-  document.getElementById("minimize").addEventListener("click", function (e) {
+  document.getElementById("minimize").addEventListener("click", function(e) {
     const window = remote.getCurrentWindow();
     window.minimize();
   });
 
-  document.getElementById("close").addEventListener("click", function (e) {
+  document.getElementById("close").addEventListener("click", function(e) {
     const window = remote.getCurrentWindow();
     window.hide();
   });
 
-  document.getElementById("settings").addEventListener("click", function (e) {
+  document.getElementById("settings").addEventListener("click", function(e) {
     ipcRenderer.send('show-preference');
   });
 
-  document.getElementById("send-data").addEventListener("click", function (e) {
+  document.getElementById("send-data").addEventListener("click", function(e) {
     ipcRenderer.send('show-email-form');
   });
 
@@ -68,35 +70,40 @@ function renderUI() {
     mins = document.getElementById("mins"),
     autosave.readTotalWorkingTime(setWorkTime);
   timerControl.addEventListener('click', () => {
-    if (play) {
-      play = false;
-      playPause();
-      runApp(play);
+    if (isPlaying) {
+      isPlaying = false;
+      playPauseApp(isPlaying);
+      runApp(isPlaying);
     } else {
-      play = true;
-      playPause(play);
-      runApp(play);
+      isPlaying = true;
+      playPauseApp(isPlaying);
+      runApp(isPlaying);
     }
   });
 
 }
 
-function setWorkTime(t) {
-  if (t) {
-    time = Number(t);
-    hour.innerHTML = pad(parseInt(time / 60)) + 'h';
-    mins.innerHTML = pad(time % 60) + 'm';
+/**
+ * the following function set total work time after restart
+ * the app from database
+ */
+
+function setWorkTime(workTime) {
+  if (workTime) {
+    totalWorkTime = Number(workTime);
+    hour.innerHTML = pad(parseInt(totalWorkTime / 60)) + 'h';
+    mins.innerHTML = pad(totalWorkTime % 60) + 'm';
   }
 }
 
-function playPause() {
+function playPauseApp(isPlaying) {
   playPauseBtn = document.getElementById("playPauseBtn");
-  if (play) {
+  if (isPlaying) {
     playPauseBtn.className = "zmdi zmdi-pause-circle-outline";
     updateTimer();
   } else {
     playPauseBtn.className = "zmdi zmdi-play-circle-outline";
-    //stopTimer();
+    updateTimer();
   }
 }
 
@@ -104,17 +111,15 @@ function pad(n) {
   return ('00' + n).substr(-2);
 }
 
-let startTimer;
-
 function setTime() {
-  ++time;
-  hour.innerHTML = pad(parseInt(time / 60)) + 'h';
-  mins.innerHTML = pad(time % 60) + 'm';
-  autosave.saveTotalWorkingTime(time);
+  ++totalWorkTime;
+  hour.innerHTML = pad(parseInt(totalWorkTime / 60)) + 'h';
+  mins.innerHTML = pad(totalWorkTime % 60) + 'm';
+  autosave.saveTotalWorkingTime(totalWorkTime);
 }
 
 function updateTimer() {
-  if (play) {
+  if (isPlaying) {
     startTimer = setInterval(setTime, 60000);
   } else {
     clearInterval(startTimer);
@@ -122,7 +127,7 @@ function updateTimer() {
 }
 
 
-document.onreadystatechange = function () {
+document.onreadystatechange = function() {
   if (document.readyState === "complete") {
     init();
   }

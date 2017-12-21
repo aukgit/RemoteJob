@@ -20,6 +20,12 @@ let dataToExcel = function (data) {
   }
 }
 
+/**
+ * First get all active process data from DB using
+ * processDbm.js > getAllActiveProcesses
+ * Then generate excel from the result
+ */
+
 let generateExcelFile = function () {
   processDbm.getAllActiveProcesses(dataToExcel);
 }

@@ -1,52 +1,80 @@
-const mci = 0.33;
-const kbpi = 0.20;
-const mkci = 0.40;
-const mkkbpi = 0.20;
+const maxMouseClick = 300;
+const maxKeypress = 200;
+const maxMouseClickCombined = 200;
+const maxKeypressCombined = 100;
 
-let clickIntensity = function (click, fn) {
-  let i = 0;
-  if(click > 300){
-    i = 100;
+/**
+ * calculate intensity with only mouse click
+ * maximum intensity = 100%
+ */
+
+let clickIntensity = function(click, callback) {
+  let intensity = 0;
+
+  if (click > maxMouseClick) {
+    intensity = 100;
   } else {
-      i = (click*mci).toFixed(2);
+    intensity = (click / maxMouseClick).toFixed(2);
   }
-  return fn(i);
+  return callback(intensity);
+
 }
 
-let keyPressIntensity = function (kbp, fn) {
-  let i = 0;
-  if(kbp > 300){
-    i = 60;
+/**
+ * calculate intensity with only keyboard keypress
+ * maximum intensity = 80%
+ */
+
+let keyPressIntensity = function(keypress, callback) {
+  let intensity = 0;
+
+  if (keypress > maxKeypress) {
+    intensity = 60;
   } else {
-    i = (kbpi*kbp).toFixed(2);
+    intensity = (keypress / maxKeypress).toFixed(2);
   }
-  return fn(i);
+  return callback(intensity);
+
 }
 
-let clickAndKeyPressIntensity = function (click, kbp, fn) {
-  let i = 0;
-  if(click > 200 && kbp > 100){
-    i = 100;
-  } else if (click < 200 && kbp > 100) {
-    i = (click*mkci + 20).toFixed(2);
-  } else if (click > 200 && kbp < 100) {
-    i = (kbp*mkkbpi + 80).toFixed(2);
+/**
+ * intensity with both mouse click and kyeboard keypress
+ * mouse click intensity = 80%
+ * keypress intensity = 20%
+ */
+
+let clickAndKeyPressIntensity = function(click, keypress, callback) {
+  let intensity = 0;
+
+  if (click > maxMouseClickCombined && keypress > maxKeypressCombined) {
+    intensity = 100;
+  } else if (click < maxMouseClickCombined && keypress > maxKeypressCombined) {
+    intensity = (click / maxMouseClickCombined + 20).toFixed(2);
+  } else if (click > maxMouseClickCombined && keypress < maxKeypressCombined) {
+    intensity = (keypress / maxKeypressCombined + 80).toFixed(2);
   } else {
-    i = (kbp*mkkbpi + click*mkci).toFixed(2);
+    intensity = (click / maxMouseClickCombined + keypress / maxKeypressCombined).toFixed(2);
   }
-  return fn(i);
+
+  return callback(intensity);
 }
 
-let calcIntensity = function (data, fn) {
-  if(data.totalClick && data.totalKeypress){
-    clickAndKeyPressIntensity(data.totalClick, data.totalKeypress, fn);
-  } else if (data.totalClick && !data.totalKeypress) {
-    clickIntensity(data.totalClick, fn);
-  } else if (!data.totalClick && data.totalKeypress) {
-    keyPressIntensity(data.totalKeypress, fn);
+/**
+ * select only mouse click OR only keypress or both combined
+ */
+
+let calcIntensity = function(mouseInfo, callback) {
+
+  if (mouseInfo.totalClick && mouseInfo.totalKeypress) {
+    clickAndKeyPressIntensity(mouseInfo.totalClick, mouseInfo.totalKeypress, callback);
+  } else if (mouseInfo.totalClick && !mouseInfo.totalKeypress) {
+    clickIntensity(mouseInfo.totalClick, callback);
+  } else if (!mouseInfo.totalClick && mouseInfo.totalKeypress) {
+    keyPressIntensity(mouseInfo.totalKeypress, callback);
   } else {
-    return 0;
+    return callback(0);
   }
+
 }
 
 module.exports = {

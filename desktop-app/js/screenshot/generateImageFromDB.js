@@ -5,7 +5,11 @@ const electron = require('electron');
 const uData = (electron.app || electron.remote.app).getPath('userData');
 const imgPath = path.join(uData, '/data/dataPack');
 const {db} = require(path.join(__dirname, '../dbm/initDB'));
-const sm = require(path.join(__dirname, './selectImageFromDB'));
+const imageSelector = require(path.join(__dirname, './selectImageFromDB'));
+
+/**
+ * meta data configuration for image file
+ */
 
 let fileInfo = {
   username: 'shahids_',
@@ -22,6 +26,12 @@ let setImages = function setImages(imgs, callback) {
   Promise.all(p).then(callback);
 }
 
+/**
+ * get image blob from the database and
+ * send to setImage promise to generate image from blob one after
+ * another
+ */
+
 let getImage = function getImageFromDB(list, callback) {
   let imgs = [];
     for (let i = 0; i < list.length; i++) {
@@ -37,9 +47,13 @@ let getImage = function getImageFromDB(list, callback) {
   }
 }
 
-let createImage = function createImageFromString(img, c) {
+/**
+ * Create image from blob one after another
+ */
+
+let createImage = function createImageFromString(img, imageID) {
   return new Promise((res, rej) => {
-    fs.writeFile(imgPath+"/"+fileInfo.fileName+c+"."+fileInfo.type, img, 'base64', (err) => {
+    fs.writeFile(imgPath+"/"+fileInfo.fileName+imageID+"."+fileInfo.type, img, 'base64', (err) => {
       if(err){
         console.log(err);
         rej(err);
@@ -50,8 +64,12 @@ let createImage = function createImageFromString(img, c) {
   });
 }
 
-let generateImg = function generateImages(fn) {
-  sm.selectImg(getImage, fn);
+/**
+ * call selectImg to randomly select image for each hour
+ */
+
+let generateImg = function generateImages(callback) {
+  imageSelector.selectImg(getImage, callback);
 }
 
 module.exports = {

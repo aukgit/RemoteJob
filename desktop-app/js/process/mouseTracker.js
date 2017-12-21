@@ -12,33 +12,43 @@ let mouseInfo = {
   clickedAt: null
 };
 
-let c = 0;
+/**
+ * Debug variables: for each mouse click event a function is
+ * called for 6 times. To prevent data updated for each call these
+ * variables are used
+ */
 
-let setMousePos = function(data) {
+ let debugVarX = 0;
 
-  let mY = data[0].split(",")[1];
-  let mX = data[0].split(",")[0];
+/**
+ * save mouse position data for each event
+ */
+
+let setMousePos = function(mouseData) {
+
+  let mY = mouseData[0].split(",")[1];
+  let mX = mouseData[0].split(",")[0];
   if (mX && mY) {
     mouseInfo.xPos = mX;
     mouseInfo.yPos = mY;
   } else {
-    c++;
-    if (c == 1){
-      mouseInfo.btn = data[0];
+    debugVarX++;
+    if (debugVarX === 1){
+      mouseInfo.btn = mouseData[0];
     }
-    if (c == 3) {
+    if (debugVarX === 3) {
       mouseInfo.clickedAt = Number(moment().format('x'));
       //console.log(mouseInfo);
       processDbm.addMousePos(mouseInfo);
-      c = 0;
+      debugVarX = 0;
     }
   }
 }
 
-let getMousePos = function(play) {
-  if (play) {
-    gkm.events.on('mouse.*', function(data) {
-      setMousePos(data);
+let getMousePos = function(isPlaying) {
+  if (isPlaying) {
+    gkm.events.on('mouse.*', function(mouseData) {
+      setMousePos(mouseData);
     });
   }
 };

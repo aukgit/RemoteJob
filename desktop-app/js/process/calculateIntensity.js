@@ -29,8 +29,8 @@ let initCalcualtor = function initCalcualtor() {
 
 let clickIntensity = function(totalClick, callback) {
   let intensity = parseInt((totalClick / maxMouseClick)*100);
-  if (intensity > 100) {
-    return callback(100);
+  if (intensity > config.onlyMouse.intensity) {
+    return callback(config.onlyMouse.intensity);
   }
   return callback(intensity);
 }
@@ -42,8 +42,8 @@ let clickIntensity = function(totalClick, callback) {
 
 let keyPressIntensity = function(totalKeypress, callback) {
   let intensity = parseInt((totalKeypress / maxKeypress)*100);
-  if (intensity > 60) {
-    return callback(60);
+  if (intensity > config.onlyKeyboard.intensity) {
+    return callback(config.onlyKeyboard.intensity);
   }
   return callback(intensity);
 }
@@ -61,7 +61,7 @@ let combinedIntensity = function(totalClick, totalKeypress, callback) {
 
   if (mouseIntensity > combinedClickIntensity && keyboardIntensity > combinedKeypressIntensity) {
 
-    return callback(100);
+    return callback(combinedClickIntensity + combinedKeypressIntensity);
 
   } else if (mouseIntensity > combinedClickIntensity && keyboardIntensity < combinedKeypressIntensity) {
 

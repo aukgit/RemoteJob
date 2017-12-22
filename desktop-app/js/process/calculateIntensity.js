@@ -40,8 +40,6 @@ let combinedIntensity = function(totalClick, totalKeypress, callback) {
     keyboardIntensity = Number((totalKeypress * perKeypressIntensity).toFixed(2)),
     intensity = Number((mouseIntensity + keyboardIntensity).toFixed(2));
 
-    console.log(intensity);
-
   if (mouseIntensity > 0.8 && keyboardIntensity > 0.2) {
 
     return callback(1);

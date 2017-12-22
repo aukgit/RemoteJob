@@ -5,6 +5,11 @@ const moment = require('moment');
 const activeWin = require('active-win');
 const processDbm = require(path.join(__dirname, './../dbm/processDbm'));
 
+/**
+ * if an app runs from command line mouse x,y and click will
+ * be null
+ */
+
 let mouseInfo = {
   xPos: null,
   yPos: null,
@@ -52,7 +57,6 @@ let getMousePos = function(isPlaying) {
     });
   }
 };
-
 
 
 module.exports = {

@@ -36,6 +36,7 @@ let takeScreenshot = function() {
 
 let contineousShot = function (delayTime, isPlaying) {
   if (isPlaying) {
+    takeScreenshot();
     intervalFunction = setInterval(takeScreenshot, delayTime*minute);
   } else {
     clearInterval(intervalFunction);

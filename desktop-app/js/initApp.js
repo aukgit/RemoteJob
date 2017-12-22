@@ -21,7 +21,7 @@ let isPlaying = false,
   totalWorkTime = 0,
   hours, mins, startTimer;
 
-function init(config) {
+function init() {
   renderUI();
 }
 

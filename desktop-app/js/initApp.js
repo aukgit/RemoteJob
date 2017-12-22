@@ -1,5 +1,7 @@
 const remote = require('electron').remote;
 const moment = require('moment');
+const fs = require('fs');
+const electron = require('electron');
 const path = require('path');
 const {
   ipcRenderer
@@ -11,12 +13,9 @@ const autosave = require(path.join(__dirname, './js/autosave/autosave'));
 const manageProcess = require(path.join(__dirname, './js/process/manageProcess'));
 const mt = require(path.join(__dirname, './js/process/mouseTracker'));
 const manageScreenshot = require(path.join(__dirname, './js/screenshot/manageScreenshot'));
+const uData = (electron.app || electron.remote.app).getPath('userData');
 
-const config = {
-  "screenshotDelay": 10,
-  "databaseBackupDelay": 5,
-  "databaseSendDelay": 5
-};
+const config = JSON.parse(fs.readFileSync(path.join(uData, 'appconfig.json')));
 
 let isPlaying = false,
   totalWorkTime = 0,

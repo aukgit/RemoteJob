@@ -149,9 +149,7 @@ ipcMain.on('close-app', () => {
   app.quit();
 });
 
-ipcMain.on('loadMainWindow', (e, config) => {
-  //console.log(config);
-  // TODO: Config should be configured before creating the window
+ipcMain.on('loadMainWindow', (err) => {
   createWindow();
   loginWindow.close();
 });

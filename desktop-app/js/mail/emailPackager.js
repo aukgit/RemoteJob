@@ -3,7 +3,6 @@ require('hazardous');
 const path = require('path');
 const zipdir = require('zip-dir');
 const moment = require('moment');
-//const lzma = require('lzma-native');
 const electron = require('electron');
 const uData = (electron.app || electron.remote.app).getPath('userData');
 const mailer = require(path.join(__dirname,'./mailer'));
@@ -21,7 +20,10 @@ let copyDatabase = function copyDatabase() {
     fs.createReadStream(path.join(uData, '/data/data.db')).pipe(fs.createWriteStream(path.join(uData, '/data/dataPack/data.db')));
 }
 
-
+/**
+ * this function compress the directory created with email data
+ * send the compressed file path as attachment to mailer.js > sendData
+ */
 
 let compressDB = function () {
   let fileInitial = 'shahids_'+moment().format('DDMMYY_hhmm'),
@@ -33,7 +35,7 @@ let compressDB = function () {
             filename: fileInitial + '_data.zip',
             path: output
           };
-          mailer.sendData(m, file);
+          mailer.sendData(emailMessage, file);
         }
       });
 }

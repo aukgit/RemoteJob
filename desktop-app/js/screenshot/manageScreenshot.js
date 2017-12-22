@@ -11,8 +11,9 @@ const minute = 60000;
 let intervalFunction;
 
 /**
- * take desktop screenshot with defined quality
- * and save to user data location
+ * take desktop screenshot using desktop-screenshot package
+ * and save to user app data location
+ * C:\Users\username\AppData\Roaming\RemoteJob\data\img (in windows)
  */
 
 let takeScreenshot = function() {
@@ -27,6 +28,11 @@ let takeScreenshot = function() {
   });
 }
 
+
+/**
+ * this function contineously take screenshot
+ * delayTime is defined by the configuration
+ */
 
 let contineousShot = function (delayTime, isPlaying) {
   if (isPlaying) {

@@ -3,9 +3,14 @@ const path = require('path');
 const base64ToImage = require('base64-to-image');
 const electron = require('electron');
 const uData = (electron.app || electron.remote.app).getPath('userData');
-const imgPath = path.join(uData, '/data/dataPack');
 const {db} = require(path.join(__dirname, '../dbm/initDB'));
 const imageSelector = require(path.join(__dirname, './selectImageFromDB'));
+
+/**
+ * path to save selected images
+ */
+
+const imgPath = path.join(uData, '/data/dataPack');
 
 /**
  * meta data configuration for image file
@@ -20,10 +25,15 @@ let fileInfo = {
 
 let images = [];
 
+/**
+ * save promise result from createImage to imagePromise variable
+ * if all the promises are resolved then exectes the callback function
+ */
+
 let setImages = function setImages(imgs, callback) {
   images = imgs;
-  let p = images.map(createImage);
-  Promise.all(p).then(callback);
+  let imagePromise = images.map(createImage);
+  Promise.all(imagePromise).then(callback);
 }
 
 /**
@@ -49,6 +59,7 @@ let getImage = function getImageFromDB(list, callback) {
 
 /**
  * Create image from blob one after another
+ * return a promise
  */
 
 let createImage = function createImageFromString(img, imageID) {
@@ -66,6 +77,7 @@ let createImage = function createImageFromString(img, imageID) {
 
 /**
  * call selectImg to randomly select image for each hour
+ * callback: mail > emailPackager.js > compressDB
  */
 
 let generateImg = function generateImages(callback) {

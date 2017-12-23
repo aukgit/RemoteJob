@@ -22,7 +22,7 @@ function createWindow() {
     // height: 640,
     frame: false,
     show: false,
-    //resizable: false,
+    resizable: false,
     icon: path.join(__dirname, 'icons/png/64x64.png')
   });
 

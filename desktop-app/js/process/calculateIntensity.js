@@ -23,12 +23,21 @@ let initCalcualtor = function initCalcualtor() {
 }
 
 /**
+ * Round number with fixed decimal positions
+ */
+
+let roundNum = function roundNum(number, position) {
+  return Number((number).toFixed(position));
+}
+
+
+/**
  * calculate intensity with only mouse click
  * maximum intensity = 100%
  */
 
 let clickIntensity = function(totalClick, callback) {
-  let intensity = parseInt((totalClick / maxMouseClick)*100);
+  let intensity = roundNum((totalClick / maxMouseClick)*100);
   if (intensity > config.onlyMouse.intensity) {
     return callback(config.onlyMouse.intensity);
   }
@@ -41,7 +50,7 @@ let clickIntensity = function(totalClick, callback) {
  */
 
 let keyPressIntensity = function(totalKeypress, callback) {
-  let intensity = parseInt((totalKeypress / maxKeypress)*100);
+  let intensity = roundNum((totalKeypress / maxKeypress)*100);
   if (intensity > config.onlyKeyboard.intensity) {
     return callback(config.onlyKeyboard.intensity);
   }
@@ -55,22 +64,23 @@ let keyPressIntensity = function(totalKeypress, callback) {
  */
 
 let combinedIntensity = function(totalClick, totalKeypress, callback) {
-  let mouseIntensity = parseInt((totalClick * perClickIntensity)),
-    keyboardIntensity = parseInt((totalKeypress * perKeypressIntensity)),
-    intensity = mouseIntensity + keyboardIntensity;
+  let mouseIntensity = roundNum((totalClick * perClickIntensity)),
+    keyboardIntensity = roundNum((totalKeypress * perKeypressIntensity)),
+    intensity = roundNum(mouseIntensity + keyboardIntensity);
 
   if (mouseIntensity > combinedClickIntensity && keyboardIntensity > combinedKeypressIntensity) {
 
-    return callback(combinedClickIntensity + combinedKeypressIntensity);
+    intensity = roundNum(combinedClickIntensity + combinedKeypressIntensity);
+    return callback(intensity);
 
   } else if (mouseIntensity > combinedClickIntensity && keyboardIntensity < combinedKeypressIntensity) {
 
-    intensity = combinedClickIntensity + keyboardIntensity;
+    intensity = roundNum(combinedClickIntensity + keyboardIntensity);
     return callback(intensity);
 
   } else if (mouseIntensity < combinedClickIntensity && keyboardIntensity > combinedKeypressIntensity) {
 
-    intensity = mouseIntensity + combinedKeypressIntensity;
+    intensity = roundNum(mouseIntensity + combinedKeypressIntensity);
     return callback(intensity);
 
   }

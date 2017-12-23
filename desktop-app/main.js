@@ -22,7 +22,7 @@ function createWindow() {
     // height: 640,
     frame: false,
     show: false,
-    resizable: false,
+    //resizable: false,
     icon: path.join(__dirname, 'icons/png/64x64.png')
   });
 
@@ -75,7 +75,6 @@ function createLoginWindow() {
   loginWindow.on('closed', () => {
     loginWindow = null;
   });
-
 }
 
 function createPreferenceWindow() {
@@ -102,7 +101,6 @@ function createPreferenceWindow() {
   preferenceWindow.on('closed', () => {
     preferenceWindow = null;
   });
-
 }
 
 function createSendEmailWindow() {
@@ -173,9 +171,7 @@ app.on('ready', () => {
     fs.mkdirSync(img);
   }
 
-  //createWindow();
   createLoginWindow();
-  //createSendEmailWindow();
   createContextMenu();
 });
 

@@ -16,7 +16,7 @@ const leftBtnClick = "1", middleBtnClick = "2", rightBtnClick = "3";
  * variables are used
  */
 
-let debugVarX = 0, debugVarY = 0;
+let debugVarX = 0, debugVarY = 0, appRunning = false;
 
 let mouseInfo = {
   xPos: null,
@@ -31,11 +31,10 @@ sequenceTime = 0, sequence = 0, currenWindowInfo;
  * return active window info to callback as argument
  */
 
-
 let getActiveWindow = function(callback) {
-  activeWin().then((res) => {
-    callback(res);
-  });
+    activeWin().then((res) => {
+      callback(res);
+    });
 };
 
 // DEBUG: function called 6 times for each mouse event
@@ -62,23 +61,23 @@ let setMousePos = function(mouseData) {
 
 let getContinuousActiveWindow = function(callback) {
 
-  gkm.events.on('key.*', function(data) {
-    //console.log(this.event + ' ' + data);
-    debugVarY++;
-    if (debugVarY === 6) {
-      mouseInfo.totalKeypress++;
-      debugVarY = 0;
-    }
-    //console.log(x);
-  });
+    gkm.events.on('key.*', function(data) {
+      //console.log(this.event + ' ' + data);
+      debugVarY++;
+      if (debugVarY === 6) {
+        mouseInfo.totalKeypress++;
+        debugVarY = 0;
+      }
+      //console.log(x);
+    });
 
-  gkm.events.on('mouse.*', function(mouseData) {
-    setMousePos(mouseData);
-    if (mouseData[0] === leftBtnClick || mouseData[0] === middleBtnClick || mouseData[0] === rightBtnClick) {
-      sequenceTime = moment().format('LT');
-      getActiveWindow(callback);
-    }
-  });
+    gkm.events.on('mouse.*', function(mouseData) {
+      setMousePos(mouseData);
+      if (mouseData[0] === leftBtnClick || mouseData[0] === middleBtnClick || mouseData[0] === rightBtnClick) {
+        sequenceTime = moment().format('LT');
+          getActiveWindow(callback);
+      }
+    });
 
 };
 
@@ -123,19 +122,20 @@ let setScreenshotID = function() {
 setScreenshotID();
 
 /**
- * Add new process with pcoress ID to database
+ * Add new process with pcoress ID to database if app is in
+ * running states
  */
 
 let addNewProcess = function(processInfo) {
-  if (processInfo.title) {
+  if (processInfo.title && appRunning) {
     processDbm.addProcess(processInfo);
   }
-  processDbm.getAllProcesses();
+  //processDbm.getAllProcesses();
 };
 
 /**
  * add currently clicked or active window info to database
- *
+ * if app is in running state
  */
 
 let addCurrentActiveProcess = function(processInfo) {
@@ -156,7 +156,9 @@ let addCurrentActiveProcess = function(processInfo) {
     if ((currenWindowInfo.screenshotId !== null) && (currenWindowInfo.title)) {
       let activeTime = currenWindowInfo.ended - currenWindowInfo.started;
       currenWindowInfo.totalActiveTime = parseInt(activeTime/1000); //in seconds
-      processDbm.addActiveProcess(currenWindowInfo);
+      if (appRunning) {
+        processDbm.addActiveProcess(currenWindowInfo);
+      }
       mouseInfo.totalClick = 0;
       mouseInfo.totalKeypress = 0;
     }
@@ -198,15 +200,13 @@ setTimeout(save, 1000);
 
 
 let addProcess = function(isPlaying) {
-  if (isPlaying) {
+    appRunning = isPlaying;
     getContinuousActiveWindow(addNewProcess);
-  }
 };
 
 let addActiveProcess = function(isPlaying) {
-  if (isPlaying) {
+    appRunning = isPlaying;
     getContinuousActiveWindow(addCurrentActiveProcess);
-  }
 };
 
 /**

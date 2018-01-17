@@ -1,0 +1,35 @@
+{
+	"screenshotDelay": 10,
+	"databaseSendDelay": 10,
+	"databaseBackupDelay": 5,
+	"ClientName": "x-Product",
+	"EmployeeName": "John Doe",
+	"ContractType": "Working In a Private Company",
+	"Salary": 1000,
+	"SalaryType": "monthly",
+	"WeeklyFixedhours": 28,
+	"LastTimeSyncWithServer": "06:15",
+	"IsCameraOn:": false,
+	"TimeZone": "UTC+6",
+	"EncryptionCode": "fe1660b81c1289e120bac035c5d182c8652e7df5",
+	"intensityConfig": {
+		"onlyMouse": {
+			"intensity": 100,
+			"maxClick": 300
+		},
+		"onlyKeyboard": {
+			"intensity": 60,
+			"maxKeypress": 200
+		},
+		"combinedIntensity": {
+			"mouse": {
+				"intensity": 80,
+				"maxClick": 200
+			},
+			"keyboard": {
+				"intensity": 20,
+				"maxKeypress": 100
+			}
+		}
+	}
+}

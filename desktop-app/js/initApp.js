@@ -1,5 +1,7 @@
 const remote = require('electron').remote;
 const moment = require('moment');
+const fs = require('fs');
+const electron = require('electron');
 const path = require('path');
 const {
   ipcRenderer
@@ -8,31 +10,39 @@ const dbBackup = require(path.join(__dirname, './js/dbm/dbBackup'));
 const processDbm = require(path.join(__dirname, './js/dbm/processDbm'));
 const dbpush = require(path.join(__dirname, './js/dbm/sendDatabase'));
 const autosave = require(path.join(__dirname, './js/autosave/autosave'));
-const timer = require(path.join(__dirname, './js/timer/stopwatch'));
 const manageProcess = require(path.join(__dirname, './js/process/manageProcess'));
 const mt = require(path.join(__dirname, './js/process/mouseTracker'));
 const manageScreenshot = require(path.join(__dirname, './js/screenshot/manageScreenshot'));
+const uData = (electron.app || electron.remote.app).getPath('userData');
 
-let play = false,
-  time = 0,
-  hours, mins, secs;
+const config = JSON.parse(fs.readFileSync(path.join(uData, 'appconfig.json')));
 
-function init(config) {
+let isPlaying = false,
+  totalWorkTime = 0,
+  hours, mins, startTimer;
+
+function init() {
   renderUI();
 }
 
-function renderScreenshot() {
+/**
+ * After loading the main window run the app
+ * main.js > it creates the login window
+ * login window captures config data
+ * login.js sends the config file to main window
+ * mainWindow runs the runApp as the initial function
+ * isPlaying is a boolean variable which indicates the state of
+ * the app
+ */
 
-}
-
-function runApp(play) {
-  autosave.readSavedData(manageProcess.addInterruptedProcess, play);
-  manageProcess.addProcess(play);
-  manageProcess.addActiveProcess(play);
-  mt.getMousePos(play);
-  manageScreenshot.contineousShot(10, play);
-  dbBackup.backUpDatabase(5, play);
-  //dbpush.contineouslySendDatabase(5, play);
+function runApp(isPlaying) {
+  autosave.readSavedData(manageProcess.addInterruptedProcess, isPlaying);
+  manageProcess.addProcess(isPlaying);
+  manageProcess.addActiveProcess(isPlaying);
+  mt.getMousePos(isPlaying);
+  manageScreenshot.contineousShot(config.screenshotDelay, isPlaying);
+  dbBackup.backUpDatabase(config.databaseBackupDelay, isPlaying);
+  //dbpush.contineouslySendDatabase(config.databaseSendDelay, isPlaying);
 }
 
 function renderUI() {
@@ -57,39 +67,42 @@ function renderUI() {
   let timerControl = document.getElementById("timerControls");
   hours = document.getElementById("hour"),
     mins = document.getElementById("mins"),
-    secs = document.getElementById("secs"),
     autosave.readTotalWorkingTime(setWorkTime);
   timerControl.addEventListener('click', () => {
-    if (play) {
-      play = false;
-      playPause();
-      runApp(play);
+    if (isPlaying) {
+      isPlaying = false;
+      playPauseApp(isPlaying);
+      runApp(isPlaying);
     } else {
-      play = true;
-      playPause(play);
-      runApp(play);
+      isPlaying = true;
+      playPauseApp(isPlaying);
+      runApp(isPlaying);
     }
   });
 
 }
 
-function setWorkTime(t) {
-  if (t) {
-    time = Number(t);
-    hour.innerHTML = pad(moment.duration(time * 1000).hours()) + 'h';
-    mins.innerHTML = pad(moment.duration(time * 1000).minutes()) + 'm';
-    secs.innerHTML = pad(moment.duration(time * 1000).seconds()) + 's';
+/**
+ * the following function set total work time after restart
+ * the app from database
+ */
+
+function setWorkTime(workTime) {
+  if (workTime) {
+    totalWorkTime = Number(workTime);
+    hour.innerHTML = pad(parseInt(totalWorkTime / 60)) + 'h';
+    mins.innerHTML = pad(totalWorkTime % 60) + 'm';
   }
 }
 
-function playPause() {
+function playPauseApp(isPlaying) {
   playPauseBtn = document.getElementById("playPauseBtn");
-  if (play) {
+  if (isPlaying) {
     playPauseBtn.className = "zmdi zmdi-pause-circle-outline";
     updateTimer();
   } else {
     playPauseBtn.className = "zmdi zmdi-play-circle-outline";
-    //stopTimer();
+    updateTimer();
   }
 }
 
@@ -97,16 +110,18 @@ function pad(n) {
   return ('00' + n).substr(-2);
 }
 
+function setTime() {
+  ++totalWorkTime;
+  hour.innerHTML = pad(parseInt(totalWorkTime / 60)) + 'h';
+  mins.innerHTML = pad(totalWorkTime % 60) + 'm';
+  autosave.saveTotalWorkingTime(totalWorkTime);
+}
+
 function updateTimer() {
-  if (play) {
-    setTimeout(() => {
-      time++;
-      hour.innerHTML = pad(moment.duration(time * 1000).hours()) + 'h';
-      mins.innerHTML = pad(moment.duration(time * 1000).minutes()) + 'm';
-      secs.innerHTML = pad(moment.duration(time * 1000).seconds()) + 's';
-      autosave.saveTotalWorkingTime(time);
-      updateTimer();
-    }, 1000);
+  if (isPlaying) {
+    startTimer = setInterval(setTime, 60000);
+  } else {
+    clearInterval(startTimer);
   }
 }
 

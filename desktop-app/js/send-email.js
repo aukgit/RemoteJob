@@ -9,7 +9,7 @@ const {db} = require(path.join(__dirname, '../js/dbm/initDB'));
 
 let emailForm = document.getElementById("emailForm");
 emailForm.addEventListener('submit', generateEmail);
-let startedTime = null, msg = {}, mailSubject = {};
+let startedTime = null, message = {}, mailSubject = {};
 
 
 function init() {
@@ -29,7 +29,7 @@ function renderUI() {
 }
 
 function setTotalWorkingTime(total) {
-  mailSubject.total = (Number(total)/(60*60)).toFixed(2);
+  mailSubject.total = (Number(total)/60).toFixed(2);
   formatAndPackage();
 }
 
@@ -38,25 +38,37 @@ function setStartedTime(time) {
   autosave.readTotalWorkingTime(setTotalWorkingTime);
 }
 
+/**
+ * format email and package data for attachment
+ * mail > emailPackager.js > packageData is used to
+ * package data
+ */
+
 function formatAndPackage() {
-  msg.subject = `Shahidul Islam Majumder [${moment().format('DD-MMM-YYYY')}] [${mailSubject.startedTime}] - [${moment().format('hh:mma')}] - [${mailSubject.total} hours] - (ended)`;
-  packeger.packageData(msg);
+  message.subject = `Shahidul Islam Majumder [${moment().format('DD-MMM-YYYY')}] [${mailSubject.startedTime}] - [${moment().format('hh:mma')}] - [${mailSubject.total} hours] - (ended)`;
+  packeger.packageData(message);
   setTimeout(autosave.resetData, 5000);
 }
 
-function generateEmail(e) {
-  e.preventDefault();
+/**
+ * generate email based on start or ended
+ * send the generated email by using
+ * mail > mailer.js > sendEmail function
+ */
+
+function generateEmail(event) {
+  event.preventDefault();
   let emailType = document.querySelector('input[name = "emailType"]:checked').value;
   //subject = document.getElementById("subject").value,
   description = document.getElementById("description").value;
-  msg.description = description;
+  message.description = description;
   if (emailType === "ended") {
     autosave.readStartedTime(setStartedTime);
   } else {
     let startedTime = moment().format('hh:mma');
     autosave.saveStartedTime(startedTime);
-    msg.subject = `Shahidul Islam Majumder [${moment().format('DD-MMM-YYYY')}] [${startedTime}] - (started)`;
-    mailer.sendEmail(msg);
+    message.subject = `Shahidul Islam Majumder [${moment().format('DD-MMM-YYYY')}] [${startedTime}] - (started)`;
+    mailer.sendEmail(message);
   }
   const window = remote.getCurrentWindow();
   window.hide();

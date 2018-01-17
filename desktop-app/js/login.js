@@ -1,11 +1,17 @@
 const remote = require('electron').remote;
-const {ipcRenderer} = require('electron');
+const electron = require('electron');
+const fs = require('fs');
+const path = require('path');
+const {
+  ipcRenderer
+} = require('electron');
+const uData = (electron.app || electron.remote.app).getPath('userData');
 
 
 let form = document.querySelector('#loginForm');
-form.addEventListener('submit',requestAuth);
+form.addEventListener('submit', requestAuth);
 
-function init(config) {
+function init() {
   renderUI();
 }
 
@@ -21,34 +27,37 @@ function renderUI() {
   });
 }
 
+function saveAppConfig(config) {
+  const configPath = path.join(uData, 'appconfig.json');
+  fs.writeFile(configPath, JSON.stringify(config), (err) => {
+    if (err) {
+      console.error(err);
+      return;
+    };
+    loadMainWindow();
+  });
+}
+
+/**
+ * request for online authentication and
+ * save the app config as appconfig.json on user data directory
+ */
+
+
 function requestAuth(e) {
   e.preventDefault();
   let email = document.getElementById('email').value;
   let password = document.getElementById('password').value;
-  if(email && password){
-    let config = {
-      "ScreenshotTakingTime": 5,
-      "ServerSyncTime": 10,
-      "DatabaseBackup": 5,
-      "ClientName": "x-Product",
-      "EmployeeName": "John Doe",
-      "ContractType": "Working In a Private Company",
-      "Salary": 1000,
-      "SalaryType": "monthly",
-      "WeeklyFixedhours": 28,
-      "LastTimeSyncWithServer": "06:15",
-      "IsCameraOn:": false,
-      "TimeZone": "UTC+6",
-      "EncryptionCode": "fe1660b81c1289e120bac035c5d182c8652e7df5"
-    };
-    loadMainWindow(config);
+  if (email && password) {
+    let config = JSON.parse(fs.readFileSync(path.join(__dirname, '../appconfig.json')));
+    saveAppConfig(config);
   } else {
-
+    console.log('Authentication failed!');
   }
 }
 
-function loadMainWindow(config) {
-  ipcRenderer.send('loadMainWindow', config);
+function loadMainWindow() {
+  ipcRenderer.send('loadMainWindow');
 }
 
 document.onreadystatechange = function() {

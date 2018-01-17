@@ -27,6 +27,26 @@ npm i -S electron
 npm run rebuild
 ```
 
+Edit the mail setting:
+
+Add a new file named config.test.json in `js > mail`. Contents of the file will be:
+
+```json
+{
+  "email":"yourmail@gmail.com",
+  "pass": "your_password"
+}
+```
+
+Change receiver email on  `mailer.js` file:
+
+```js
+//Go to line 25
+to: 'receiver_email@gmail.com'
+```
+
+Now run the app by executing the following command
+
 ```bash
 npm start
 ```

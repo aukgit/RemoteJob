@@ -5,21 +5,26 @@ let createImagesTable = function () {
   db.run("CREATE TABLE IF NOT EXISTS images (ID INTEGER PRIMARY KEY, img BLOB)");
 }
 
-let getLastScreeshotId = function (fn) {
+/**
+ * function returns last screenshot ID from DB
+ * send the result as argument to callback
+ */
+
+let getLastScreeshotId = function (callback) {
   let stmt = "SELECT * FROM images ORDER BY ID DESC LIMIT 1";
   db.all(stmt, [], (err, res) => {
     if(err){
       res = { ID: 1};
-      fn(res);
+      callback(res);
     } else {
-      fn(res[0]);
+      callback(res[0]);
     }
   });
 }
 
-let addScreenshot = function (sc) {
+let addScreenshot = function (imageBlob) {
   let stmt = db.prepare("INSERT INTO images (img) VALUES (?)");
-  stmt.run(sc);
+  stmt.run(imageBlob);
 }
 
 let getAllScreenshot = function () {
@@ -29,6 +34,10 @@ let getAllScreenshot = function () {
     });
   });
 }
+
+/**
+ * Create table for images if not exists
+ */
 
 let initTables = function () {
   createImagesTable();

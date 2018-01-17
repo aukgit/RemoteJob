@@ -1,52 +1,121 @@
-const mci = 0.33;
-const kbpi = 0.20;
-const mkci = 0.40;
-const mkkbpi = 0.20;
+const electron = require('electron');
+const uData = (electron.app || electron.remote.app).getPath('userData');
+const fs = require('fs');
+const path = require('path');
 
-let clickIntensity = function (click, fn) {
-  let i = 0;
-  if(click > 300){
-    i = 100;
-  } else {
-      i = (click*mci).toFixed(2);
-  }
-  return fn(i);
+/**
+ * initialize the intensity calculator with configuration
+ * got from server
+ */
+
+const appconfig = JSON.parse(fs.readFileSync(path.join(uData, 'appconfig.json')));
+const config = appconfig.intensityConfig;
+
+let maxMouseClick, maxKeypress, perClickIntensity, perKeypressIntensity, combinedClickIntensity, combinedKeypressIntensity;
+
+let initCalcualtor = function initCalcualtor() {
+  maxMouseClick = config.onlyMouse.maxClick;
+  maxKeypress = config.onlyKeyboard.maxKeypress;
+  combinedClickIntensity = config.combinedIntensity.mouse.intensity;
+  combinedKeypressIntensity = config.combinedIntensity.keyboard.intensity;
+  perClickIntensity = combinedClickIntensity / config.combinedIntensity.mouse.maxClick;
+  perKeypressIntensity = combinedKeypressIntensity / config.combinedIntensity.keyboard.maxKeypress;
 }
 
-let keyPressIntensity = function (kbp, fn) {
-  let i = 0;
-  if(kbp > 300){
-    i = 60;
-  } else {
-    i = (kbpi*kbp).toFixed(2);
+/**
+ * Round number with fixed decimal positions
+ */
+
+let roundNum = function roundNum(number, position) {
+  if (!position) {
+    position = 2;
   }
-  return fn(i);
+  return Number((number).toFixed(position));
 }
 
-let clickAndKeyPressIntensity = function (click, kbp, fn) {
-  let i = 0;
-  if(click > 200 && kbp > 100){
-    i = 100;
-  } else if (click < 200 && kbp > 100) {
-    i = (click*mkci + 20).toFixed(2);
-  } else if (click > 200 && kbp < 100) {
-    i = (kbp*mkkbpi + 80).toFixed(2);
-  } else {
-    i = (kbp*mkkbpi + click*mkci).toFixed(2);
+
+/**
+ * calculate intensity with only mouse click
+ * maximum intensity = 100%
+ */
+
+let clickIntensity = function(totalClick, callback) {
+  let intensity = roundNum(((totalClick / maxMouseClick)*100),2);
+  if (intensity > config.onlyMouse.intensity) {
+    return callback(config.onlyMouse.intensity);
   }
-  return fn(i);
+  return callback(intensity);
 }
 
-let calcIntensity = function (data, fn) {
-  if(data.totalClick && data.totalKeypress){
-    clickAndKeyPressIntensity(data.totalClick, data.totalKeypress, fn);
-  } else if (data.totalClick && !data.totalKeypress) {
-    clickIntensity(data.totalClick, fn);
-  } else if (!data.totalClick && data.totalKeypress) {
-    keyPressIntensity(data.totalKeypress, fn);
-  } else {
-    return 0;
+/**
+ * calculate intensity with only keyboard keypress
+ * maximum intensity = 80%
+ */
+
+let keyPressIntensity = function(totalKeypress, callback) {
+  let intensity = roundNum(((totalKeypress / maxKeypress)*100),2);
+  if (intensity > config.onlyKeyboard.intensity) {
+    return callback(config.onlyKeyboard.intensity);
   }
+  return callback(intensity);
+}
+
+/**
+ * intensity with both mouse click and kyeboard keypress
+ * mouse click intensity = 80%
+ * keypress intensity = 20%
+ */
+
+let combinedIntensity = function(totalClick, totalKeypress, callback) {
+  let mouseIntensity = roundNum((totalClick * perClickIntensity),2),
+    keyboardIntensity = roundNum((totalKeypress * perKeypressIntensity),2),
+    intensity = roundNum((mouseIntensity + keyboardIntensity),2);
+
+  if (mouseIntensity > combinedClickIntensity && keyboardIntensity > combinedKeypressIntensity) {
+
+    intensity = roundNum((combinedClickIntensity + combinedKeypressIntensity),2);
+    return callback(intensity);
+
+  } else if (mouseIntensity > combinedClickIntensity && keyboardIntensity < combinedKeypressIntensity) {
+
+    intensity = roundNum((combinedClickIntensity + keyboardIntensity),2);
+    return callback(intensity);
+
+  } else if (mouseIntensity < combinedClickIntensity && keyboardIntensity > combinedKeypressIntensity) {
+
+    intensity = roundNum((mouseIntensity + combinedKeypressIntensity),2);
+    return callback(intensity);
+
+  }
+
+  return callback(intensity);
+}
+
+/**
+ * select only mouse click OR only keypress or both combined
+ * if no click > call keyPressIntensity function
+ * if no keypress > call clickIntensity function
+ * if both click and keypress are combined > call
+ * clickAndKeyPressIntensity function
+ */
+
+let calcIntensity = function(mouseInfo, callback) {
+
+  initCalcualtor();
+
+  let totalClick = mouseInfo.totalClick,
+    totalKeypress = mouseInfo.totalKeypress;
+
+  if (totalClick && totalKeypress) {
+    combinedIntensity(totalClick, totalKeypress, callback);
+  } else if (totalClick && !totalKeypress) {
+    clickIntensity(totalClick, callback);
+  } else if (!totalClick && totalKeypress) {
+    keyPressIntensity(totalKeypress, callback);
+  } else {
+    return callback(0);
+  }
+
 }
 
 module.exports = {

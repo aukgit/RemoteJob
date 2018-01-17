@@ -3,9 +3,18 @@ const path = require('path');
 const base64ToImage = require('base64-to-image');
 const electron = require('electron');
 const uData = (electron.app || electron.remote.app).getPath('userData');
-const imgPath = path.join(uData, '/data/dataPack');
 const {db} = require(path.join(__dirname, '../dbm/initDB'));
-const sm = require(path.join(__dirname, './selectImageFromDB'));
+const imageSelector = require(path.join(__dirname, './selectImageFromDB'));
+
+/**
+ * path to save selected images
+ */
+
+const imgPath = path.join(uData, '/data/dataPack');
+
+/**
+ * meta data configuration for image file
+ */
 
 let fileInfo = {
   username: 'shahids_',
@@ -16,11 +25,22 @@ let fileInfo = {
 
 let images = [];
 
+/**
+ * save promise result from createImage to imagePromise variable
+ * if all the promises are resolved then exectes the callback function
+ */
+
 let setImages = function setImages(imgs, callback) {
   images = imgs;
-  let p = images.map(createImage);
-  Promise.all(p).then(callback);
+  let imagePromise = images.map(createImage);
+  Promise.all(imagePromise).then(callback);
 }
+
+/**
+ * get image blob from the database and
+ * send to setImage promise to generate image from blob one after
+ * another
+ */
 
 let getImage = function getImageFromDB(list, callback) {
   let imgs = [];
@@ -37,9 +57,14 @@ let getImage = function getImageFromDB(list, callback) {
   }
 }
 
-let createImage = function createImageFromString(img, c) {
+/**
+ * Create image from blob one after another
+ * return a promise
+ */
+
+let createImage = function createImageFromString(img, imageID) {
   return new Promise((res, rej) => {
-    fs.writeFile(imgPath+"/"+fileInfo.fileName+c+"."+fileInfo.type, img, 'base64', (err) => {
+    fs.writeFile(imgPath+"/"+fileInfo.fileName+imageID+"."+fileInfo.type, img, 'base64', (err) => {
       if(err){
         console.log(err);
         rej(err);
@@ -50,8 +75,13 @@ let createImage = function createImageFromString(img, c) {
   });
 }
 
-let generateImg = function generateImages(fn) {
-  sm.selectImg(getImage, fn);
+/**
+ * call selectImg to randomly select image for each hour
+ * callback: mail > emailPackager.js > compressDB
+ */
+
+let generateImg = function generateImages(callback) {
+  imageSelector.selectImg(getImage, callback);
 }
 
 module.exports = {

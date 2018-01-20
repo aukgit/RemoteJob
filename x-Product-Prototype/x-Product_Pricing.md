@@ -1,0 +1,63 @@
+### Pricing Packages
+ -  Individual(Freelancer)
+    - Basic
+      - Max bidding: 100/month
+      - Relevant Job
+      - Special Customer Support
+      - Secured transaction 
+    - Pro
+      - No bid limit
+      - Most relevant jobs
+      - secured transaction (varified employers)
+      - End to end communication
+      - No limit in bidding
+      - 24/7 Customer Service
+      - Secure transaction (only verified user)
+      - private version control
+      - Professional CV generator
+      - 24/7 support
+      - virtual workspace
+- Individual (Employer)
+  - Basic
+    - Varified freelancer
+    - Special Customer Support
+    - Autometic job classification
+    - Employee activity tracking summary
+    - Pro
+    - Varified freelancer
+    - Top and most relevant freelancer
+    - autometic job classification
+    - 24/7 Customer Service
+    - Quality assurance
+    - Custom Invoice
+    - Deatails employee activity tracking
+    - Management Service
+- Organization
+  - Team
+    - Members: 0 - 10
+    - 24/7 management support
+    - Top freelancer within click
+    - private version control
+    - team chat (max: 5)
+    - performance measurement (for each member of the team)
+    - details insight
+  - Company
+    - Members: 11 - 50
+    - Members: 0 - 10
+    - 24/7 management support
+    - Top freelancer within click
+    - private version control
+    - team chat (max: 10)
+    - performance measurement (for each member of the team)
+    - details insight
+  - Enterprise
+    - Members: 51 - n
+    - 24/7 Management Support
+    - Top freelancers within click
+    - Quality assurance guarantee
+    - private version control
+    - private forum
+    - team chat (max 20)
+    - virtual workspace (online)
+    - performance measurement (for each member of the team)
+    - details insight

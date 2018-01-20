@@ -1,6 +1,8 @@
 # RemoteJob
 Remote job application development (open source) - in node js and electron
 
+[<img src="https://raw.githubusercontent.com/aukgit/RemoteJob/dev/screenshots/RemoteJob-App.png">](https://github.com/aukgit/RemoteJob/tree/dev/screenshots)
+
 To run the app you have to have NodeJS and Java installed. Please follow the following instruction to run the app:
 
 ```bash

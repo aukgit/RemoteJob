@@ -26,7 +26,7 @@ let copyDatabase = function copyDatabase() {
  */
 
 let compressDB = function () {
-  let fileInitial = 'shahids_'+moment().format('DDMMYY_hhmm'),
+  let fileInitial = 'johndoe_'+moment().format('DDMMYY_hhmm'),
       dir = path.join(uData, '/data/dataPack'),
       output = path.join(uData, '/data/emailData/'+fileInitial+'_data.zip');
       zipdir(dir, { saveTo: output }, function (err, buffer) {

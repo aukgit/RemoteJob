@@ -45,7 +45,7 @@ function setStartedTime(time) {
  */
 
 function formatAndPackage() {
-  message.subject = `Shahidul Islam Majumder [${moment().format('DD-MMM-YYYY')}] [${mailSubject.startedTime}] - [${moment().format('hh:mma')}] - [${mailSubject.total} hours] - (ended)`;
+  message.subject = `John Doe [${moment().format('DD-MMM-YYYY')}] [${mailSubject.startedTime}] - [${moment().format('hh:mma')}] - [${mailSubject.total} hours] - (ended)`;
   packeger.packageData(message);
   setTimeout(autosave.resetData, 5000);
 }
@@ -59,7 +59,6 @@ function formatAndPackage() {
 function generateEmail(event) {
   event.preventDefault();
   let emailType = document.querySelector('input[name = "emailType"]:checked').value;
-  //subject = document.getElementById("subject").value,
   description = document.getElementById("description").value;
   message.description = description;
   if (emailType === "ended") {
@@ -67,7 +66,7 @@ function generateEmail(event) {
   } else {
     let startedTime = moment().format('hh:mma');
     autosave.saveStartedTime(startedTime);
-    message.subject = `Shahidul Islam Majumder [${moment().format('DD-MMM-YYYY')}] [${startedTime}] - (started)`;
+    message.subject = `John Doe [${moment().format('DD-MMM-YYYY')}] [${startedTime}] - (started)`;
     mailer.sendEmail(message);
   }
   const window = remote.getCurrentWindow();

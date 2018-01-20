@@ -20,7 +20,7 @@
     "electron"
   ],
   "build": {
-    "appId": "me.shahids.remotejob",
+    "appId": "com.the-xproduct.remotejob",
     "asar": false,
     "dmg": {
       "contents": [
@@ -42,7 +42,7 @@
         "deb"
       ],
       "icon": "build/icons",
-      "maintainer": "Shahid"
+      "maintainer": "x-Product"
     },
     "win": {
       "target": "nsis",

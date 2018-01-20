@@ -17,7 +17,7 @@ const imgPath = path.join(uData, '/data/dataPack');
  */
 
 let fileInfo = {
-  username: 'shahids_',
+  username: 'johndoe_',
   fileName: '',
   type:'jpg',
   path: imgPath

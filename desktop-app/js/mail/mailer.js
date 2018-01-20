@@ -11,7 +11,7 @@ const removeData = require(path.join(__dirname, '../dbm/removeData'));
  * provide email and password in config.json file
  */
 
-const config = JSON.parse(fs.readFileSync(path.join(__dirname, 'config.test.json')));
+const config = JSON.parse(fs.readFileSync(path.join(__dirname, 'config.json')));
 
 /**
  * Node module for email sending
@@ -35,8 +35,8 @@ let transporter = nodemailer.createTransport({
  */
 
 let HelperOptions = {
-  from: `Shahidul Islam Majumder <${config.email}>`,
-  to: 'devorg.bd@gmail.com',
+  from: `${config.name} <${config.email}>`,
+  to: config.sendTo,
   //to: 'xp.pground@gmail.com',
   subject: 'Daily Activity Email',
   text: 'This is the body text'

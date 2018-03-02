@@ -1,0 +1,108 @@
+﻿@model Dictionary<string, string>
+
+@{
+    ViewBag.Title = "GetGoogleDriveFiles";
+}
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<style type="text/css">
+    #header {
+        width: 100%;
+        background-color: #CCCCCC;
+        text-align: center;
+    }
+
+    #layouttable {
+        border: 0px;
+        width: 100%;
+        /*text-align: center;*/
+        font-family:'Segoe UI'
+    }
+
+        #layouttable td.col1 {
+            width: 20%;
+            vertical-align: top;
+        }
+
+        #layouttable td.col2 {
+            width: 60%;
+            vertical-align: top;
+            background-color: #E8E8E8;
+        }
+
+        #layouttable td.col3 {
+            width: 20%;
+            vertical-align: top;
+        }
+</style>
+
+<h2>Google Drive Files</h2>
+
+<p>
+    File Upload: <input type="button" class="fileUpload" value="Upload" style="align-content:center" />
+</p>
+
+@{ 
+    string abc = string.Empty;
+ }
+<center>
+    <table class="table" border="1">
+        <tr id="header">
+            <th>S/L</th>
+            <th>Name</th>
+            <th>File size</th>
+            <th>Last Modified</th>
+            <th>Download</th>
+            <th>Remove</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr id="layouttable">
+                <td>
+                    1
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value)
+                </td>
+                <td>
+                    25 KB
+                </td>
+                <td>
+                    12/12/2017
+                </td>
+                <td>
+                    <input type="button" class="file" value="Download" data-key=@item.Key style="align-content:center" />
+                </td>
+                <td>
+                    <input type="button" class="Rfile" value="Delete" data-key=@item.Key style="align-content:center" />
+                </td>
+            </tr>
+        }
+    </table>
+</center>
+<script>
+    $(document).on('click', '.file', function () {
+        debugger;
+        var fileId = $(this).attr("data-key");
+        window.location.href = '/Home/DownloadGoogleFile/' + fileId;
+    });
+
+    //$(document).on('click', '.fileUpload', function () {
+    //    debugger;
+    //    window.location.href = '/Home/fileUploadToGoogle/';
+    //    $.ajax()
+    //});
+
+    $(document).ready(function () {
+
+        $.ajax({
+            url: '@Url.Action("fileUploadToGoogle","Home")',
+            type: 'POST',
+            async: false,
+            data: '',
+            success: function (data) {
+                alert(data);
+            }
+        });
+    })
+</script>

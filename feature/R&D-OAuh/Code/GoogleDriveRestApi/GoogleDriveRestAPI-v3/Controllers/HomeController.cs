@@ -2,11 +2,15 @@
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace GoogleDriveRestAPI_v3.Controllers
 {
     public class HomeController : Controller
     {
+        #region Google Drive
+
         [HttpGet]
         public ActionResult GetGoogleDriveFiles()
         {
@@ -19,7 +23,7 @@ namespace GoogleDriveRestAPI_v3.Controllers
             GoogleDriveFilesRepository.DeleteFile(file);
             return RedirectToAction("GetGoogleDriveFiles");
         }
-         
+
         [HttpPost]
         public ActionResult UploadFile(HttpPostedFileBase file)
         {
@@ -30,7 +34,7 @@ namespace GoogleDriveRestAPI_v3.Controllers
         public void DownloadFile(string id)
         {
             string FilePath = GoogleDriveFilesRepository.DownloadGoogleFile(id);
-            
+
 
             Response.ContentType = "application/zip";
             Response.AddHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(FilePath));
@@ -38,5 +42,8 @@ namespace GoogleDriveRestAPI_v3.Controllers
             Response.End();
             Response.Flush();
         }
+
+        #endregion
+       
     }
 }

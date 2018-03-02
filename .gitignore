@@ -2,3 +2,6 @@
 **/.env
 **/config.test.json
 desktop-app/dist/*
+/feature/R&D-OAuh/Code/GoogleDriveRestApi/GoogleDriveRestAPI-v3/bin
+/feature/R&D-OAuh/Code/GoogleDriveRestApi/GoogleDriveRestAPI-v3/obj/Debug
+/feature/R&D-OAuh/Code/GoogleDriveRestApi/.vs

@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\inetpub\wwwroot\GDriveAccess</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="App_Data/client_secret.json">
+      <publishTime>03/02/2018 12:15:07</publishTime>
+    </File>
+    <File Include="bin/Google.Apis.Auth.dll">
+      <publishTime>07/19/2017 09:30:50</publishTime>
+    </File>
+    <File Include="bin/Google.Apis.Auth.PlatformServices.dll">
+      <publishTime>07/19/2017 09:30:50</publishTime>
+    </File>
+    <File Include="bin/Google.Apis.Core.dll">
+      <publishTime>07/19/2017 09:30:44</publishTime>
+    </File>
+    <File Include="bin/Google.Apis.dll">
+      <publishTime>07/19/2017 09:30:48</publishTime>
+    </File>
+    <File Include="bin/Google.Apis.Drive.v3.dll">
+      <publishTime>08/17/2017 08:36:26</publishTime>
+    </File>
+    <File Include="bin/Google.Apis.PlatformServices.dll">
+      <publishTime>07/19/2017 09:30:48</publishTime>
+    </File>
+    <File Include="bin/GoogleDriveRestAPI-v3.dll">
+      <publishTime>03/02/2018 13:37:44</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>07/08/2013 15:15:08</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>04/02/2017 17:46:32</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>10/01/2013 20:54:26</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>10/01/2013 20:54:22</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>10/01/2013 20:54:24</publishTime>
+    </File>
+    <File Include="bin/System.Web.Webpages.Deployment.dll">
+      <publishTime>10/01/2013 20:54:26</publishTime>
+    </File>
+    <File Include="bin/System.Web.Webpages.dll">
+      <publishTime>10/01/2013 20:54:26</publishTime>
+    </File>
+    <File Include="bin/System.Web.Webpages.Razor.dll">
+      <publishTime>10/01/2013 20:54:26</publishTime>
+    </File>
+    <File Include="Content/CSS/Style.css">
+      <publishTime>03/02/2018 13:31:39</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>08/27/2017 22:52:14</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>08/27/2017 23:03:58</publishTime>
+    </File>
+    <File Include="Views/Home/GetGoogleDriveFiles.cshtml">
+      <publishTime>03/02/2018 13:32:01</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>08/29/2017 11:37:38</publishTime>
+    </File>
+    <File Include="Views/web.config">
+      <publishTime>08/27/2017 22:52:14</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>08/27/2017 23:03:58</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>03/02/2018 13:03:04</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

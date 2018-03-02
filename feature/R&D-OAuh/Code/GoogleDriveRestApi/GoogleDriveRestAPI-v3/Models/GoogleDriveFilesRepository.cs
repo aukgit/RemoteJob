@@ -22,7 +22,8 @@ namespace GoogleDriveRestAPI_v3.Models
             UserCredential credential;
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
-                String FolderPath = @"D:\";
+               
+                string FolderPath = System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/");
                 String FilePath = Path.Combine(FolderPath, "DriveServiceCredentials.json");
 
                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(

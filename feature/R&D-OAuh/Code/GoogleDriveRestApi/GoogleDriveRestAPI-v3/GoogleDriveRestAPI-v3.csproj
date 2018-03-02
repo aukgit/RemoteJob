@@ -122,12 +122,15 @@
     <Compile Include="Models\GoogleDriveFilesRepository.cs" />
     <Compile Include="Models\GoogleDriveFiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\dsAuthorizationBroker.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Views\Home\GetGoogleDriveFiles.cshtml" />
-    <Content Include="App_Data\client_secret.json" />
+    <Content Include="App_Data\client_secret.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\PublishProfiles\FTP.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

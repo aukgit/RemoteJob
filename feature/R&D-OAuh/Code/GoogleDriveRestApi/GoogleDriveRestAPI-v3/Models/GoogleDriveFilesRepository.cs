@@ -24,7 +24,22 @@ namespace GoogleDriveRestAPI_v3.Models
             {
                
                 string FolderPath = System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data/");
-                String FilePath = Path.Combine(FolderPath, "DriveServiceCredentials.json");
+                string FilePath = Path.Combine(FolderPath, "DriveServiceCredentials.json");
+                if (Directory.Exists(FilePath))
+                {
+                    System.IO.DirectoryInfo di = new DirectoryInfo(FilePath);
+
+                    foreach (FileInfo file in di.GetFiles())
+                    {
+                        file.Delete();
+                    }
+                    foreach (DirectoryInfo dir in di.GetDirectories())
+                    {
+                        dir.Delete(true);
+                    }
+                }
+
+
 
                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                     GoogleClientSecrets.Load(stream).Secrets,

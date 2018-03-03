@@ -95,21 +95,26 @@ namespace GoogleDriveRestAPI_v3.OAuthLogic {
             if (file != null && file.ContentLength > 0) {
                 DriveService service = await GetService();
 
-                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/GoogleDriveFiles"),
-                Path.GetFileName(file.FileName));
+                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/GoogleDriveFiles"), file.FileName);
                 file.SaveAs(path);
+                LogService.Log<GoogleDriveFilesRepository>("Uploaded data", "true");
+                new Thread(() => {
+                    var fileMetaData = new Google.Apis.Drive.v3.Data.File();
+                    fileMetaData.Name = Path.GetFileName(file.FileName);
+                    fileMetaData.MimeType = MimeMapping.GetMimeMapping(path);
 
-                var fileMetaData = new Google.Apis.Drive.v3.Data.File();
-                fileMetaData.Name = Path.GetFileName(file.FileName);
-                fileMetaData.MimeType = MimeMapping.GetMimeMapping(path);
+                    LogService.Log<GoogleDriveFilesRepository>("Uploading to google drive", "in progress");
 
-                FilesResource.CreateMediaUpload request;
+                    FilesResource.CreateMediaUpload request;
 
-                using (var stream = new System.IO.FileStream(path, System.IO.FileMode.Open)) {
-                    request = service.Files.Create(fileMetaData, stream, fileMetaData.MimeType);
-                    request.Fields = "id";
-                    request.Upload();
-                }
+                    using (var stream = new System.IO.FileStream(path, System.IO.FileMode.Open)) {
+                        request = service.Files.Create(fileMetaData, stream, fileMetaData.MimeType);
+                        request.Fields = "id";
+                        request.Upload();
+                        LogService.Log<GoogleDriveFilesRepository>("Uploading to google drive", "done");
+                    }
+
+                }).Start();
             }
         }
 

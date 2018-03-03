@@ -61,7 +61,7 @@ function renderUI() {
   });
 
   document.getElementById("send-data").addEventListener("click", function(e) {
-    ipcRenderer.send('show-email-form');
+    ipcRenderer.send('show-email-form', null); // send data as well, it is trigger to main.js show-email-form
   });
 
   let timerControl = document.getElementById("timerControls");

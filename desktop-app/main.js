@@ -8,7 +8,7 @@ const {
   BrowserWindow,
   Menu,
   Tray,
-  ipcMain
+  ipcMain // inter process communication : 
 } = electron;
 
 let mainWindow, appIcon, loginWindow, preferenceWindow, sendEmailWindow;
@@ -130,8 +130,10 @@ function createSendEmailWindow() {
   //sendEmailWindow.webContents.toggleDevTools();
 }
 
-ipcMain.on('show-email-form', () => {
-  createSendEmailWindow();
+
+
+ipcMain.on('show-email-form', () => { // called from initApp.js file
+  createSendEmailWindow(); 
 });
 
 ipcMain.on('show-preference', () => {
@@ -151,6 +153,8 @@ ipcMain.on('loadMainWindow', (err) => {
   createWindow();
   loginWindow.close();
 });
+
+console.log(ipcMain);
 
 app.on('ready', () => {
   let data = uData + '/data',

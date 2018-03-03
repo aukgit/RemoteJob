@@ -1,0 +1,26 @@
+.square-checkbox {
+  display:none;
+  + label{
+    cursor:pointer;
+  }
+  + label:before{
+  	height: 1em;
+  	border: 1px solid $primary-bg-color*0.9;
+  	content: "";
+  	display: inline-block;
+  	width: 1em;
+  	vertical-align: middle;
+  	margin-right: 0.5em;
+    position:relative;
+    top:-1px;
+    margin-left: -0.5em;
+  }
+  &:checked + label:before{
+  	content: "\f26b";
+    font-family: $material-font;
+  	color: $primary-color;
+  	font-size: 1em;
+  	text-align: center;
+  	line-height: 1em;
+  }
+}

@@ -4,12 +4,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Auth.OAuth2.Flows;
-using Google.Apis.Auth.OAuth2.Requests;
 using Google.Apis.Util.Store;
 
 namespace GoogleDriveRestAPI_v3.Service
 {
-    public class dsAuthorizationBroker : GoogleWebAuthorizationBroker
+    public class CustomAuthorizationBroker : GoogleWebAuthorizationBroker
     {
         public static string RedirectUri;
 
@@ -37,23 +36,10 @@ namespace GoogleDriveRestAPI_v3.Service
         {
             initializer.Scopes = scopes;
             initializer.DataStore = dataStore ?? new FileDataStore(Folder);
-            var flow = new dsAuthorizationCodeFlow(initializer);
+            var flow = new CustomAuthorizationCodeFlow(initializer);
             return await new AuthorizationCodeInstalledApp(flow,
                 new LocalServerCodeReceiver())
                 .AuthorizeAsync(user, taskCancellationToken).ConfigureAwait(false);
-        }
-    }
-
-
-    public class dsAuthorizationCodeFlow : GoogleAuthorizationCodeFlow
-    {
-        public dsAuthorizationCodeFlow(Initializer initializer)
-            : base(initializer) { }
-
-        public override AuthorizationCodeRequestUrl
-                       CreateAuthorizationCodeRequest(string redirectUri)
-        {
-            return base.CreateAuthorizationCodeRequest(dsAuthorizationBroker.RedirectUri);
         }
     }
 }

@@ -1,39 +1,38 @@
-﻿using GoogleDriveRestAPI_v3.Models;
-using System.IO;
+﻿using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using System;
 using System.Threading.Tasks;
+using GoogleDriveRestAPI_v3.Model;
+using GoogleDriveRestAPI_v3.OAuthLogic;
 
-namespace GoogleDriveRestAPI_v3.Controllers
-{
-    public class HomeController : Controller
-    {
+namespace GoogleDriveRestAPI_v3.Controllers {
+    public class HomeController : Controller {
         #region Google Drive
+        private GoogleDriveFilesRepository _googleDriveFilesRepository = new GoogleDriveFilesRepository();
 
-        [HttpGet]
-        public ActionResult GetGoogleDriveFiles()
-        {
-            return View(GoogleDriveFilesRepository.GetDriveFiles());
+        public ActionResult Home() {
+
+            return View();
         }
 
-        [HttpPost]
-        public ActionResult DeleteFile(GoogleDriveFiles file)
-        {
-            GoogleDriveFilesRepository.DeleteFile(file);
+        public async Task<ActionResult> GetGoogleDriveFiles() {
+            var model = await _googleDriveFilesRepository.GetDriveFiles();
+            return View(model);
+        }
+
+        public async Task<ActionResult> DeleteFile(GoogleDriveFiles file) {
+            _googleDriveFilesRepository.DeleteFile(file);
             return RedirectToAction("GetGoogleDriveFiles");
         }
 
-        [HttpPost]
-        public ActionResult UploadFile(HttpPostedFileBase file)
-        {
-            GoogleDriveFilesRepository.FileUpload(file);
+        public async Task<ActionResult> UploadFile(HttpPostedFileBase file) {
+            _googleDriveFilesRepository.FileUpload(file);
             return RedirectToAction("GetGoogleDriveFiles");
         }
 
-        public void DownloadFile(string id)
-        {
-            string FilePath = GoogleDriveFilesRepository.DownloadGoogleFile(id);
+        public async void DownloadFile(string id) {
+            string FilePath = await _googleDriveFilesRepository.DownloadGoogleFile(id);
 
 
             Response.ContentType = "application/zip";
@@ -44,6 +43,6 @@ namespace GoogleDriveRestAPI_v3.Controllers
         }
 
         #endregion
-       
+
     }
 }

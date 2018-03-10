@@ -6,6 +6,7 @@ desktop-app/dist/*
 /feature/R&D-OAuh/Code/GoogleDriveRestApi/GoogleDriveRestAPI-v3/obj/Debug
 /feature/R&D-OAuh/Code/GoogleDriveRestApi/.vs
 feature/R&D-OAuh/Code/DropBoxRestApi/DropBoxRestApi/packages/
+<<<<<<< HEAD
 *.config
 feature/R&D-OAuh/Code/GoogleDriveRestApi/GoogleDriveRestAPI-v3/obj/Release/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs
 *.js
@@ -24,3 +25,72 @@ feature/R&D-OAuh/Code/DropBoxRestApi/DropBoxRestApi/.vs/DropBoxRestApi/v14/.suo
 *.html
 *.cs
 feature/R&D-OAuh/Code/GoogleDriveRestApi/GoogleDriveRestAPI-v3/Properties/PublishProfiles/FTP.pubxml
+=======
+###################
+# http://stackoverflow.com/questions/639647/git-and-asp-mvc
+###################
+#
+###################
+# compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.pdb
+*.dll.config
+*.cache
+*.suo
+*.user
+**/*.user
+# Include dlls if they're in the NuGet packages directory
+!/packages/*/lib/*.dll
+!/packages/*/lib/*/*.dll
+# Include dlls if they're in the CommonReferences directory
+!*CommonReferences/*.dll
+####################
+# VS Upgrade stuff #
+####################
+UpgradeLog.XML
+_UpgradeReport_Files/
+###############
+# Directories #
+###############
+bin/
+obj/
+TestResults/
+###################
+# Web publish log #
+###################
+*.Publish.xml
+#############
+# Resharper #
+#############
+/_ReSharper.*
+*.ReSharper.*
+############
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+######################
+# Logs and databases #
+######################
+*.log
+*.sqlite
+# OS generated files #
+######################
+.DS_Store?
+ehthumbs.db
+Icon?
+Thumbs.db
+/feature/R&D-OAuh/Code/GoogleDriveRestApi/packages
+>>>>>>> fad68b3c6971ffdac22f3dc353554ac60f7b4e1c
